@@ -3,7 +3,7 @@
 A scripted demo of some ideas regarding the Ozeki platform.
 
 ```bash
-> yarn install      # install dependencies
-> yarn dev          # run demo
-> yarn build        # build release
+> npm install      # install dependencies
+> npm run dev      # run demo
+> npm run build    # build release
 ```
