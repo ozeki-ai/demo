@@ -7,3 +7,8 @@ A scripted demo of some ideas regarding the Ozeki platform.
 > npm run dev      # run demo
 > npm run build    # build release
 ```
+
+# TODO
+
+  * fontawesome
+  * some base styles (e.g. btn)
