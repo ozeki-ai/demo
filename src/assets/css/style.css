@@ -1,3 +1,84 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*=================================================================================================
+  BASE STYLES
+=================================================================================================*/
+
+@layer base {
+  html { @apply h-full; }
+  body { @apply h-full text-base text-dark; }
+}
+
+/*=================================================================================================
+  TITLES
+=================================================================================================*/
+
+@layer components {
+  .page-title { @apply text-2xl  font-light;  }
+  .card-title { @apply text-2xl  font-light;  }
+  .title1     { @apply text-2xl  font-medium; }
+  .title2     { @apply text-xl   font-medium; }
+  .title3     { @apply text-lg   font-medium; }
+}
+
+/*=================================================================================================
+  BUTTONS
+=================================================================================================*/
+
+@layer components {
+
+  .btn {
+    @apply inline-flex items-center border border-transparent font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply btn-primary;
+    @apply btn-md;
+  }
+
+  .btn-block { @apply block w-full text-center; }
+
+  .btn-primary   { @apply text-white    bg-primary-600 hover:bg-primary-700 focus:ring-primary-500; }
+  .btn-success   { @apply text-white    bg-success-600 hover:bg-success-700 focus:ring-success-500; }
+  .btn-danger    { @apply text-white    bg-danger-600  hover:bg-danger-700  focus:ring-danger-500;  }
+  .btn-warning   { @apply text-dark     bg-warning-300 hover:bg-warning-400 focus:ring-warning-500; }
+  .btn-white     { @apply text-gray-700 bg-white       hover:bg-gray-50     focus:ring-gray-400 border-gray-300; }
+  .btn-link      { @apply link          bg-transparent hover:bg-transparent focus:ring-link shadow-none; }
+
+  .btn-primary:disabled   { @apply opacity-50 cursor-not-allowed hover:bg-primary-600; }
+  .btn-success:disabled   { @apply opacity-50 cursor-not-allowed hover:bg-success-600; }
+  .btn-danger:disabled    { @apply opacity-50 cursor-not-allowed hover:bg-danger-600; }
+  .btn-warning:disabled   { @apply opacity-50 cursor-not-allowed hover:bg-warning-300; }
+  .btn-white:disabled     { @apply opacity-50 cursor-not-allowed hover:bg-white; }
+  .btn-link:disabled      { @apply opacity-50 cursor-not-allowed hover:bg-transparent hover:text-link no-underline; }
+
+  .btn-xs { @apply px-2.5 py-1.5 text-xs   rounded; }
+  .btn-sm { @apply px-3   py-2   text-sm   rounded-md leading-4; }
+  .btn-md { @apply px-4   py-2   text-sm   rounded-md; }
+  .btn-lg { @apply px-4   py-2   text-base rounded-md; }
+  .btn-xl { @apply px-6   py-3   text-base rounded-md; }
+}
+
+/*=================================================================================================
+  LINKS and ICONS
+=================================================================================================*/
+
+@layer components {
+  .link           { @apply text-link    hover:text-link-hover font-normal hover:underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-link; }
+  .link.danger    { @apply text-danger  hover:text-danger-800 focus:ring-danger; }
+  .link.unstyled  { @apply text-current hover:text-current font-normal focus:ring-gray; }
+  .link.icon      { @apply hover:no-underline; }
+  .link-separator { @apply text-gray-300 mx-1; }
+  .icon.hidden    { display: none; /* necessary to override .fa[r|l|s] display:inline specificity */ }
+}
+
+/*=================================================================================================
+  UTILITIES
+=================================================================================================*/
+
+@layer utilities {
+  .debug        { @apply border-4 border-danger;  }
+  .debug-red    { @apply border-4 border-danger;  }
+  .debug-blue   { @apply border-4 border-link;    }
+  .debug-green  { @apply border-4 border-success; }
+  .debug-yellow { @apply border-4 border-warning; }
+}

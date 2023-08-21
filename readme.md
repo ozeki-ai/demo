@@ -10,7 +10,6 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO
 
-  * some base styles (e.g. btn)
   * some kind of markdown rendering ?
   * a navigation header
   * a split frame
