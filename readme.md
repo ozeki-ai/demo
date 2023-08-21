@@ -10,6 +10,6 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO
 
-  * some kind of markdown rendering ?
-  * a navigation header
+  * switch to sales guy in profile menu
   * a split frame
+  * some kind of markdown rendering ?
