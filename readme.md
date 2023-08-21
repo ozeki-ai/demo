@@ -11,7 +11,6 @@ A scripted demo of some ideas regarding the Ozeki platform.
 # TODO
 
   * vue-router
-  * fontawesome
   * some base styles (e.g. btn)
   * some kind of markdown rendering ?
   * a navigation header
