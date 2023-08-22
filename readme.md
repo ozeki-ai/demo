@@ -10,5 +10,4 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO
 
-  * a split frame
   * some kind of markdown rendering ?
