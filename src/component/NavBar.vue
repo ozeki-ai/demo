@@ -48,8 +48,8 @@ watch(
         showBell.value = true
         showSignout.value = true
         links.value = [
-          {label: "Playbooks",  href:"#",                 style: "active"},
-          {label: "Agreements", href:"/lawyer/contracts", style: "inactive"},
+          {label: "Playbooks", href:"#",                 style: "active"},
+          {label: "Contracts", href:"/lawyer/contracts", style: "inactive"},
         ]
         break;
       case "lawyer-contracts":
@@ -57,8 +57,8 @@ watch(
         showBell.value = true
         showSignout.value = true
         links.value = [
-          {label: "Playbooks",  href: "/lawyer/playbooks", style: "inactive"},
-          {label: "Agreements", href: "#",                 style: "active"},
+          {label: "Playbooks", href: "/lawyer/playbooks", style: "inactive"},
+          {label: "Contracts", href: "#",                 style: "active"},
         ]
         break;
       case "sales-contracts":
@@ -66,7 +66,7 @@ watch(
         showBell.value = true
         showSignout.value = true
         links.value = [
-          {label: "Agreements", href: "#", style: "active"},
+          {label: "Contracts", href: "#", style: "active"},
         ]
         break;
       case "customer-accept":
@@ -79,7 +79,7 @@ watch(
 )
 </script>
 <template>
-<nav class="bg-gray-800" @keydown.esc="hideMenus()">
+<nav class="flex-none bg-gray-800" @keydown.esc="hideMenus()">
   <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
     <div class="relative flex h-16 items-center justify-between">
       <div v-if="hasLinks" class="absolute inset-y-0 left-0 flex items-center sm:hidden">

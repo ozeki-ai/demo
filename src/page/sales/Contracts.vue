@@ -1,12 +1,17 @@
+<script setup>
+import unda from "../../unda"
+</script>
+
 <template>
-  <Page>
-    <Split>
-      <template v-slot:lhs>
-        <div>CHAT HERE</div>
-      </template>
-      <template v-slot:rhs>
-        <div>CONTRACT</div>
-      </template>
-    </Split>
-  </Page>
+  <Split>
+    <template v-slot:lhs>
+      CHAT HERE
+    </template>
+    <template v-slot:rhs>
+      <div v-for="section in unda" class="mb-8">
+        <h2 class="title2">{{ section.title }}</h2>
+        <div v-html="section.html"></div>
+      </div>
+    </template>
+  </Split>
 </template>

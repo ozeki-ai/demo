@@ -5,8 +5,8 @@ import LawyerPlaybooks from "./page/lawyer/Playbooks.vue"
 import LawyerContracts from "./page/lawyer/Contracts.vue"
 import SalesContracts  from "./page/sales/Contracts.vue"
 import CustomerAccept  from "./page/customer/Accept.vue"
-import Page  from "./component/Page.vue"
 import Split from "./component/Split.vue"
+import Blah  from "./component/Blah.vue"
 import App from "./App.vue"
 
 const routes = [
@@ -28,6 +28,6 @@ const router = createRouter({
 const app = createApp(App)
 app.use(router)
 app.use(VueClickAway)
-app.component('Page', Page)
 app.component('Split', Split)
+app.component('Blah', Blah)
 app.mount('#app')
