@@ -3,10 +3,13 @@ import {preamble, purpose, sections} from "../../unda"
 </script>
 <template>
   <Split>
-    <template v-slot:lhs>
-      <div>CHAT HERE</div>
+    <template v-slot:chat>
+      CHAT HERE
     </template>
-    <template v-slot:rhs>
+    <template v-slot:command>
+      <Command />
+    </template>
+    <template v-slot:document>
       <div class="mb-8">
         <h1 class="title1">MUTUAL NON-DISCLOSURE AGREEMENT</h1>
         <div v-html="preamble.html" class="mt-4"></div>

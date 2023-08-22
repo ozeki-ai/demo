@@ -4,11 +4,18 @@
     <!-- SHOW SPLIT ON LARGE DISPLAY -->
     <div class="w-full h-full overflow-hidden hidden lg:flex">
       <div class="flex-none w-96 xl:w-112 2xl:w-128 p-4">
-        <slot name="lhs"></slot>
+        <div class="h-full flex flex-col">
+          <div class="flex-1">
+            <slot name="chat"></slot>
+          </div>
+          <div class="flex-none">
+            <slot name="command"></slot>
+          </div>
+        </div>
       </div>
-      <div class="flex-1 p-4 overflow-auto">
+      <div class="flex-1 p-4 pl-2 overflow-auto">
         <div class="p-4 bg-white text-dark rounded-lg min-h-full">
-          <slot name="rhs"></slot>
+          <slot name="document"></slot>
         </div>
       </div>
     </div>
