@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 // hacked together version of tailwindui navbar - https://tailwindui.com/components/application-ui/navigation/navbars
@@ -21,10 +21,10 @@ const hideMenus = () => {
   showProfileMenu.value = false
 }
 const route = useRoute();
-const links = ref([
-  {label: "Playbooks",  href:"#", style: "inactive"},
-  {label: "Agreements", href:"#", style: "inactive"},
-])
+const links = ref([])
+const showBell = ref(true)
+const showSignout = ref(true)
+const avatar = ref("/src/assets/avatar-lawyer.png")
 const styles = {
   tab: {
     active:   "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium cursor-default",
@@ -35,28 +35,45 @@ const styles = {
     inactive: "text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
   }
 }
+
+const hasLinks = computed(() => links.value.length > 0)
+
 watch(
   () => route.name,
   async name => {
     hideMenus()
     switch(route.name) {
       case "lawyer-playbooks":
+        avatar.value = "/src/assets/avatar-lawyer.png"
+        showBell.value = true
+        showSignout.value = true
         links.value = [
           {label: "Playbooks",  href:"#",                 style: "active"},
           {label: "Agreements", href:"/lawyer/contracts", style: "inactive"},
         ]
         break;
       case "lawyer-contracts":
+        avatar.value = "/src/assets/avatar-lawyer.png"
+        showBell.value = true
+        showSignout.value = true
         links.value = [
           {label: "Playbooks",  href: "/lawyer/playbooks", style: "inactive"},
           {label: "Agreements", href: "#",                 style: "active"},
         ]
         break;
       case "sales-contracts":
+        avatar.value = "/src/assets/avatar-sales.png"
+        showBell.value = true
+        showSignout.value = true
         links.value = [
-          {label: "Agreements", style: "active"},
+          {label: "Agreements", href: "#", style: "active"},
         ]
         break;
+      case "customer-accept":
+        avatar.value = "/src/assets/avatar-customer.png"
+        showBell.value = false
+        showSignout.value = false
+        links.value = []
     }
   }
 )
@@ -65,7 +82,7 @@ watch(
 <nav class="bg-gray-800" @keydown.esc="hideMenus()">
   <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
     <div class="relative flex h-16 items-center justify-between">
-      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+      <div v-if="hasLinks" class="absolute inset-y-0 left-0 flex items-center sm:hidden">
         <!-- Mobile menu button-->
         <button @click="toggleMobileMenu()" type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
           <span class="absolute -inset-0.5"></span>
@@ -89,7 +106,7 @@ watch(
         </div>
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <button type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+        <button v-if="showBell" type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
           <span class="absolute -inset-1.5"></span>
           <span class="sr-only">View notifications</span>
           <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -103,14 +120,29 @@ watch(
             <button @click="toggleProfileMenu()" type="button" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only">Open user menu</span>
-              <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+              <img class="h-10 w-10 rounded-full" :src="avatar" alt="">
             </button>
           </div>
 
           <div v-if="showProfileMenu" v-click-away="hideMenus" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
             <!-- Active: "bg-gray-100", Not Active: "" -->
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</a>
+            <a href="/lawyer" class="flex items-center gap-4 px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
+              <img class="h-10 w-10 rounded-full" src="/src/assets/avatar-lawyer.png" alt="">
+              <span>Lisa Lawyer</span>
+            </a>
+            <a href="/sales" class="flex items-center gap-4 px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
+              <img class="h-10 w-10 rounded-full" src="/src/assets/avatar-sales.png" alt="">
+              <span>Sam Sales</span>
+            </a>
+            <a href="/customer" class="flex items-center gap-4 px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
+              <img class="h-10 w-10 rounded-full" src="/src/assets/avatar-customer.png" alt="">
+              <span>Colin Customer</span>
+            </a>
+            <template v-if="showSignout">
+              <hr>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</a>
+            </template>
           </div>
         </div>
       </div>
