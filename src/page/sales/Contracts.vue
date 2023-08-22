@@ -1,5 +1,5 @@
 <script setup>
-import unda from "../../unda"
+import {sections} from "../../unda"
 </script>
 
 <template>
@@ -8,7 +8,7 @@ import unda from "../../unda"
       CHAT HERE
     </template>
     <template v-slot:rhs>
-      <div v-for="section in unda" class="mb-8">
+      <div v-for="section in sections" class="mb-8">
         <h2 class="title2">{{ section.title }}</h2>
         <div v-html="section.html"></div>
       </div>

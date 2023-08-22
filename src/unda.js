@@ -2,30 +2,30 @@ import AsciiDoctor from "asciidoctor"
 
 const adoc = AsciiDoctor();
 
-const sections = [
-  {
-    id: 0,
-    clause: "preamble",
-    title: "UNIVERSAL MUTUAL NON-DISCLOSURE AGREEMENT",
-    content: `
-This mutual nondisclosure agreement is entered into on [agreementDate]
-[.underline]#(the "*Effective Date*")#, between [firstcompany], a Delaware
-Corporation whose principal address is [address] and [counterpartyName],
-an [entity organized on under the laws of
-[counterpartyIncorporationState] [whose principal address is
-[counterpartyAddress] (each, a "*Party"*).
+const preamble = {
+  title: "MUTUAL NON-DISCLOSURE AGREEMENT",
+  content: `
+This mutual nondisclosure agreement is entered into on [_agreementDate_]
+(the "*Effective Date*"), between [_companyName_], a Delaware
+Corporation whose principal address is [_companyAddress_] and [_counterpartyName_],
+an entity organized under the laws of
+[_counterpartyIncorporationState_] whose principal address is
+[_counterpartyAddress_] (each, a "*Party"*).`
+}
 
-The parties wish to explore [a business opportunity of mutual interest
-and benefit [BusinessPurposeSpecificallyDefined], specifically
-concerning [definitionOfTheBusinessPurpose] [a customary opportunity of
-the type that the companies regularly engage in, such opportunity is not
-meant to encompass [exclusionsFromTheBusinessPurpose] (“*Purpose*”) and,
+const purpose = {
+  title: null,
+  content: `
+The parties wish to explore [_businessPurpose_] (“*Purpose*”) and,
 in connection with the Purpose, may disclose to each other certain
 confidential technical and business information that the disclosing
-party desires the receiving party to treat as confidential.
+party desires the receiving party to treat as confidential.`,
+}
 
-The parties therefore agree as follows:`
-  },
+preamble.html = adoc.convert(preamble.content)
+purpose.html = adoc.convert(purpose.content)
+
+const sections = [
   {
     id: 1,
     clause: "universal-nda",
@@ -238,4 +238,4 @@ sections.forEach((section) => {
   section.html = adoc.convert(section.content)
 })
 
-export default sections
+export { preamble, purpose, sections }

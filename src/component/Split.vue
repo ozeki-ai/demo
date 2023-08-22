@@ -3,7 +3,7 @@
 
     <!-- SHOW SPLIT ON LARGE DISPLAY -->
     <div class="w-full h-full overflow-hidden hidden lg:flex">
-      <div class="flex-none w-96 p-4">
+      <div class="flex-none w-96 xl:w-112 2xl:w-128 p-4">
         <slot name="lhs"></slot>
       </div>
       <div class="flex-1 p-4 overflow-auto">
