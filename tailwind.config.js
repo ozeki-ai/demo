@@ -15,6 +15,10 @@ export default {
       '2xl': '1800px'
     },
     extend: {
+      spacing: {
+        '112': '28rem',
+        '128': '32rem'
+      }
     },
   },
   plugins: [
