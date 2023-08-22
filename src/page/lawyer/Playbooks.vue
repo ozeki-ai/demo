@@ -4,7 +4,7 @@ import {preamble, purpose, sections} from "../../unda"
 <template>
   <Split>
     <template v-slot:chat>
-      CHAT HERE
+      Ok, Let's get started with your mutual NDA playbook...
     </template>
     <template v-slot:command>
       <Command />
