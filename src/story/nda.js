@@ -5,13 +5,18 @@ function nda() {
       { type: "chat", content: "Ok, let's define your mutual NDA playbook together..." },
       { type: "highlight", id: "businessPurpose" },
       { type: "chat", content: `
-The business purpose clause restricts the use of the disclosed confidential information to uses within the purpose.
-The uNDA has three permutations. It has a generic description of the business purpose.
-The second option allows you to specify the business purpose.
-The third option allows you to define the business purpose to exclude certain types of transactions.
-What is your preference for the Business Purpose?
-` },
-      { type: "wait" },
+          <p>
+            The <b>business purpose</b> clause restricts the use of the disclosed confidential information to uses within the purpose.
+            A generic description would be
+            <em>"a business opportunity of mutual interest and benefit"</em>.
+          </p>
+          <p>
+            Do you wish to allow NDAs with the generic description?
+          </p>`
+      },
+      {
+        type: "answer",
+      },
     ],
     sections: [
       {

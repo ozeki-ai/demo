@@ -4,7 +4,7 @@ function run(storyFn) {
   const story = ref(storyFn())
   story.value.messages  = []
   story.value.highlight = null
-  story.value.waiting   = false
+  story.value.answering = false
   step(story)
   return story
 }
@@ -15,7 +15,7 @@ function step(story) {
     if (command) {
       switch (command.type) {
         case "chat":
-          chatter(story, command.content)
+          chatter(story, command)
           break;
 
         case "highlight":
@@ -23,17 +23,17 @@ function step(story) {
           step(story)
           break;
 
-        case "wait":
-          story.value.waiting = true
+        case "answer":
+          story.value.answering = true
           break;
       }
     }
   }, 500)
 }
 
-function chatter(story, content) {
-  const words = content.split(" ")
-  const index = story.value.messages.push({ai: true, content: words.shift()}) - 1
+function chatter(story, command) {
+  const words = command.content.split(" ")
+  const index = story.value.messages.push({content: words.shift()}) - 1
   const timer = setInterval(() => {
     const word = words.shift()
     story.value.messages[index].content += " " + word
@@ -41,7 +41,7 @@ function chatter(story, content) {
       clearInterval(timer)
       step(story)
     }
-  }, 50)
+  }, 30)
 }
 
 export { run }

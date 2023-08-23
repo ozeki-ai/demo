@@ -10,7 +10,7 @@ const story = run(props.story)
       <Chat :messages="story.messages" :avatar="avatar" />
     </template>
     <template v-slot:command>
-      <Command :waiting="story.waiting" />
+      <Command :answering="story.answering" />
     </template>
     <template v-slot:document>
       <h1 class="title1 mb-6">{{ story.title }}</h1>

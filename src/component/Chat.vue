@@ -11,7 +11,7 @@ const avatar = `/src/assets/avatar-${props.avatar}.png`
       </template>
       <template v-else>
         <i class="fas fa-robot fa-2x text-gray-400"></i>
-        <div v-html="message.content" class="mt-2 flex-1"></div>
+        <div v-html="message.content" class="mt-2 flex-1 prose text-light"></div>
       </template>
     </div>
   </div>
