@@ -5,10 +5,11 @@ import LawyerPlaybooks from "./page/lawyer/Playbooks.vue"
 import LawyerContracts from "./page/lawyer/Contracts.vue"
 import SalesContracts  from "./page/sales/Contracts.vue"
 import CustomerAccept  from "./page/customer/Accept.vue"
-import Split    from "./component/Split.vue"
-import Skeleton from "./component/Skeleton.vue"
-import Command  from "./component/Command.vue"
-import Section  from "./component/Section.vue"
+import Split      from "./component/Split.vue"
+import Skeleton   from "./component/Skeleton.vue"
+import Command    from "./component/Command.vue"
+import Section    from "./component/Section.vue"
+import Storyboard from "./component/Storyboard.vue"
 import App from "./App.vue"
 
 const routes = [
@@ -34,4 +35,5 @@ app.component("Split", Split)
 app.component("Skeleton", Skeleton)
 app.component("Command", Command)
 app.component("Section", Section)
+app.component("Storyboard", Storyboard)
 app.mount('#app')

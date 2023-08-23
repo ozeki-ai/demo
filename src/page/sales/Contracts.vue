@@ -1,13 +1,7 @@
 <script setup>
+import none from "../../story/none"
 </script>
 
 <template>
-  <Split>
-    <template v-slot:lhs>
-      CHAT HERE
-    </template>
-    <template v-slot:rhs>
-      CONTRACT
-    </template>
-  </Split>
+  <Storyboard :story="none" />
 </template>
