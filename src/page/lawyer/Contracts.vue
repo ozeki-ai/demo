@@ -2,5 +2,5 @@
 import none from "../../story/none"
 </script>
 <template>
-  <Storyboard :story="none" />
+  <Storyboard :story="none" avatar="lawyer" />
 </template>

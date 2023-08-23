@@ -10,6 +10,7 @@ import Skeleton   from "./component/Skeleton.vue"
 import Command    from "./component/Command.vue"
 import Section    from "./component/Section.vue"
 import Storyboard from "./component/Storyboard.vue"
+import Chat       from "./component/Chat.vue"
 import App from "./App.vue"
 
 const routes = [
@@ -36,4 +37,5 @@ app.component("Skeleton", Skeleton)
 app.component("Command", Command)
 app.component("Section", Section)
 app.component("Storyboard", Storyboard)
+app.component("Chat", Chat)
 app.mount('#app')

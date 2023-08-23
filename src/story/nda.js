@@ -10,7 +10,8 @@ The uNDA has three permutations. It has a generic description of the business pu
 The second option allows you to specify the business purpose.
 The third option allows you to define the business purpose to exclude certain types of transactions.
 What is your preference for the Business Purpose?
-` }
+` },
+      { type: "wait" },
     ],
     sections: [
       {

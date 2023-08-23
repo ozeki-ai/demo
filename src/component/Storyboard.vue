@@ -1,18 +1,13 @@
 <script setup>
-import {ref} from "vue"
-const props = defineProps({
-  story: {
-    type: Function,
-    required: true
-  }
-})
-
-const story = props.story()
+import {run} from "../story"
+const props = defineProps(["story", "avatar"])
+const story = run(props.story)
 </script>
+
 <template>
   <Split>
     <template v-slot:chat>
-      CHAT HERE
+      <Chat :messages="story.messages" :avatar="avatar" />
     </template>
     <template v-slot:command>
       <Command />
