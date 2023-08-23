@@ -63,6 +63,11 @@ class Story {
     this.answering = true
   }
 
+  provideAnswer(answer) {
+    this.messages.push({content: `TODO: HANDLE ANSWER: ${answer}`})
+    this.answering = false
+  }
+
 }
 
 //-------------------------------------------------------------------------------------------------

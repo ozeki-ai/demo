@@ -2,6 +2,7 @@
 import {run} from "../story"
 const props = defineProps(["story", "avatar"])
 const story = run(props.story)
+const onanswer = (e) => story.provideAnswer(e)
 </script>
 
 <template>
@@ -10,7 +11,7 @@ const story = run(props.story)
       <Chat :messages="story.messages" :avatar="avatar" />
     </template>
     <template v-slot:command>
-      <Command :answering="story.answering" />
+      <Command :answering="story.answering" @answer="onanswer" />
     </template>
     <template v-slot:document>
       <h1 class="title1 mb-6">{{ story.title }}</h1>
