@@ -17,6 +17,12 @@ function nda() {
       {
         type: "answer",
       },
+      { type: "chat", content: "more stuff here" },
+      { type: "chat", content: "more stuff here" },
+      { type: "chat", content: "more stuff here" },
+      { type: "chat", content: "more stuff here" },
+      { type: "chat", content: "more stuff here" },
+      { type: "chat", content: "more stuff here" },
     ],
     sections: [
       {

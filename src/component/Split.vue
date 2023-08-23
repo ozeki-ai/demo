@@ -3,9 +3,9 @@
 
     <!-- SHOW SPLIT ON LARGE DISPLAY -->
     <div class="w-full h-full overflow-hidden hidden lg:flex">
-      <div class="flex-none w-112 xl:w-128 p-4">
-        <div class="h-full flex flex-col">
-          <div class="flex-1">
+      <div class="flex-none h-full overflow-hidden flex flex-col w-112 xl:w-128 p-4">
+        <div class="h-full overflow-hidden flex flex-col gap-4">
+          <div class="h-full overflow-auto hide-scrollbar">
             <slot name="chat"></slot>
           </div>
           <div class="flex-none">

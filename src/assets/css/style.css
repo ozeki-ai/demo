@@ -81,4 +81,10 @@
   .debug-blue   { @apply border-4 border-link;    }
   .debug-green  { @apply border-4 border-success; }
   .debug-yellow { @apply border-4 border-warning; }
+
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

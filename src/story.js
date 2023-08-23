@@ -23,7 +23,6 @@ class Story {
   step() {
     setTimeout(() => {
       this.index = this.index + 1
-      this.answering = false
       if (this.index < this.script.length) {
         const command = this.script[this.index]
         switch (command.type) {
@@ -66,6 +65,7 @@ class Story {
   provideAnswer(answer) {
     this.messages.push({content: `TODO: HANDLE ANSWER: ${answer}`})
     this.answering = false
+    this.step()
   }
 
 }
