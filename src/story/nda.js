@@ -2,7 +2,7 @@ function nda() {
   return {
     title: "MUTUAL NON-DISCLOSURE AGREEMENT",
     script: [
-      { type: "chat", content: "Ok, let's define your mutual NDA playbook..." },
+      { type: "chat", content: "Ok, let's define your mutual NDA playbook together..." },
       { type: "highlight", id: "businessPurpose" },
       { type: "chat", content: `
 The business purpose clause restricts the use of the disclosed confidential information to uses within the purpose.
