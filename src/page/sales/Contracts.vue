@@ -1,5 +1,4 @@
 <script setup>
-import {sections} from "../../unda"
 </script>
 
 <template>
@@ -8,10 +7,7 @@ import {sections} from "../../unda"
       CHAT HERE
     </template>
     <template v-slot:rhs>
-      <div v-for="section in sections" class="mb-8">
-        <h2 class="title2">{{ section.title }}</h2>
-        <div v-html="section.html"></div>
-      </div>
+      CONTRACT
     </template>
   </Split>
 </template>

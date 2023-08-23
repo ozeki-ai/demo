@@ -8,6 +8,7 @@ import CustomerAccept  from "./page/customer/Accept.vue"
 import Split    from "./component/Split.vue"
 import Skeleton from "./component/Skeleton.vue"
 import Command  from "./component/Command.vue"
+import Section  from "./component/Section.vue"
 import App from "./App.vue"
 
 const routes = [
@@ -32,4 +33,5 @@ app.use(VueClickAway)
 app.component("Split", Split)
 app.component("Skeleton", Skeleton)
 app.component("Command", Command)
+app.component("Section", Section)
 app.mount('#app')

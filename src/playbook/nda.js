@@ -1,25 +1,54 @@
-= image:media/uNDA_Logo_Black_LightBG_Flat_SLG_Bitmovin.png[image,width=98,height=42,align="center"] UNIVERSAL MUTUAL NON-DISCLOSURE AGREEMENT
-
-This mutual nondisclosure agreement is entered into on [agreementDate]
-[.underline]#(the "*Effective Date*")#, between [firstcompany], a Delaware
-Corporation whose principal address is [address] and [counterpartyName],
-an [entity organized on under the laws of
-[counterpartyIncorporationState] [whose principal address is
-[counterpartyAddress] (each, a "*Party"*).
-
-The parties wish to explore [a business opportunity of mutual interest
-and benefit [BusinessPurposeSpecificallyDefined], specifically
-concerning [definitionOfTheBusinessPurpose] [a customary opportunity of
-the type that the companies regularly engage in, such opportunity is not
-meant to encompass [exclusionsFromTheBusinessPurpose] (“*Purpose*”) and,
-in connection with the Purpose, may disclose to each other certain
-confidential technical and business information that the disclosing
-party desires the receiving party to treat as confidential.
-
-The parties therefore agree as follows:
-
-== 1. UNIVERSAL NDA
-
+function nda() {
+  return {
+    title: "MUTUAL NON-DISCLOSURE AGREEMENT",
+    script: [
+      { type: "chat", content: "Ok, let's define your mutual NDA playbook..." },
+      { type: "highlight", id: "businessPurpose" },
+      { type: "chat", content: `
+The business purpose clause restricts the use of the disclosed confidential information to uses within the purpose.
+The uNDA has three permutations. It has a generic description of the business purpose.
+The second option allows you to specify the business purpose.
+The third option allows you to define the business purpose to exclude certain types of transactions.
+What is your preference for the Business Purpose?
+` }
+    ],
+    sections: [
+      {
+        show: true,
+        content: [
+          `This mutual nondisclosure agreement is entered into on `,
+          { id: "agreementDate", type: "date" },
+          ` (the <b>"Effective Date"</b>), between `,
+          { id: "companyName", type: "text" },
+          ` a Delaware corporation whose principal address is `,
+          { id: "companyAddress", type: "address" },
+          ` and `,
+          { id: "counterpartyName", type: "text" },
+          `, an entity organized under the laws of `,
+          { id: "counterpartyIncorporationState", type: "state" },
+          ` whose principal address is `,
+          { id: "counterpartyAddress", type: "address" },
+          ` (each, a <b>"Party"</b>).`,
+        ]
+      },
+      {
+        show: true,
+        content: [
+          `The parties wish to explore `,
+          { id: "businessPurpose", type: "purpose" },
+          ` (<b>"Purpose"</b>) and, in connection with the Purpose, may disclose to each other certain confidential technical and business information that the disclosing party desires the receiving party to treat as confidential.`,
+        ]
+      },
+      {
+        show: true,
+        content: [
+          `The parties therefore agree as follows:`
+        ]
+      },
+      {
+        number: 1,
+        title: "UNIVERSAL NDA",
+        content: [`
 [loweralpha]
 . *Universal NDA*. The Parties acknowledge and agree that, where noted,
 the clauses of this NDA are consistent with the terms of the so-called
@@ -40,11 +69,13 @@ Warranty; Remedies; Choice of Law: [choiceOfLaw]; and Venue:[venue]
 [Where the Defendant Resides.]
 
 . [*Other Clauses.* This Agreement contains clauses beyond those contained
-in the Universal NDA.]
-
-
-== 2. CONFIDENTIAL INFORMATION.
-
+in the Universal NDA.]`
+        ]
+      },
+      {
+        number: 2,
+        title: "CONFIDENTIAL INFORMATION",
+        content: [`
 Each party (in such capacity, a “*Disclosing Party*”) may disclose
 certain of its confidential and proprietary information to the other
 party (in such capacity, a “*Receiving Party*”). [“*Confidential
@@ -57,10 +88,13 @@ circumstances of disclosure, or the nature of the information itself.]
 [Confidential Information includes, but is not limited
 to,[definitionOfConfidentialInformation].] Confidential Information may
 also include third party confidential or proprietary information
-disclosed to the Receiving Party.
-
-== 3. EXCLUSIONS.
-
+disclosed to the Receiving Party.`
+        ]
+      },
+      {
+        number: 3,
+        title: "EXCLUSIONS",
+        content: [`
 The obligations and restrictions of this agreement do not apply to that
 part of the Confidential Information that:
 
@@ -97,10 +131,13 @@ required to disclose, the Receiving Party will furnish only that portion
 of the Confidential Information that is legally required and shall make
 reasonable efforts to obtain reliable assurance that confidential
 treatment will be accorded any part of the Confidential Information so
-disclosed.
-
-== 4. OBLIGATION TO MAINTAIN CONFIDENTIALITY.
-
+disclosed.`
+        ]
+      },
+      {
+        number: 4,
+        title: "OBLIGATION TO MAINTAIN CONFIDENTIALITY",
+        content: [`
 [loweralpha]
 . *Confidentiality.* The Receiving Party shall keep the Confidential
   Information confidential. Except as otherwise required by law, the
@@ -126,30 +163,38 @@ disclosed.
   engineer, disassemble, or decompile any prototypes, software, or other
   tangible objects that embody the Disclosing Party’s Confidential
   Information and that are provided to the Receiving Party under this
-  agreement.
-
-
-== 5. TERM AND DURATION.
-
+  agreement.`
+        ]
+      },
+      {
+        number: 5,
+        title: "TERM AND DURATION",
+        content: [`
 This Agreement will commence on the date first set forth above and will
 remain in effect for [term] years (“*Term*”). [The Receiving Party’s
 confidentiality obligations under this Agreement will survive
 indefinitely or until all Confidential Information disclosed during the
 Term becomes publicly known and made generally available through no
 action or inaction of the Receiving Party or Receiving Party’s
-Representatives.]
-
-== 6. RETURN OF PROPERTY.
-
+Representatives.]`
+        ]
+      },
+      {
+        number: 6,
+        title: "RETURN OF PROPERTY",
+        content: [`
 All documents and other tangible objects containing or representing
 Confidential Information that have been disclosed by either party to the
 other party, and all copies in the possession of the other party, are
 and will remain the property of the Disclosing Party. At the Disclosing
 Party’s request, the Receiving Party shall promptly return or destroy
-all of those documents or objects.
-
-== 7. NO OBLIGATION.
-
+all of those documents or objects.`
+        ]
+      },
+      {
+        number: 7,
+        title: "NO OBLIGATION",
+        content: [`
 Nothing in this agreement obligates either party to proceed with any
 transaction between them, and each party reserves the right, in its sole
 discretion, to terminate the discussions contemplated by this agreement
@@ -157,16 +202,22 @@ concerning the business opportunity, if any, and to cease further
 disclosures, communications, or other activities under this agreement on
 written notice to the other party. Any commitment to proceed with a
 transaction will be set forth in a separate agreement signed by the
-parties.
-
-== 8. NO WARRANTY.
-
+parties.`
+        ]
+      },
+      {
+        number: 8,
+        title: "NO WARRANTY",
+        content: [`
 ALL CONFIDENTIAL INFORMATION IS PROVIDED “AS IS.” NEITHER PARTY MAKES
 ANY WARRANTIES, EXPRESS, IMPLIED, OR OTHERWISE, REGARDING THE ACCURACY,
-COMPLETENESS, OR PERFORMANCE OF ANY SUCH INFORMATION.
-
-== 9. REMEDIES.
-
+COMPLETENESS, OR PERFORMANCE OF ANY SUCH INFORMATION.`
+        ]
+      },
+      {
+        number: 9,
+        title: "REMEDIES",
+        content: [`
 Each party agrees that its obligations hereunder are necessary and
 reasonable in order to protect the disclosing party and the disclosing
 party’s business, and expressly agrees that monetary damages may be
@@ -181,10 +232,13 @@ Agreement or the continuation of any such breach, without the necessity
 of proving actual damages or posting bond in order to obtain a
 preliminary injunction. However, this shall not modify or abridge a
 moving party’s obligation to demonstrate harm in order to obtain a
-permanent injunction.
-
-== 9. MISCELLANEOUS.
-
+permanent injunction.`
+        ]
+      },
+      {
+        number: 10,
+        title: "MISCELLANEOUS",
+        content: [`
 [loweralpha]
 . *Choice of Law.* The laws of the state of [choiceOfLaw] govern this
 agreement (without giving effect to its conflicts of law principles).
@@ -194,18 +248,11 @@ exclusively in [venue] and the Parties hereby submit to the personal
 jurisdiction of such courts and waive any venue objection.] [The Parties
 irrevocably agree suit to enforce this Agreement shall be brought
 exclusively in the jurisdiction where the initial defendant in such
-action resides and waive any venue objection.]
+action resides and waive any venue objection.]`
+        ]
+      }
+    ],
+  }
+}
 
-
-IN WITNESS WHEREOF, the Parties hereto have executed this Mutual
-Non-Disclosure Agreement by their duly authorized officers or
-representatives as of the Effective Date first set forth above.
-
-[width=100%,frame=none,grid=none]
-|===
-|[FirstCompany] | [counterpartyName]
-|Signed: | Signed:[counterpartySignerSignature]
-|Name: | Name:[counterpartySignerName]
-|Title: | Title:[counterpartySignerTextField]
-|Date: | Date:[counterpartySignerDateField]
-|===
+export default nda

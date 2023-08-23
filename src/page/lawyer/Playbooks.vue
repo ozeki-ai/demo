@@ -1,5 +1,6 @@
 <script setup>
-import {preamble, purpose, sections} from "../../unda"
+import nda from "../../playbook/nda"
+const playbook = nda()
 </script>
 <template>
   <Split>
@@ -10,17 +11,8 @@ import {preamble, purpose, sections} from "../../unda"
       <Command />
     </template>
     <template v-slot:document>
-      <div class="mb-8">
-        <h1 class="title1">MUTUAL NON-DISCLOSURE AGREEMENT</h1>
-        <div v-html="preamble.html" class="mt-4"></div>
-        <div v-html="purpose.html" class="mt-4"></div>
-        <div class="mt-4">The parties therefore agree as follows:</div>
-      </div>
-
-      <div v-for="section in sections" class="mb-8">
-        <h2 v-if="section.title" class="title2">{{ section.id }}. {{ section.title }}</h2>
-        <Skeleton />
-      </div>
+      <h1 class="title1 mb-6">{{ playbook.title }}</h1>
+      <Section v-for="section in playbook.sections" :section="section" />
     </template>
   </Split>
 </template>
