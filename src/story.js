@@ -21,6 +21,7 @@ class Story {
     this.sections  = config.sections || []
     this.messages  = []
     this.highlight = null
+    this.values    = {}
     this.answering = false
   }
 
@@ -41,6 +42,9 @@ class Story {
           break;
         case "strategy":
           this.saveStrategy(this.command)
+          break;
+        case "value":
+          this.setValue(this.command)
           break;
         case "reveal":
           this.revealSection(this.command)
@@ -64,20 +68,25 @@ class Story {
   }
 
   performChat(command) {
-    const words = command.content.split(" ")
-    if (!command.append) {
-      const firstWord = words.shift()
-      this.pushRobotMessage(firstWord, command.avatar)
-    }
-    const index = this.messages.length - 1
-    const timer = setInterval(() => {
-      const word = words.shift()
-      this.messages[index].content += " " + word
-      if (words.length === 0) {
-        clearInterval(timer)
-        this.next()
+    if (command.chatter === false) {
+      this.pushRobotMessage(command.content, command.avatar)
+      this.next()
+    } else {
+      const words = command.content.split(" ")
+      if (!command.append) {
+        const firstWord = words.shift()
+        this.pushRobotMessage(firstWord, command.avatar)
       }
-    }, CHAT_INTERVAL)
+      const index = this.messages.length - 1
+      const timer = setInterval(() => {
+        const word = words.shift()
+        this.messages[index].content += " " + word
+        if (words.length === 0) {
+          clearInterval(timer)
+          this.next()
+        }
+      }, CHAT_INTERVAL)
+    }
   }
 
   performHighlight(command) {
@@ -93,7 +102,7 @@ class Story {
     let match
     if (this.command.matches instanceof Function) {
       match = this.command.matches(answer)
-    } else {
+    } else if (Array.isArray(this.command.matches)) {
       match = this.command.matches.find((match) => {
         if (match.re) {
           return match.re.test(answer)
@@ -101,6 +110,8 @@ class Story {
           return false
         }
       })
+    } else {
+      match = { answer: answer }
     }
     if (match) {
       this.lastAnswer = match.answer || answer
@@ -119,6 +130,15 @@ class Story {
       section.strategy.push(command.content)
     } else if (command.content instanceof Function) {
       section.strategy.push(command.content(this))
+    }
+    this.next()
+  }
+
+  setValue(command) {
+    if (command.value instanceof Function) {
+      this.values[command.id] = command.value(this)
+    } else {
+      this.values[command.id] = command.value
     }
     this.next()
   }

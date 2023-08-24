@@ -1,167 +1,146 @@
-import parse from "../util/parse"
-
 const REVEAL_PAUSE = 1200
+const TODAY = (new Date()).toLocaleDateString()
+const COMPANY_NAME = "Acme, Inc"
+const COMPANY_ADDRESS = "100 Main Street, Springfield, OH"
 
 export default function story() {
   return {
     title: "MUTUAL NON-DISCLOSURE AGREEMENT",
+
     script: [
       {
         type: "chat",
-        content: "Ok, let's define your mutual NDA playbook together..."
+        content: "Ok, let's generate an NDA for your customer. I will ask you some questions to fill in the blanks in this agreement..."
       },
       {
         type: "highlight",
-        id: "businessPurpose"
+        id: "agreementDate"
       },
       {
         type: "chat",
+        content: `Starting with the <b>agreementDate</b>. Shall we use today's date ${TODAY}?`
+      },
+      {
+        type: "answer"
+      },
+      {
+        type: "value",
+        id: "agreementDate",
+        value: TODAY
+      },
+      {
+        type: "highlight",
+        id: "companyName",
+      },
+      {
+        type: "chat",
+        content: `Shall I use the default <b>companyName</b> and <b>companyAddress</b>?`
+      },
+      {
+        type: "answer"
+      },
+      {
+        type: "value",
+        id: "companyName",
+        value: COMPANY_NAME
+      },
+      {
+        type: "value",
+        id: "companyAddress",
+        value: COMPANY_ADDRESS
+      },
+      {
+        type: "highlight",
+        id: "counterpartyName",
+      },
+      {
+        type: "chat",
+        content: `Who is the counterparty to this agreement?`
+      },
+      {
+        type: "answer",
+      },
+      {
+        type: "value",
+        id: "counterpartyName",
+        value: (story) => story.lastAnswer
+      },
+      {
+        type: "highlight",
+        id: "counterpartyIncorporationState"
+      },
+      {
+        type: "chat",
+        content: "In which state is the counterparty incorporated?"
+      },
+      {
+        type: "answer"
+      },
+      {
+        type: "value",
+        id: "counterpartyIncorporationState",
+        value: (story) => story.lastAnswer
+      },
+      {
+        type: "highlight",
+        id: "counterpartyAddress",
+      },
+      {
+        type: "chat",
+        content: "What is the counterparty address?",
+      },
+      {
+        type: "answer"
+      },
+      {
+        type: "value",
+        id: "counterpartyAddress",
+        value: (story) => story.lastAnswer
+      },
+      {
+        type: "highlight",
+        id: "businessPurpose",
+      },
+      {
+        type: "chat",
+        content: "Please choose one of the following business purposes:"
+      },
+      {
+        type: "chat",
+        chatter: false,
         content: `
-          The <b>business purpose</b> clause restricts the use of the disclosed confidential information to uses within the purpose.
-          A generic description would be
-          <em>"a business opportunity of mutual interest and benefit"</em>.
-        ` 
-      },
-      {
-        type: "chat",
-        content: "Do you wish to allow NDAs with the generic description?",
-      },
-      {
-        label: "generic-business-purpose",
-        type: "answer",
-        matches: [
-          { re: /\b(yes|y|yup)\b/i, answer: "yes", next: "generic-business-purpose-yes" },
-          { re: /\b(no|n|nope)\b/i, answer: "no",  next: "generic-business-purpose-no" },
-        ]
-      },
-      {
-        label: "generic-business-purpose-yes",
-        type: "strategy",
-        section: "purpose",
-        content: `Allow generic [<em>businessPurpose</em>] <em>"a business opportunity of mutual interest and benefit"`,
-      },
-      {
-        type: "chat",
-        content: `Great, we will allow the generic description for <b>businessPurpose</b>.`,
-        next: "specific-business-purpose"
-      },
-      {
-        label: "generic-business-purpose-no",
-        type: "strategy",
-        section: "purpose",
-        content: `Disallow generic [<em>businessPurpose</em>]`,
-      },
-      {
-        type: "chat",
-        content: "Ok, we won't allow the generic description for <b>businessPurpose</b>",
-        next: "specific-business-purpose"
-      },
-      {
-        label: "specific-business-purpose",
-        type: "chat",
-        content: "Do you also want to add a specific <b>businessPurpose</b>?"
-      },
-      { type: "answer",
-        matches: [
-          { re: /\b(yes|y|yup)\b/i, answer: "yes", next: "specific-business-purpose-yes" },
-          { re: /\b(no|n|nope)\b/i, answer: "no",  next: "specific-business-purpose-no" },
-        ]
-      },
-      {
-        label: "specific-business-purpose-yes",
-        type: "chat",
-        content: `What is the specific <b>businessPurpose</b>?`,
+          <ul>
+            <li><b>generic</b>: a business opportunity of mutual interest and benefit</li>
+            <li><b>specific</b>: selling widgets</li>
+          </ul>
+        `
       },
       {
         type: "answer",
         matches: [
-          { re: /.*/i },
-        ],
+          { re: /.*(generic|first|one|1).*/,                  answer: "a business opportunity of mutual interest and benefit" },
+          { re: /.*(specific|second|two|2|selling|widget).*/, answer: "selling widgets" },
+        ]
       },
       {
-        type: "strategy",
-        section: "purpose",
-        content: (story) => `Allow specific [<em>businessPurpose</em>] <em>"${story.lastAnswer}"</em>`,
-        next: "complete-purpose"
+        type: "value",
+        id: "businessPurpose",
+        value: (story) => story.lastAnswer,
       },
       {
-        label: "specific-business-purpose-no",
-        type: "strategy",
-        section: "purpose",
-        content: "Disallow specific [<em>businessPurpose</em>]",
-      },
-      {
-        type: "chat",
-        content: "Ok, we won't add any specific descriptions for <b>businessPurpose</b>",
-        next: "complete-purpose"
-      },
-      {
-        label: "complete-purpose",
         type: "highlight",
-        id: "none"
+        id: "none",
       },
       {
         type: "chat",
-        content: "Since this is just a demo, we can skip forward past some of these clauses. Let me know when you are ready to continue...",
+        content: "Since this is just a demo, I'm going to gloss over a few clauses. Let me know when you are ready to continue..."
       },
       {
         type: "answer",
-        matches: [
-          { re: /.*/i }
-        ]
       },
       {
-        type: "chat",
-        content: "Ok, The <b>first section</b> introduces the universal NDA.",
-      },
-      {
-        label: "reveal-unda",
         type: "reveal",
-        section: "unda",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "The <b>second section</b> defines confidential information.",
-        append: true,
-      },
-      {
-        label: "reveal-confidential-information",
-        type: "reveal",
-        section: "confidential-information",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "The <b>third section</b> defines any exclusions to the confidential information.",
-        append: true,
-      },
-      {
-        label: "reveal-exclusions",
-        type: "reveal",
-        section: "exclusions",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "The <b>fourth section</b> defines the parties obligations to maintain confidentiality.",
-        append: true,
-      },
-      {
-        label: "reveal-confidentiality-obligation",
-        type: "reveal",
-        section: "confidentiality-obligation",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "The <b>fifth section</b> defines the agreements term and duration.",
-        append: true,
-      },
-      {
-        label: "reveal-term",
-        type: "reveal",
-        section: "term",
+        section: "term"
       },
       {
         type: "highlight",
@@ -169,100 +148,42 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "The <b>term</b> dictates the length of the agreement and how long you may convey confidential information. It does not necessarily dictate how long the confidential information will be protected after the agreement. How long do you want the term to last?",
-        avatar: true,
-      },
-      {
-        type: "answer",
-        matches: (value) => {
-          const { low, high, duration } = parse.range(value)
-          return {
-            answer: { low, high, duration },
-          }
-        }
-      },
-      {
-        type: "strategy",
-        section: "term",
-        content: (story) => {
-          const {low, high, duration} = story.lastAnswer
-          const options = []
-          for (let n = low ; n <= high ; n++) {
-            options.push(`${n} ${n === 1 ? duration : duration + "s"}`)
-          }
-          return `Allowed Term Options:<ul>${options.map((o) => `<li>${o}</li>`).join("")}</ul>`
-        }
+        content: "Please choose one of the following allowed terms:"
       },
       {
         type: "chat",
-        content: "Great, we've added the allowed terms to the applied strategy"
-      },
-      {
-        type: "highlight",
-        id: "none"
-      },
-      {
-        type: "chat",
-        content: "Again, since this is just a demo, we can skip forward past the remaining clauses. Let me know when you are ready to continue...",
+        chatter: false,
+        content: `
+          <ul>
+            <li>one year</b></li>
+            <li>two years</b></li>
+            <li>three years</b></li>
+          </ul>
+        `
       },
       {
         type: "answer",
         matches: [
-          { re: /.*/i }
+          { re: /.*(one|1).*/, answer: "one year" },
+          { re: /.*(two|2).*/, answer: "two years" },
+          { re: /.*(three|3).*/, answer: "three years" },
         ]
       },
       {
-        type: "chat",
-        content: "The <b>sixth section</b> defines how to return confidential property.",
-      },
-      {
-        type: "reveal",
-        section: "return-of-property",
-        wait: REVEAL_PAUSE,
+        type: "value",
+        id: "term",
+        value: (story) => story.lastAnswer,
       },
       {
         type: "chat",
-        content: "The <b>seventh section</b> defines the parties obligations.",
-        append: true
+        content: "Again, since this is just a demo, I'm going to gloss over the remaining clauses. Let me know when you are ready to continue..."
       },
       {
-        type: "reveal",
-        section: "obligation",
-        wait: REVEAL_PAUSE,
+        type: "answer",
       },
       {
         type: "chat",
-        content: "The <b>eighth section</b> defines any warranties.",
-        append: true
-      },
-      {
-        type: "reveal",
-        section: "warranties",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "The <b>ninth section</b> defines the remedies applied if the agreement is broken.",
-        append: true
-      },
-      {
-        type: "reveal",
-        section: "remedies",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "The <b>final section</b> contains the choice of law and venue.",
-        append: true
-      },
-      {
-        type: "reveal",
-        section: "misc",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "<hr><b>Congratulations</b>, that completes the definition for your mutual NDA playbook.",
+        content: "<hr><b>Congratulations</b>, you have generated your NDA contract.",
       },
       {
         type: "scroll",

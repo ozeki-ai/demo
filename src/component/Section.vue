@@ -8,17 +8,27 @@ const props = defineProps({
   highlight: {
     type: String,
     default: "none",
-  }
+  },
+  values: {
+    type: Object,
+    default: {}
+  },
 })
 
 function html(item) {
   if (typeof item === 'string') {
     return item
   } else {
-    if (item.id === props.highlight) {
-      return `<mark> [<em>${item.id}</em>] </mark>`
+    let label, value
+    if (value = props.values[item.id]) {
+      label = `<mark class="bg-yellow-100">${value}</mark>`
     } else {
-      return `[<em>${item.id}</em>]`
+      label = `[<em>${item.id}</em>]`
+    }
+    if (item.id === props.highlight) {
+      return `<mark> ${label} </mark>`
+    } else {
+      return label
     }
   }
 }

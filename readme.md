@@ -10,5 +10,4 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO
 
-  * sales guy script
   * customer script
