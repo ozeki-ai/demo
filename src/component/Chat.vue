@@ -19,14 +19,14 @@ watch(
   <div ref="scrollview">
     <div v-for="message in messages">
       <template v-if="message.user">
-        <div class="flex gap-4 mb-4 bg-gray-100 text-dark p-2 rounded-xl">
+        <div class="flex gap-4 mb-4 bg-gray-500 text-light p-2 rounded-xl">
           <div v-html="message.content" class="mt-2 flex-1 text-right"></div>
           <img class="h-10 w-10 rounded-full" :src="avatar">
         </div>
       </template>
       <template v-else>
         <div class="flex gap-4 mb-4">
-          <i class="fas fa-robot text-3xl text-gray-400"></i>
+          <i class="fas fa-robot text-3xl text-primary-300"></i>
           <div v-html="message.content" class="flex-1 prose text-light pr-10"></div>
         </div>
       </template>
