@@ -78,7 +78,7 @@ function nda() {
         type: "strategy",
         section: "purpose",
         content: (story) => `Allow specific [<em>businessPurpose</em>] "${story.lastAnswer}"`,
-        next: "wrap-up"
+        next: "complete-purpose"
       },
       {
         label: "specific-business-purpose-no",
@@ -89,12 +89,88 @@ function nda() {
       {
         type: "chat",
         content: "Ok, we won't add any specific descriptions for <b>businessPurpose</b>",
-        next: "wrap-up"
+        next: "complete-purpose"
       },
       {
-        label: "wrap-up",
+        label: "complete-purpose",
+        type: "highlight",
+        id: "none"
+      },
+      {
         type: "chat",
-        content: "Let's wrap up"
+        content: "Since this is just a demo, we can skip forward past some of these clauses. Let me know when you are ready to continue...",
+      },
+      {
+        type: "answer",
+        matches: [
+          { re: /.*/i }
+        ]
+      },
+      {
+        type: "chat",
+        content: "Ok, The <b>first section</b> introduces the universal NDA.",
+      },
+      {
+        label: "reveal-unda",
+        type: "reveal",
+        section: "unda",
+        wait: 2500,
+      },
+      {
+        type: "chat",
+        content: "The <b>second section</b> defines confidential information.",
+        append: true,
+      },
+      {
+        label: "reveal-confidential-information",
+        type: "reveal",
+        section: "confidential-information",
+        wait: 2500,
+      },
+      {
+        type: "chat",
+        content: "The <b>third section</b> defines any exclusions to the confidential information.",
+        append: true,
+      },
+      {
+        label: "reveal-exclusions",
+        type: "reveal",
+        section: "exclusions",
+        wait: 2500,
+      },
+      {
+        type: "chat",
+        content: "The <b>fourth section</b> defines the parties obligations to maintain confidentiality.",
+        append: true,
+      },
+      {
+        label: "reveal-confidentiality-obligation",
+        type: "reveal",
+        section: "confidentiality-obligation",
+        wait: 2500,
+      },
+      {
+        type: "chat",
+        content: "The <b>fifth section</b> defines the agreements term and duration.",
+        append: true,
+      },
+      {
+        label: "reveal-term",
+        type: "reveal",
+        section: "term",
+        wait: 2500,
+      },
+      {
+        type: "highlight",
+        id: "term"
+      },
+      {
+        type: "chat",
+        content: "Ok, let's talk about the term"
+      },
+      {
+        type: "chat",
+        content: "More to come..."
       },
     ],
 
@@ -134,140 +210,129 @@ function nda() {
         ]
       },
       {
+        id: "unda",
         number: 1,
         title: "UNIVERSAL NDA",
-        content: [`
-[loweralpha]
-. *Universal NDA*. The Parties acknowledge and agree that, where noted,
-the clauses of this NDA are consistent with the terms of the so-called
-Universal NDA as of the Effective Date. The Parties agree that they will
-not seek to enforce the terms of this agreement in a materially
-different from manner those contained in the Universal NDA as of the
-Effective Date. The Universal NDA is available at:
-https://github.com/bitmovin/unda.
-
-. *Included Clauses.* This agreement contains the following Universal NDA
-Clauses: [Business Purpose;][Business Purpose Specifically
-Defined;][Business Purpose Excluding;][Confidential
-Information;][Confidentiality Information Specific Defined;]Exclusions;
-Obligation to Maintain Confidentiality; [Representatives;]
-[Representatives Specifically Defined;] Term: [term]; [Duration of
-Confidential Information;] Return of Property; No Obligation; No
-Warranty; Remedies; Choice of Law: [choiceOfLaw]; and Venue:[venue]
-[Where the Defendant Resides.]
-
-. [*Other Clauses.* This Agreement contains clauses beyond those contained
-in the Universal NDA.]`
+        content: [
+          `<b>Universal NDA</b>. The Parties acknowledge and agree that, where noted,
+           the clauses of this NDA are consistent with the terms of the so-called
+           Universal NDA as of the Effective Date. The Parties agree that they will
+           not seek to enforce the terms of this agreement in a materially
+           different from manner those contained in the Universal NDA as of the
+           Effective Date. The Universal NDA is available at:
+           <a target="_other" href="https://github.com/bitmovin/unda">https://github.com/bitmovin/unda</a>.`,
         ]
       },
       {
+        id: "confidential-information",
         number: 2,
         title: "CONFIDENTIAL INFORMATION",
-        content: [`
-Each party (in such capacity, a “*Disclosing Party*”) may disclose
-certain of its confidential and proprietary information to the other
-party (in such capacity, a “*Receiving Party*”). [“*Confidential
-Information*” means any information disclosed by either party to the
-other party, either directly or indirectly, in writing, orally, or by
-inspection of tangible objects that (a) the Disclosing Party identifies
-as confidential or proprietary, or (b) that reasonably appears to be
-confidential or proprietary because of legends or other markings, the
-circumstances of disclosure, or the nature of the information itself.]
-[Confidential Information includes, but is not limited
-to,[definitionOfConfidentialInformation].] Confidential Information may
-also include third party confidential or proprietary information
-disclosed to the Receiving Party.`
+        content: [
+          `Each party (in such capacity, a “<b>Disclosing Party</b>”) may disclose
+           certain of its confidential and proprietary information to the other
+           party (in such capacity, a “<b>Receiving Party</b>”). [“<b>Confidential
+           Information</b>” means any information disclosed by either party to the
+           other party, either directly or indirectly, in writing, orally, or by
+           inspection of tangible objects that (a) the Disclosing Party identifies
+           as confidential or proprietary, or (b) that reasonably appears to be
+           confidential or proprietary because of legends or other markings, the
+           circumstances of disclosure, or the nature of the information itself.]
+           [Confidential Information includes, but is not limited
+           to,[<em>definitionOfConfidentialInformation</em>].] Confidential Information may
+           also include third party confidential or proprietary information
+           disclosed to the Receiving Party.`
         ]
       },
       {
+        id: "exclusions",
         number: 3,
         title: "EXCLUSIONS",
         content: [`
-The obligations and restrictions of this agreement do not apply to that
-part of the Confidential Information that:
-
-[loweralpha]
-. was or becomes generally known to the public other than as a result of a
-  disclosure by the Receiving Party in violation of this agreement;
-
-. was known, without restriction as to use or disclosure, by the Receiving
-  Party prior to receiving such information from the Disclosing Party;
-
-. is rightfully acquired by the Receiving Party from a third party who has
-  the right to disclose it and who provides it without restriction as to
-  use or disclosure;
-
-. is independently developed by the Receiving Party without access to any
-  Confidential Information of the Disclosing Party; or
-
-. is requested or legally compelled (by valid and effective subpoena or
-  order issued by either a court of competent jurisdiction), or is
-  required by a regulatory body, to be disclosed. However, unless
-  prohibited by force of law, the Receiving Party shall:
-
-+
-[lowerroman]
-.. provide the Disclosing Party with prompt notice of any such request or
-   requirement before disclosure so that the Disclosing Party may seek an
-   appropriate protective order or other appropriate remedy; and
-
-.. provide reasonable assistance to the Disclosing Party in obtaining any
-   such protective order.
-
-If the Receiving Party is nonetheless legally compelled or otherwise
-required to disclose, the Receiving Party will furnish only that portion
-of the Confidential Information that is legally required and shall make
-reasonable efforts to obtain reliable assurance that confidential
-treatment will be accorded any part of the Confidential Information so
-disclosed.`
+          <p>
+            The obligations and restrictions of this agreement do not apply to that
+            part of the Confidential Information that:
+          </p>
+          <ul>
+            <li>was or becomes generally known to the public other than as a result of a disclosure by the Receiving Party in violation of this agreement;</li>
+            <li>was known, without restriction as to use or disclosure, by the Receiving Party prior to receiving such information from the Disclosing Party;</li>
+            <li>is rightfully acquired by the Receiving Party from a third party who has the right to disclose it and who provides it without restriction as to use or disclosure;</li>
+            <li>is independently developed by the Receiving Party without access to any Confidential Information of the Disclosing Party; or</li>
+            <li>is requested or legally compelled (by valid and effective subpoena or order issued by either a court of competent jurisdiction), or is required by a regulatory body, to be disclosed. However, unless prohibited by force of law, the Receiving Party shall:</li>
+            <li>
+              <ul>
+                <li>provide the Disclosing Party with prompt notice of any such request or requirement before disclosure so that the Disclosing Party may seek an appropriate protective order or other appropriate remedy; and</li>
+                <li>provide reasonable assistance to the Disclosing Party in obtaining any such protective order.</li>
+              </ul>
+            </li>
+          </ul>
+          <p>
+            If the Receiving Party is nonetheless legally compelled or otherwise
+            required to disclose, the Receiving Party will furnish only that portion
+            of the Confidential Information that is legally required and shall make
+            reasonable efforts to obtain reliable assurance that confidential
+            treatment will be accorded any part of the Confidential Information so
+            disclosed.
+          </p>`
         ]
       },
       {
+        id: "confidentiality-obligation",
         number: 4,
         title: "OBLIGATION TO MAINTAIN CONFIDENTIALITY",
         content: [`
-[loweralpha]
-. *Confidentiality.* The Receiving Party shall keep the Confidential
-  Information confidential. Except as otherwise required by law, the
-  Receiving Party may not:
-
-+
-[lowerroman]
-.. disclose any Confidential Information to any person or entity other than
-   a Receiving Party’s Representatives, [which includes only its employees,
-   agents, officers, and advisors which includes only
-   [representativesDefined],] who needs to know the Confidential
-   Information for the Purpose, provided such representative is bound to
-   confidentiality obligations no less protective than this agreement and
-   the Receiving Party remains responsible for compliance by any such
-   Representative with the terms of this agreement;
-
-.. disclose any Confidential Information to a third party without the
-   Disclosing Party’s prior written authorization; or
-
-.. use the Confidential Information other than for the Purpose.
-
-. *No Reverse Engineering.* The Receiving Party may not reverse
-  engineer, disassemble, or decompile any prototypes, software, or other
-  tangible objects that embody the Disclosing Party’s Confidential
-  Information and that are provided to the Receiving Party under this
-  agreement.`
+          <ul>
+            <li>
+              <b>Confidentiality.</b> The Receiving Party shall keep the Confidential
+              Information confidential. Except as otherwise required by law, the
+              Receiving Party may not:
+              <ul>
+                <li>
+                  disclose any Confidential Information to any person or entity other than
+                  a Receiving Party’s Representatives, [which includes only its employees,
+                  agents, officers, and advisors which includes only
+                  [representativesDefined],] who needs to know the Confidential
+                  Information for the Purpose, provided such representative is bound to
+                  confidentiality obligations no less protective than this agreement and
+                  the Receiving Party remains responsible for compliance by any such
+                  Representative with the terms of this agreement;
+                </li>
+                <li>
+                  disclose any Confidential Information to a third party without the
+                  Disclosing Party’s prior written authorization; or
+                </li>
+                <li>
+                  use the Confidential Information other than for the Purpose.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>No Reverse Engineering.</b> The Receiving Party may not reverse
+              engineer, disassemble, or decompile any prototypes, software, or other
+              tangible objects that embody the Disclosing Party’s Confidential
+              Information and that are provided to the Receiving Party under this
+              agreement.
+            </li>
+          </ul>`
         ]
       },
       {
+        id: "term",
         number: 5,
         title: "TERM AND DURATION",
-        content: [`
-This Agreement will commence on the date first set forth above and will
-remain in effect for [term] years (“*Term*”). [The Receiving Party’s
-confidentiality obligations under this Agreement will survive
-indefinitely or until all Confidential Information disclosed during the
-Term becomes publicly known and made generally available through no
-action or inaction of the Receiving Party or Receiving Party’s
-Representatives.]`
+        content: [
+          "This Agreement will commence on the date first set forth above and will remain in effect for ",
+          { id: "term", type: "term" },
+          ` (“<b>Term</b>”). `,
+          `[The Receiving Party’s
+            confidentiality obligations under this Agreement will survive
+            indefinitely or until all Confidential Information disclosed during the
+            Term becomes publicly known and made generally available through no
+            action or inaction of the Receiving Party or Receiving Party’s
+            Representatives.]`
         ]
       },
       {
+        id: "return-of-property",
         number: 6,
         title: "RETURN OF PROPERTY",
         content: [`
@@ -280,6 +345,7 @@ all of those documents or objects.`
         ]
       },
       {
+        id: "obligation",
         number: 7,
         title: "NO OBLIGATION",
         content: [`
@@ -294,6 +360,7 @@ parties.`
         ]
       },
       {
+        id: "warranty",
         number: 8,
         title: "NO WARRANTY",
         content: [`
@@ -303,6 +370,7 @@ COMPLETENESS, OR PERFORMANCE OF ANY SUCH INFORMATION.`
         ]
       },
       {
+        id: "remedies",
         number: 9,
         title: "REMEDIES",
         content: [`
@@ -324,6 +392,7 @@ permanent injunction.`
         ]
       },
       {
+        id: "misc",
         number: 10,
         title: "MISCELLANEOUS",
         content: [`

@@ -1,4 +1,5 @@
 <script setup>
+import {computed} from "vue"
 const props = defineProps({
   section: {
     type: Object,
@@ -22,12 +23,14 @@ function html(item) {
   }
 }
 
+const domid = computed(() => `section-${props.section.id}`)
+
 </script>
 <template>
-<div class="mb-8">
-  <h2 v-if="section.title" class="title2">{{ section.title }}</h2>
+<div :id="domid" class="mb-8">
+  <h2 v-if="section.title" class="title2">{{ section.number }}. {{ section.title }}</h2>
   <div v-if="section.show">
-    <span v-for="(item, index) in section.content" :key="index" v-html=html(item) />
+    <span v-for="(item, index) in section.content" :key="index" v-html=html(item) class="prose" />
     <div v-if="section.strategy" class="bg-yellow-100 text-yellow-900 border border-yellow-300 p-4 rounded-lg mt-4">
       <div v-for="rule in section.strategy" v-html="rule"></div>
     </div>

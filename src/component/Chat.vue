@@ -10,7 +10,7 @@ watch(
     scrollview.value.parentElement.scrollTo({
       top: scrollview.value.offsetHeight,
       left: 0,
-      behaviour: "smooth"
+      behavior: "smooth"
     })
   }, 20)
 )

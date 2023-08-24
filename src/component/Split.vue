@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="flex-1 p-4 pl-2 overflow-auto hide-scrollbar">
-        <div class="p-4 bg-white text-dark rounded-lg min-h-full">
+        <div class="p-4 lg:p-6 xl:p-8 bg-white text-dark rounded-lg min-h-full">
           <slot name="document"></slot>
         </div>
       </div>

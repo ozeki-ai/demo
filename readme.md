@@ -10,7 +10,6 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO
 
-  * reveal next section(s)
   * ask Q about terms
   * wrap-up lawyer script
   * sales guy script

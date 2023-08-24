@@ -1,4 +1,4 @@
-import {reactive} from "vue"
+import {reactive, nextTick} from "vue"
 
 function run(storyFn) {
   const story = reactive(new Story(storyFn()))
@@ -9,7 +9,7 @@ function run(storyFn) {
 //-------------------------------------------------------------------------------------------------
 
 const CHAT_INTERVAL = 20
-const STEP_INTERVAL = 100
+const STEP_PAUSE = 100
 
 //-------------------------------------------------------------------------------------------------
 
@@ -25,40 +25,47 @@ class Story {
   }
 
   run(index) {
-    setTimeout(() => {
-      this.index = index || 0
-      this.command = this.script[this.index]
-      if (this.command) {
-        switch (this.command.type) {
-          case "chat":
-            this.performChat(this.command)
-            break;
-          case "highlight":
-            this.performHighlight(this.command)
-            break;
-          case "answer":
-            this.collectAnswer(this.command)
-            break;
-          case "strategy":
-            this.saveStrategy(this.command)
-            break;
-        }
+    this.index = index || 0
+    this.command = this.script[this.index]
+    if (this.command) {
+      switch (this.command.type) {
+        case "chat":
+          this.performChat(this.command)
+          break;
+        case "highlight":
+          this.performHighlight(this.command)
+          break;
+        case "answer":
+          this.collectAnswer(this.command)
+          break;
+        case "strategy":
+          this.saveStrategy(this.command)
+          break;
+        case "reveal":
+          this.revealSection(this.command)
+          break;
       }
-    }, STEP_INTERVAL)
+    }
   }
 
   next(target) {
-    target = target || this.command.next || 1
-    if (typeof target === "string") {
-      this.run(this.script.findIndex((s) => s.label === target))
-    } else if (typeof target === "number") {
-      this.run(this.index + target)
-    }
+    setTimeout(() => { 
+      target = target || this.command.next || 1
+      if (typeof target === "string") {
+        this.run(this.script.findIndex((s) => s.label === target))
+      } else if (typeof target === "number") {
+        this.run(this.index + target)
+      }
+    }, this.command.wait || STEP_PAUSE)
   }
 
   performChat(command) {
     const words = command.content.split(" ")
-    const index = this.pushRobotMessage(words.shift()) - 1
+    if (!command.append) {
+      const firstWord = words.shift()
+      this.pushRobotMessage(firstWord)
+    }
+    const index = this.messages.length - 1
     const timer = setInterval(() => {
       const word = words.shift()
       this.messages[index].content += " " + word
@@ -103,6 +110,21 @@ class Story {
       section.strategy.push(command.content)
     } else if (command.content instanceof Function) {
       section.strategy.push(command.content(this))
+    }
+    this.next()
+  }
+
+  revealSection(command) {
+    const section = this.sections.find((s) => s.id === command.section)
+    if (section) {
+      const dom = document.getElementById(`section-${section.id}`)
+      section.show = true
+      nextTick(() => {
+        dom.parentElement.parentElement.scrollTo({
+          top: dom.offsetTop - 100,
+          behavior: "smooth"
+        })
+      })
     }
     this.next()
   }
