@@ -13,27 +13,27 @@ function nda() {
       {
         type: "chat",
         content: `
-          <p>
-            The <b>business purpose</b> clause restricts the use of the disclosed confidential information to uses within the purpose.
-            A generic description would be
-            <em>"a business opportunity of mutual interest and benefit"</em>.
-          </p>
-          <p>
-            Do you wish to allow NDAs with the generic description?
-          </p>`
+          The <b>business purpose</b> clause restricts the use of the disclosed confidential information to uses within the purpose.
+          A generic description would be
+          <em>"a business opportunity of mutual interest and benefit"</em>.
+        ` 
+      },
+      {
+        type: "chat",
+        content: "Do you wish to allow NDAs with the generic description?",
       },
       {
         label: "generic-business-purpose",
         type: "answer",
         matches: [
-          { re: /^(yes|y|yup)$/i, answer: "yes", next: "generic-business-purpose-yes" },
-          { re: /^(no|n|nope)$/i, answer: "no",  next: "generic-business-purpose-no" },
+          { re: /\b(yes|y|yup)\b/i, answer: "yes", next: "generic-business-purpose-yes" },
+          { re: /\b(no|n|nope)\b/i, answer: "no",  next: "generic-business-purpose-no" },
         ]
       },
       {
         label: "generic-business-purpose-yes",
         type: "chat",
-        content: `Great, we will allow the generic description for <b>businessPurpose</b>`,
+        content: `Great, we will allow the generic description for <b>businessPurpose</b>.`,
         next: "specific-business-purpose"
       },
       {
@@ -49,8 +49,8 @@ function nda() {
       },
       { type: "answer",
         matches: [
-          { re: /^(yes|y|yup)$/i, answer: "yes", next: "specific-business-purpose-yes" },
-          { re: /^(no|n|nope)$/i, answer: "no",  next: "specific-business-purpose-no" },
+          { re: /\b(yes|y|yup)\b/i, answer: "yes", next: "specific-business-purpose-yes" },
+          { re: /\b(no|n|nope)\b/i, answer: "no",  next: "specific-business-purpose-no" },
         ]
       },
       {

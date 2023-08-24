@@ -8,6 +8,11 @@ function run(storyFn) {
 
 //-------------------------------------------------------------------------------------------------
 
+const CHAT_INTERVAL = 20
+const STEP_INTERVAL = 100
+
+//-------------------------------------------------------------------------------------------------
+
 class Story {
 
   constructor(config) {
@@ -36,7 +41,7 @@ class Story {
             break;
         }
       }
-    }, 250)
+    }, STEP_INTERVAL)
   }
 
   next(target) {
@@ -50,7 +55,7 @@ class Story {
 
   performChat(command) {
     const words = command.content.split(" ")
-    const index = this.messages.push({content: words.shift()}) - 1
+    const index = this.pushRobotMessage(words.shift()) - 1
     const timer = setInterval(() => {
       const word = words.shift()
       this.messages[index].content += " " + word
@@ -58,7 +63,7 @@ class Story {
         clearInterval(timer)
         this.next()
       }
-    }, 30)
+    }, CHAT_INTERVAL)
   }
 
   performHighlight(command) {
@@ -79,14 +84,25 @@ class Story {
       }
     })
     if (match) {
-      this.messages.push({user: true, content: answer})
+      this.pushUserMessage(answer)
       this.next(match.next)
     } else {
-      this.messages.push({user: true, content: answer})
-      this.messages.push({content: "Sorry, I don't understand that answer"})
+      this.pushUserMessage(answer)
+      this.pushRobotMessage("Sorry, I don't understand that answer")
     }
   }
 
+  pushRobotMessage(content) {
+    const firstMessage = this.messages.length === 0
+    const previousMessage = this.messages[this.messages.length-1]
+    const previousMessageWasFromUser = previousMessage && previousMessage.user
+    const showRobotAvatar = firstMessage || previousMessageWasFromUser || false
+    return this.messages.push({content: content, avatar: showRobotAvatar})
+  }
+
+  pushUserMessage(content) {
+    return this.messages.push({content: content, user: true})
+  }
 }
 
 //-------------------------------------------------------------------------------------------------
