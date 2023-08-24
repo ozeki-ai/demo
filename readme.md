@@ -10,7 +10,8 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO
 
-  * allow step to label to make it easier
+  * don't show robot for subsequent robot messages in a row
+  * need to show strategy in document
   * need to be able to scroll document to highlight
   * show (and scroll) next section
   * repeat until done

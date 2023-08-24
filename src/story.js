@@ -21,7 +21,7 @@ class Story {
 
   run(index) {
     setTimeout(() => {
-      this.index   = index || 0
+      this.index = index || 0
       this.command = this.script[this.index]
       if (this.command) {
         switch (this.command.type) {
@@ -39,11 +39,14 @@ class Story {
     }, 250)
   }
 
-  step(n) {
-    const next = this.index + (n || this.command.step || 1)
-    this.run(next)
+  next(target) {
+    target = target || this.command.next || 1
+    if (typeof target === "string") {
+      this.run(this.script.findIndex((s) => s.label === target))
+    } else if (typeof target === "number") {
+      this.run(this.index + target)
+    }
   }
-
 
   performChat(command) {
     const words = command.content.split(" ")
@@ -53,14 +56,14 @@ class Story {
       this.messages[index].content += " " + word
       if (words.length === 0) {
         clearInterval(timer)
-        this.step()
+        this.next()
       }
     }, 30)
   }
 
   performHighlight(command) {
     this.highlight = command.id
-    this.step()
+    this.next()
   }
 
   collectAnswer(command) {
@@ -77,7 +80,7 @@ class Story {
     })
     if (match) {
       this.messages.push({user: true, content: answer})
-      this.step(match.step)
+      this.next(match.next)
     } else {
       this.messages.push({user: true, content: answer})
       this.messages.push({content: "Sorry, I don't understand that answer"})

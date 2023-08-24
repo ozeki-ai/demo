@@ -2,9 +2,17 @@ function nda() {
   return {
     title: "MUTUAL NON-DISCLOSURE AGREEMENT",
     script: [
-      { type: "chat", content: "Ok, let's define your mutual NDA playbook together..." },
-      { type: "highlight", id: "businessPurpose" },
-      { type: "chat", content: `
+      {
+        type: "chat",
+        content: "Ok, let's define your mutual NDA playbook together..."
+      },
+      {
+        type: "highlight",
+        id: "businessPurpose"
+      },
+      {
+        type: "chat",
+        content: `
           <p>
             The <b>business purpose</b> clause restricts the use of the disclosed confidential information to uses within the purpose.
             A generic description would be
@@ -15,38 +23,60 @@ function nda() {
           </p>`
       },
       {
+        label: "generic-business-purpose",
         type: "answer",
         matches: [
-          { re: /^(yes|y|yup)$/i, answer: "yes", step: 1 },
-          { re: /^(no|n|nope)$/i, answer: "no",  step: 2 },
+          { re: /^(yes|y|yup)$/i, answer: "yes", next: "generic-business-purpose-yes" },
+          { re: /^(no|n|nope)$/i, answer: "no",  next: "generic-business-purpose-no" },
         ]
       },
       {
+        label: "generic-business-purpose-yes",
         type: "chat",
-        content: `
-          <p>Great, we will allow the generic description for <b>businessPurpose</b></p>
-          <!--<p>Do you also want to add an specific <b>businessPurpose</b>?</p>-->
-        `,
-        step: 2
+        content: `Great, we will allow the generic description for <b>businessPurpose</b>`,
+        next: "specific-business-purpose"
       },
-      // { type: "answer",
-      //   matches: [
-      //     { re: /^(yes|y|yup)$/i, answer: "yes", step: 1 },
-      //     { re: /^(no|n|nope)$/i, answer: "no",  step: 3 },
-      //   ]
-      // },
-      // {
-      //   type: "chat",
-      //   content: "Ok, enter your specific <b>businessPurpose</b>"
-      // },
-      // { type: "answer",
-      //   matches: [
-      //     { any: true, step: 1 },
-      //   ]
-      // },
-      { type: "chat", content: "Ok, we won't allow the generic description for <b>businessPurpose</b>"  },
-      { type: "chat", content: "Let's wrap up" },
+      {
+        label: "generic-business-purpose-no",
+        type: "chat",
+        content: "Ok, we won't allow the generic description for <b>businessPurpose</b>",
+        next: "specific-business-purpose"
+      },
+      {
+        label: "specific-business-purpose",
+        type: "chat",
+        content: "Do you also want to add a specific <b>businessPurpose</b>?"
+      },
+      { type: "answer",
+        matches: [
+          { re: /^(yes|y|yup)$/i, answer: "yes", next: "specific-business-purpose-yes" },
+          { re: /^(no|n|nope)$/i, answer: "no",  next: "specific-business-purpose-no" },
+        ]
+      },
+      {
+        label: "specific-business-purpose-yes",
+        type: "chat",
+        content: `What is the specific <b>businessPurpose</b>?`,
+      },
+      { type: "answer",
+        matches: [
+          { re: /.*/i },
+        ],
+        next: "wrap-up"
+      },
+      {
+        label: "specific-business-purpose-no",
+        type: "chat",
+        content: "Ok, we won't add any specific descriptions for <b>businessPurpose</b>",
+        next: "wrap-up"
+      },
+      {
+        label: "wrap-up",
+        type: "chat",
+        content: "Let's wrap up"
+      },
     ],
+
     sections: [
       {
         show: true,
