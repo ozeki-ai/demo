@@ -4,6 +4,7 @@ import VueClickAway                     from "vue3-click-away"
 
 import LawyerDashboard from "./page/lawyer/Dashboard.vue"
 import LawyerPlaybooks from "./page/lawyer/Playbooks.vue"
+import SalesDashboard  from "./page/sales/Dashboard.vue"
 import SalesContracts  from "./page/sales/Contracts.vue"
 import CustomerAccept  from "./page/customer/Accept.vue"
 import Split           from "./component/Split.vue"
@@ -16,10 +17,10 @@ import App             from "./App.vue"
 
 const routes = [
   {path: "/",                 redirect: "/lawyer"},
-  {path: "/sales",            redirect: "/sales/contracts"},
   {path: "/customer",         redirect: "/customer/accept"},
   {path: "/lawyer",           name: "lawyer-dashboard", component: LawyerDashboard},
   {path: "/lawyer/playbooks", name: "lawyer-playbooks", component: LawyerPlaybooks},
+  {path: "/sales",            name: "sales-dashboard",  component: SalesDashboard},
   {path: "/sales/contracts",  name: "sales-contracts",  component: SalesContracts},
   {path: "/customer/accept",  name: "customer-accept",  component: CustomerAccept},
 ]

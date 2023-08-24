@@ -59,6 +59,14 @@ watch(
           {label: "Playbooks", href:"#", style: "active"},
         ]
         break;
+      case "sales-dashboard":
+        avatar.value = "/src/assets/avatar-sales.png"
+        showBell.value = true
+        showSignout.value = true
+        links.value = [
+          {label: "Contracts", href:"#", style: "active"},
+        ]
+        break;
       case "sales-contracts":
         avatar.value = "/src/assets/avatar-sales.png"
         showBell.value = true
