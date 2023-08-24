@@ -169,8 +169,12 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "The <b>term</b> dictates the length of the agreement and how long you may convey confidential information. It does not necessarily dictate how long the confidential information will be protected after the agreement. How long do you want the term to last?",
+        content: "The <b>term</b> dictates the length of the agreement and how long you may convey confidential information. It does not necessarily dictate how long the confidential information will be protected after the agreement.",
         avatar: true,
+      },
+      {
+        type: "chat",
+        content: "How long do you want the term to last?",
       },
       {
         type: "answer",

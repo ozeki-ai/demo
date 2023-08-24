@@ -21,10 +21,10 @@ function range(value) {
   let match, low, high;
   if (match = reRange.exec(value)) {
     console.log(match)
-    low  = match[1]
-    high = match[3]
+    low  = parseInt(match[1])
+    high = parseInt(match[3])
   } else if (match = reSingle.exec(value)) {
-    low = high = match[1]
+    low = high = parseInt(match[1])
   } else {
     low  = isYears ? 1 : 6
     high = isYears ? 3 : 12
