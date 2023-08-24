@@ -1,6 +1,6 @@
 <script setup>
-import nda from "../../story/nda"
+import story from "../../story/lawyer"
 </script>
 <template>
-  <Storyboard :story="nda" avatar="lawyer" />
+  <Storyboard :story="story" avatar="lawyer" />
 </template>

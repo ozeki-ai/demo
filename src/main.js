@@ -1,18 +1,18 @@
-import {createApp} from "vue"
+import {createApp}                      from "vue"
 import {createRouter, createWebHistory} from "vue-router"
-import VueClickAway from "vue3-click-away"
+import VueClickAway                     from "vue3-click-away"
+
 import LawyerDashboard from "./page/lawyer/Dashboard.vue"
 import LawyerPlaybooks from "./page/lawyer/Playbooks.vue"
-import LawyerContracts from "./page/lawyer/Contracts.vue"
 import SalesContracts  from "./page/sales/Contracts.vue"
 import CustomerAccept  from "./page/customer/Accept.vue"
-import Split      from "./component/Split.vue"
-import Skeleton   from "./component/Skeleton.vue"
-import Command    from "./component/Command.vue"
-import Section    from "./component/Section.vue"
-import Storyboard from "./component/Storyboard.vue"
-import Chat       from "./component/Chat.vue"
-import App from "./App.vue"
+import Split           from "./component/Split.vue"
+import Skeleton        from "./component/Skeleton.vue"
+import Command         from "./component/Command.vue"
+import Section         from "./component/Section.vue"
+import Storyboard      from "./component/Storyboard.vue"
+import Chat            from "./component/Chat.vue"
+import App             from "./App.vue"
 
 const routes = [
   {path: "/",                 redirect: "/lawyer"},
