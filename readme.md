@@ -10,4 +10,16 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO
 
+  * lawyer script - remove reveals of irrelevant clauses
+  * lawyer script - use shared if appropriate
+  * sales script - use shared if appropriate
   * customer script
+    - save accept/reject state so we can display appropriate conclusion
+
+# TODO - NEXT PHASE
+
+  * extract and share title and sections (separate out shown state into separate map - like values)
+  * share state between stories so they react appropriately
+  * show saved agreements
+  * allow sales and lawyer to review approved/rejected agreement
+  * indicate some kind of negotiation

@@ -21,7 +21,7 @@ class Story {
     this.sections  = config.sections || []
     this.messages  = []
     this.highlight = null
-    this.values    = {}
+    this.values    = config.values || {}
     this.answering = false
   }
 

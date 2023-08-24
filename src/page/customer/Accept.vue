@@ -1,7 +1,7 @@
 <script setup>
-import none from "../../story/none"
+import story from "../../story/customer"
 </script>
 
 <template>
-  <Storyboard :story="none" avatar="customer" />
+  <Storyboard :story="story" avatar="customer" />
 </template>

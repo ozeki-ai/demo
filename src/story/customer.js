@@ -1,194 +1,95 @@
-const REVEAL_PAUSE = 1200
-const TODAY = (new Date()).toLocaleDateString()
-const COMPANY_NAME = "Acme, Inc"
-const COMPANY_ADDRESS = "100 Main Street, Springfield, OH"
+import shared from "../shared"
 
 export default function story() {
   return {
     title: "MUTUAL NON-DISCLOSURE AGREEMENT",
 
+    values: {
+      agreementDate: shared.TODAY,
+      companyName: shared.COMPANY_NAME,
+      companyAddress: shared.COMPANY_ADDRESS,
+      counterpartyName: shared.COUNTERPARTY_NAME,
+      counterpartyIncorporationState: shared.COUNTERPARTY_INCORPORATION_STATE,
+      counterpartyAddress: shared.COUNTERPARTY_ADDRESS,
+      businessPurpose: shared.GENERIC_BUSINESS_PURPOSE,
+      term: shared.ONE_YEAR_TERM,
+    },
+
     script: [
       {
         type: "chat",
-        content: "Ok, let's generate an NDA for your customer. I will ask you some questions to fill in the blanks in this agreement..."
-      },
-      {
-        type: "highlight",
-        id: "agreementDate"
+        content: `Please review this mutual NDA between your company <b>${shared.COUNTERPARTY_NAME}</b> and supplier <b>${shared.COMPANY_NAME}</b>`
       },
       {
         type: "chat",
-        content: `Starting with the <b>agreementDate</b>. Shall we use today's date ${TODAY}?`
-      },
-      {
-        type: "answer"
-      },
-      {
-        type: "value",
-        id: "agreementDate",
-        value: TODAY
-      },
-      {
-        type: "highlight",
-        id: "companyName",
-      },
-      {
-        type: "chat",
-        content: `Shall I use the default <b>companyName</b> and <b>companyAddress</b>?`
-      },
-      {
-        type: "answer"
-      },
-      {
-        type: "value",
-        id: "companyName",
-        value: COMPANY_NAME
-      },
-      {
-        type: "value",
-        id: "companyAddress",
-        value: COMPANY_ADDRESS
-      },
-      {
-        type: "highlight",
-        id: "counterpartyName",
-      },
-      {
-        type: "chat",
-        content: `Who is the counterparty to this agreement?`
-      },
-      {
-        type: "answer",
-      },
-      {
-        type: "value",
-        id: "counterpartyName",
-        value: (story) => story.lastAnswer
-      },
-      {
-        type: "highlight",
-        id: "counterpartyIncorporationState"
-      },
-      {
-        type: "chat",
-        content: "In which state is the counterparty incorporated?"
-      },
-      {
-        type: "answer"
-      },
-      {
-        type: "value",
-        id: "counterpartyIncorporationState",
-        value: (story) => story.lastAnswer
-      },
-      {
-        type: "highlight",
-        id: "counterpartyAddress",
-      },
-      {
-        type: "chat",
-        content: "What is the counterparty address?",
-      },
-      {
-        type: "answer"
-      },
-      {
-        type: "value",
-        id: "counterpartyAddress",
-        value: (story) => story.lastAnswer
-      },
-      {
-        type: "highlight",
-        id: "businessPurpose",
-      },
-      {
-        type: "chat",
-        content: "Please choose one of the following business purposes:"
-      },
-      {
-        type: "chat",
-        chatter: false,
-        content: `
-          <ul>
-            <li><b>generic</b>: a business opportunity of mutual interest and benefit</li>
-            <li><b>specific</b>: selling widgets</li>
-          </ul>
-        `
+        content: "Do you accept the <b>purpose</b> of this agreement?",
       },
       {
         type: "answer",
         matches: [
-          { re: /.*(generic|first|one|1).*/,                  answer: "a business opportunity of mutual interest and benefit" },
-          { re: /.*(specific|second|two|2|selling|widget).*/, answer: "selling widgets" },
+          { re: /\b(yes|y|yup)\b/i, answer: "yes", next: "purpose-yes" },
+          { re: /\b(no|n|nope)\b/i, answer: "no",  next: "purpose-no" },
         ]
       },
       {
-        type: "value",
-        id: "businessPurpose",
-        value: (story) => story.lastAnswer,
+        label: "purpose-yes",
+        type: "chat",
+        content: "<b>Purpose</b> accepted",
+        next: "end-purpose"
       },
       {
-        type: "highlight",
-        id: "none",
+        label: "purpose-no",
+        type: "chat",
+        content: "<b>Purpose</b> rejected. Can you tell us the reason?"
+      },
+      {
+        type: "answer"
       },
       {
         type: "chat",
-        content: "Since this is just a demo, I'm going to gloss over a few clauses. Let me know when you are ready to continue..."
+        content: "Thank you. I'll let the team at ${shared.COMPANY_NAME} know.",
+        next: "end-purpose",
       },
       {
-        type: "answer",
+        label: "end-purpose",
+        type: "chat",
+        content: "Do you accept the <b>term and duration</b> of this agreement?",
       },
       {
         type: "reveal",
-        section: "term"
-      },
-      {
-        type: "highlight",
-        id: "term"
-      },
-      {
-        type: "chat",
-        content: "Please choose one of the following allowed terms:"
-      },
-      {
-        type: "chat",
-        chatter: false,
-        content: `
-          <ul>
-            <li>one year</b></li>
-            <li>two years</b></li>
-            <li>three years</b></li>
-          </ul>
-        `
+        section: "term",
       },
       {
         type: "answer",
         matches: [
-          { re: /.*(one|1).*/, answer: "one year" },
-          { re: /.*(two|2).*/, answer: "two years" },
-          { re: /.*(three|3).*/, answer: "three years" },
+          { re: /\b(yes|y|yup)\b/i, answer: "yes", next: "term-yes" },
+          { re: /\b(no|n|nope)\b/i, answer: "no",  next: "term-no" },
         ]
       },
       {
-        type: "value",
-        id: "term",
-        value: (story) => story.lastAnswer,
+        label: "term-yes",
+        type: "chat",
+        content: "<b>Term</b> accepted",
+        next: "end-term"
+      },
+      {
+        label: "term-no",
+        type: "chat",
+        content: "<b>Term</b> rejected. Can you tell us the reason?"
+      },
+      {
+        type: "answer"
       },
       {
         type: "chat",
-        content: "Again, since this is just a demo, I'm going to gloss over the remaining clauses. Let me know when you are ready to continue..."
+        content: "Thank you. I'll let the team at ${shared.COMPANY_NAME} know.",
+        next: "end-term",
       },
       {
-        type: "answer",
-      },
-      {
+        label: "end-term",
         type: "chat",
-        content: "<b>Congratulations</b>, you have generated your NDA contract.",
+        content: "Thank you for completing this agreement",
       },
-      {
-        type: "scroll",
-        to: "top"
-      }
     ],
 
     sections: [
@@ -335,6 +236,7 @@ export default function story() {
       {
         id: "term",
         number: 5,
+        show: true,
         title: "TERM AND DURATION",
         content: [
           "This Agreement will commence on the date first set forth above and will remain in effect for ",
