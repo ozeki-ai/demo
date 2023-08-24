@@ -1,4 +1,5 @@
 import parse from "../util/parse"
+import shared from "../shared"
 
 const REVEAL_PAUSE = 1200
 
@@ -19,7 +20,7 @@ export default function story() {
         content: `
           The <b>business purpose</b> clause restricts the use of the disclosed confidential information to uses within the purpose.
           A generic description would be
-          <em>"a business opportunity of mutual interest and benefit"</em>.
+          <em>"${shared.GENERIC_BUSINESS_PURPOSE}"</em>.
         ` 
       },
       {
@@ -38,7 +39,7 @@ export default function story() {
         label: "generic-business-purpose-yes",
         type: "strategy",
         section: "purpose",
-        content: `Allow generic [<em>businessPurpose</em>] <em>"a business opportunity of mutual interest and benefit"`,
+        content: `Allow generic [<em>businessPurpose</em>] <em>"${shared.GENERIC_BUSINESS_PURPOSE}"`,
       },
       {
         type: "chat",
@@ -74,9 +75,6 @@ export default function story() {
       },
       {
         type: "answer",
-        matches: [
-          { re: /.*/i },
-        ],
       },
       {
         type: "strategy",
@@ -106,57 +104,10 @@ export default function story() {
       },
       {
         type: "answer",
-        matches: [
-          { re: /.*/i }
-        ]
       },
       {
         type: "chat",
-        content: "Ok, The <b>first section</b> introduces the universal NDA.",
-      },
-      {
-        label: "reveal-unda",
-        type: "reveal",
-        section: "unda",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "The <b>second section</b> defines confidential information.",
-        append: true,
-      },
-      {
-        label: "reveal-confidential-information",
-        type: "reveal",
-        section: "confidential-information",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "The <b>third section</b> defines any exclusions to the confidential information.",
-        append: true,
-      },
-      {
-        label: "reveal-exclusions",
-        type: "reveal",
-        section: "exclusions",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "The <b>fourth section</b> defines the parties obligations to maintain confidentiality.",
-        append: true,
-      },
-      {
-        label: "reveal-confidentiality-obligation",
-        type: "reveal",
-        section: "confidentiality-obligation",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "The <b>fifth section</b> defines the agreements term and duration.",
-        append: true,
+        content: "Let's skip ahead to the <b>terms and duration</b>."
       },
       {
         label: "reveal-term",
@@ -211,62 +162,14 @@ export default function story() {
       },
       {
         type: "answer",
-        matches: [
-          { re: /.*/i }
-        ]
       },
       {
         type: "chat",
-        content: "The <b>sixth section</b> defines how to return confidential property.",
-      },
-      {
-        type: "reveal",
-        section: "return-of-property",
-        wait: REVEAL_PAUSE,
+        content: "<b>Congratulations</b>, that completes the definition for your mutual NDA playbook.",
       },
       {
         type: "chat",
-        content: "The <b>seventh section</b> defines the parties obligations.",
-        append: true
-      },
-      {
-        type: "reveal",
-        section: "obligation",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "The <b>eighth section</b> defines any warranties.",
-        append: true
-      },
-      {
-        type: "reveal",
-        section: "warranties",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "The <b>ninth section</b> defines the remedies applied if the agreement is broken.",
-        append: true
-      },
-      {
-        type: "reveal",
-        section: "remedies",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "The <b>final section</b> contains the choice of law and venue.",
-        append: true
-      },
-      {
-        type: "reveal",
-        section: "misc",
-        wait: REVEAL_PAUSE,
-      },
-      {
-        type: "chat",
-        content: "<hr><b>Congratulations</b>, that completes the definition for your mutual NDA playbook.",
+        content: `Now switch user to <b>Sam Sales</b> and see what it's like to generate a contract using a playbook.`,
       },
       {
         type: "scroll",

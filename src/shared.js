@@ -8,4 +8,6 @@ export default {
   GENERIC_BUSINESS_PURPOSE: "a business opportunity of mutual interest and benefit",
   SPECIFIC_BUSINESS_PURPOSE: "selling widgets",
   ONE_YEAR_TERM: "one year",
+  TWO_YEAR_TERM: "two years",
+  THREE_YEAR_TERM: "three years",
 }

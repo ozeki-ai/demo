@@ -1,7 +1,4 @@
-const REVEAL_PAUSE = 1200
-const TODAY = (new Date()).toLocaleDateString()
-const COMPANY_NAME = "Acme, Inc"
-const COMPANY_ADDRESS = "100 Main Street, Springfield, OH"
+import shared from "../shared"
 
 export default function story() {
   return {
@@ -18,7 +15,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: `Starting with the <b>agreementDate</b>. Shall we use today's date ${TODAY}?`
+        content: `Starting with the <b>agreementDate</b>. Shall we use today's date ${shared.TODAY}?`
       },
       {
         type: "answer"
@@ -26,7 +23,7 @@ export default function story() {
       {
         type: "value",
         id: "agreementDate",
-        value: TODAY
+        value: shared.TODAY
       },
       {
         type: "highlight",
@@ -42,12 +39,12 @@ export default function story() {
       {
         type: "value",
         id: "companyName",
-        value: COMPANY_NAME
+        value: shared.COMPANY_NAME
       },
       {
         type: "value",
         id: "companyAddress",
-        value: COMPANY_ADDRESS
+        value: shared.COMPANY_ADDRESS
       },
       {
         type: "highlight",
@@ -110,16 +107,16 @@ export default function story() {
         chatter: false,
         content: `
           <ul>
-            <li><b>generic</b>: a business opportunity of mutual interest and benefit</li>
-            <li><b>specific</b>: selling widgets</li>
+            <li><b>generic</b>: ${shared.GENERIC_BUSINESS_PURPOSE}</li>
+            <li><b>specific</b>: ${shared.SPECIFIC_BUSINESS_PURPOSE}</li>
           </ul>
         `
       },
       {
         type: "answer",
         matches: [
-          { re: /.*(generic|first|one|1).*/,                  answer: "a business opportunity of mutual interest and benefit" },
-          { re: /.*(specific|second|two|2|selling|widget).*/, answer: "selling widgets" },
+          { re: /.*(generic|first|one|1).*/,                  answer: shared.GENERIC_BUSINESS_PURPOSE },
+          { re: /.*(specific|second|two|2|selling|widget).*/, answer: shared.SPECIFIC_BUSINESS_PURPOSE },
         ]
       },
       {
@@ -155,18 +152,18 @@ export default function story() {
         chatter: false,
         content: `
           <ul>
-            <li>one year</b></li>
-            <li>two years</b></li>
-            <li>three years</b></li>
+            <li>${shared.ONE_YEAR_TERM}</b></li>
+            <li>${shared.TWO_YEAR_TERM}</b></li>
+            <li>${shared.THREE_YEAR_TERM}</b></li>
           </ul>
         `
       },
       {
         type: "answer",
         matches: [
-          { re: /.*(one|1).*/, answer: "one year" },
-          { re: /.*(two|2).*/, answer: "two years" },
-          { re: /.*(three|3).*/, answer: "three years" },
+          { re: /.*(one|1).*/,   answer: shared.ONE_YEAR_TERM },
+          { re: /.*(two|2).*/,   answer: shared.TWO_YEAR_TERM },
+          { re: /.*(three|3).*/, answer: shared.THREE_YEAR_TERM },
         ]
       },
       {
@@ -184,6 +181,10 @@ export default function story() {
       {
         type: "chat",
         content: "<b>Congratulations</b>, you have generated your NDA contract.",
+      },
+      {
+        type: "chat",
+        content: `Now switch user to <b>Colin Customer</b> and see what it's like to negotiate an Ozeki contract.`,
       },
       {
         type: "scroll",

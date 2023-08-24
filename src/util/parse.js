@@ -20,7 +20,6 @@ function range(value) {
 
   let match, low, high;
   if (match = reRange.exec(value)) {
-    console.log(match)
     low  = parseInt(match[1])
     high = parseInt(match[3])
   } else if (match = reSingle.exec(value)) {
