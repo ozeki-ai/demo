@@ -1,6 +1,7 @@
 import {createApp} from "vue"
 import {createRouter, createWebHistory} from "vue-router"
 import VueClickAway from "vue3-click-away"
+import LawyerDashboard from "./page/lawyer/Dashboard.vue"
 import LawyerPlaybooks from "./page/lawyer/Playbooks.vue"
 import LawyerContracts from "./page/lawyer/Contracts.vue"
 import SalesContracts  from "./page/sales/Contracts.vue"
@@ -14,8 +15,8 @@ import Chat       from "./component/Chat.vue"
 import App from "./App.vue"
 
 const routes = [
-  {path: "/",                 redirect: "/lawyer/playbooks"},
-  {path: "/lawyer",           redirect: "/lawyer/playbooks"},
+  {path: "/",                 redirect: "/lawyer"},
+  {path: "/lawyer",           name: "lawyer-dashboard", component: LawyerDashboard},
   {path: "/sales",            redirect: "/sales/contracts"},
   {path: "/customer",         redirect: "/customer/accept"},
   {path: "/lawyer/playbooks", name: "lawyer-playbooks", component: LawyerPlaybooks},

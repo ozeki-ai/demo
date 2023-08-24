@@ -43,6 +43,15 @@ watch(
   async name => {
     hideMenus()
     switch(route.name) {
+      case "lawyer-dashboard":
+        avatar.value = "/src/assets/avatar-lawyer.png"
+        showBell.value = true
+        showSignout.value = true
+        links.value = [
+          {label: "Playbooks", href:"/lawyer/playbooks", style: "inactive"},
+          {label: "Contracts", href:"/lawyer/contracts", style: "inactive"},
+        ]
+        break;
       case "lawyer-playbooks":
         avatar.value = "/src/assets/avatar-lawyer.png"
         showBell.value = true
