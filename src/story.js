@@ -27,6 +27,7 @@ class Story {
   run(index) {
     this.index = index || 0
     this.command = this.script[this.index]
+    this.answering = false
     if (this.command) {
       switch (this.command.type) {
         case "chat":
@@ -43,6 +44,9 @@ class Story {
           break;
         case "reveal":
           this.revealSection(this.command)
+          break;
+        case "scroll":
+          this.scrollDocument(this.command)
           break;
       }
     }
@@ -63,7 +67,7 @@ class Story {
     const words = command.content.split(" ")
     if (!command.append) {
       const firstWord = words.shift()
-      this.pushRobotMessage(firstWord)
+      this.pushRobotMessage(firstWord, command.avatar)
     }
     const index = this.messages.length - 1
     const timer = setInterval(() => {
@@ -122,10 +126,11 @@ class Story {
   revealSection(command) {
     const section = this.sections.find((s) => s.id === command.section)
     if (section) {
+      const container = document.getElementById("document-view")
       const dom = document.getElementById(`section-${section.id}`)
       section.show = true
       nextTick(() => {
-        dom.parentElement.parentElement.scrollTo({
+        container.scrollTo({
           top: dom.offsetTop - 100,
           behavior: "smooth"
         })
@@ -134,11 +139,21 @@ class Story {
     this.next()
   }
 
-  pushRobotMessage(content) {
+  scrollDocument(command) {
+    const container = document.getElementById("document-view")
+    nextTick(() => {
+      container.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      })
+    })
+  }
+
+  pushRobotMessage(content, forceRobotAvatar) {
     const firstMessage = this.messages.length === 0
     const previousMessage = this.messages[this.messages.length-1]
     const previousMessageWasFromUser = previousMessage && previousMessage.user
-    const showRobotAvatar = firstMessage || previousMessageWasFromUser || false
+    const showRobotAvatar = firstMessage || forceRobotAvatar || previousMessageWasFromUser || false
     return this.messages.push({content: content, avatar: showRobotAvatar})
   }
 

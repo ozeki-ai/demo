@@ -30,8 +30,10 @@ const domid = computed(() => `section-${props.section.id}`)
 <div :id="domid" class="mb-8">
   <h2 v-if="section.title" class="title2">{{ section.number }}. {{ section.title }}</h2>
   <div v-if="section.show">
-    <span v-for="(item, index) in section.content" :key="index" v-html=html(item) class="prose" />
-    <div v-if="section.strategy" class="bg-yellow-100 text-yellow-900 border border-yellow-300 p-4 rounded-lg mt-4">
+    <div class="prose">
+      <span v-for="(item, index) in section.content" :key="index" v-html=html(item) />
+    </div>
+    <div v-if="section.strategy" class="bg-yellow-100 text-yellow-900 border border-yellow-300 p-4 rounded-lg mt-4 prose max-w-none">
       <div v-for="rule in section.strategy" v-html="rule"></div>
     </div>
   </div>

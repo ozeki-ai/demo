@@ -10,9 +10,5 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO
 
-  * reveal remaining clauses
-  * wrap up lawyer script
   * sales guy script
   * customer script
-
-  * need to be able to scroll document to highlight

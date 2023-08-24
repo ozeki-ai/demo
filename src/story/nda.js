@@ -1,5 +1,7 @@
 import parse from "../util/parse"
 
+const REVEAL_PAUSE = 1200
+
 function nda() {
   return {
     title: "MUTUAL NON-DISCLOSURE AGREEMENT",
@@ -79,7 +81,7 @@ function nda() {
       {
         type: "strategy",
         section: "purpose",
-        content: (story) => `Allow specific [<em>businessPurpose</em>] "${story.lastAnswer}"`,
+        content: (story) => `Allow specific [<em>businessPurpose</em>] <em>"${story.lastAnswer}"</em>`,
         next: "complete-purpose"
       },
       {
@@ -116,7 +118,7 @@ function nda() {
         label: "reveal-unda",
         type: "reveal",
         section: "unda",
-        wait: 2000,
+        wait: REVEAL_PAUSE,
       },
       {
         type: "chat",
@@ -127,7 +129,7 @@ function nda() {
         label: "reveal-confidential-information",
         type: "reveal",
         section: "confidential-information",
-        wait: 2000,
+        wait: REVEAL_PAUSE,
       },
       {
         type: "chat",
@@ -138,7 +140,7 @@ function nda() {
         label: "reveal-exclusions",
         type: "reveal",
         section: "exclusions",
-        wait: 2000,
+        wait: REVEAL_PAUSE,
       },
       {
         type: "chat",
@@ -149,7 +151,7 @@ function nda() {
         label: "reveal-confidentiality-obligation",
         type: "reveal",
         section: "confidentiality-obligation",
-        wait: 2000,
+        wait: REVEAL_PAUSE,
       },
       {
         type: "chat",
@@ -167,7 +169,8 @@ function nda() {
       },
       {
         type: "chat",
-        content: "The <b>term</b> dictates the length of the agreement and how long you may convey confidential information. It does not necessarily dictate how long the confidential information will be protected after the agreement. How long do you want the term to last?"
+        content: "The <b>term</b> dictates the length of the agreement and how long you may convey confidential information. It does not necessarily dictate how long the confidential information will be protected after the agreement. How long do you want the term to last?",
+        avatar: true,
       },
       {
         type: "answer",
@@ -187,13 +190,84 @@ function nda() {
           for (let n = low ; n <= high ; n++) {
             options.push(`${n} ${n === 1 ? duration : duration + "s"}`)
           }
-          return `<div class="prose">Allowed Term Options:<ul>${options.map((o) => `<li>${o}</li>`).join("")}</ul></div>`
+          return `Allowed Term Options:<ul>${options.map((o) => `<li>${o}</li>`).join("")}</ul>`
         }
       },
       {
         type: "chat",
-        content: "More to come..."
+        content: "Great, we've added the allowed terms to the applied strategy"
       },
+      {
+        type: "highlight",
+        id: "none"
+      },
+      {
+        type: "chat",
+        content: "Again, since this is just a demo, we can skip forward past the remaining clauses. Let me know when you are ready to continue...",
+      },
+      {
+        type: "answer",
+        matches: [
+          { re: /.*/i }
+        ]
+      },
+      {
+        type: "chat",
+        content: "The <b>sixth section</b> defines how to return confidential property.",
+      },
+      {
+        type: "reveal",
+        section: "return-of-property",
+        wait: REVEAL_PAUSE,
+      },
+      {
+        type: "chat",
+        content: "The <b>seventh section</b> defines the parties obligations.",
+        append: true
+      },
+      {
+        type: "reveal",
+        section: "obligation",
+        wait: REVEAL_PAUSE,
+      },
+      {
+        type: "chat",
+        content: "The <b>eighth section</b> defines any warranties.",
+        append: true
+      },
+      {
+        type: "reveal",
+        section: "warranties",
+        wait: REVEAL_PAUSE,
+      },
+      {
+        type: "chat",
+        content: "The <b>ninth section</b> defines the remedies applied if the agreement is broken.",
+        append: true
+      },
+      {
+        type: "reveal",
+        section: "remedies",
+        wait: REVEAL_PAUSE,
+      },
+      {
+        type: "chat",
+        content: "The <b>final section</b> contains the choice of law and venue.",
+        append: true
+      },
+      {
+        type: "reveal",
+        section: "misc",
+        wait: REVEAL_PAUSE,
+      },
+      {
+        type: "chat",
+        content: "<hr><b>Congratulations</b>, that completes the definition for your mutual NDA playbook.",
+      },
+      {
+        type: "scroll",
+        to: "top"
+      }
     ],
 
     sections: [
@@ -358,12 +432,12 @@ function nda() {
         number: 6,
         title: "RETURN OF PROPERTY",
         content: [`
-All documents and other tangible objects containing or representing
-Confidential Information that have been disclosed by either party to the
-other party, and all copies in the possession of the other party, are
-and will remain the property of the Disclosing Party. At the Disclosing
-Party’s request, the Receiving Party shall promptly return or destroy
-all of those documents or objects.`
+          All documents and other tangible objects containing or representing
+          Confidential Information that have been disclosed by either party to the
+          other party, and all copies in the possession of the other party, are
+          and will remain the property of the Disclosing Party. At the Disclosing
+          Party’s request, the Receiving Party shall promptly return or destroy
+          all of those documents or objects.`
         ]
       },
       {
@@ -371,24 +445,24 @@ all of those documents or objects.`
         number: 7,
         title: "NO OBLIGATION",
         content: [`
-Nothing in this agreement obligates either party to proceed with any
-transaction between them, and each party reserves the right, in its sole
-discretion, to terminate the discussions contemplated by this agreement
-concerning the business opportunity, if any, and to cease further
-disclosures, communications, or other activities under this agreement on
-written notice to the other party. Any commitment to proceed with a
-transaction will be set forth in a separate agreement signed by the
-parties.`
+          Nothing in this agreement obligates either party to proceed with any
+          transaction between them, and each party reserves the right, in its sole
+          discretion, to terminate the discussions contemplated by this agreement
+          concerning the business opportunity, if any, and to cease further
+          disclosures, communications, or other activities under this agreement on
+          written notice to the other party. Any commitment to proceed with a
+          transaction will be set forth in a separate agreement signed by the
+          parties.`
         ]
       },
       {
-        id: "warranty",
+        id: "warranties",
         number: 8,
         title: "NO WARRANTY",
         content: [`
-ALL CONFIDENTIAL INFORMATION IS PROVIDED “AS IS.” NEITHER PARTY MAKES
-ANY WARRANTIES, EXPRESS, IMPLIED, OR OTHERWISE, REGARDING THE ACCURACY,
-COMPLETENESS, OR PERFORMANCE OF ANY SUCH INFORMATION.`
+          ALL CONFIDENTIAL INFORMATION IS PROVIDED “AS IS.” NEITHER PARTY MAKES
+          ANY WARRANTIES, EXPRESS, IMPLIED, OR OTHERWISE, REGARDING THE ACCURACY,
+          COMPLETENESS, OR PERFORMANCE OF ANY SUCH INFORMATION.`
         ]
       },
       {
@@ -396,21 +470,21 @@ COMPLETENESS, OR PERFORMANCE OF ANY SUCH INFORMATION.`
         number: 9,
         title: "REMEDIES",
         content: [`
-Each party agrees that its obligations hereunder are necessary and
-reasonable in order to protect the disclosing party and the disclosing
-party’s business, and expressly agrees that monetary damages may be
-inadequate to compensate the disclosing party for any breach by the
-receiving party of any covenants and agreements set forth herein.
-Accordingly, each party agrees and acknowledges that any such violation
-or threatened violation may cause irreparable injury to the disclosing
-party and that, in addition to any other remedies that may be available,
-in law, in equity or otherwise, the disclosing party shall be entitled
-to seek injunctive relief against the threatened breach of this
-Agreement or the continuation of any such breach, without the necessity
-of proving actual damages or posting bond in order to obtain a
-preliminary injunction. However, this shall not modify or abridge a
-moving party’s obligation to demonstrate harm in order to obtain a
-permanent injunction.`
+          Each party agrees that its obligations hereunder are necessary and
+          reasonable in order to protect the disclosing party and the disclosing
+          party’s business, and expressly agrees that monetary damages may be
+          inadequate to compensate the disclosing party for any breach by the
+          receiving party of any covenants and agreements set forth herein.
+          Accordingly, each party agrees and acknowledges that any such violation
+          or threatened violation may cause irreparable injury to the disclosing
+          party and that, in addition to any other remedies that may be available,
+          in law, in equity or otherwise, the disclosing party shall be entitled
+          to seek injunctive relief against the threatened breach of this
+          Agreement or the continuation of any such breach, without the necessity
+          of proving actual damages or posting bond in order to obtain a
+          preliminary injunction. However, this shall not modify or abridge a
+          moving party’s obligation to demonstrate harm in order to obtain a
+          permanent injunction.`
         ]
       },
       {
@@ -418,16 +492,19 @@ permanent injunction.`
         number: 10,
         title: "MISCELLANEOUS",
         content: [`
-[loweralpha]
-. *Choice of Law.* The laws of the state of [choiceOfLaw] govern this
-agreement (without giving effect to its conflicts of law principles).
-
-. *Venue.* [Any suit to enforce this Agreement shall be brought
-exclusively in [venue] and the Parties hereby submit to the personal
-jurisdiction of such courts and waive any venue objection.] [The Parties
-irrevocably agree suit to enforce this Agreement shall be brought
-exclusively in the jurisdiction where the initial defendant in such
-action resides and waive any venue objection.]`
+          <ul>
+            <li>
+              <b>Choice of Law.</b> The laws of the state of [<em>choiceOfLaw</em>] govern this agreement (without giving effect to its conflicts of law principles).
+            </li>
+            <li>
+              <b>Venue.</b> [Any suit to enforce this Agreement shall be brought
+              exclusively in [<em>venue</em>] and the Parties hereby submit to the personal
+              jurisdiction of such courts and waive any venue objection.] [The Parties
+              irrevocably agree suit to enforce this Agreement shall be brought
+              exclusively in the jurisdiction where the initial defendant in such
+              action resides and waive any venue objection.]
+            </li>
+          </ul>`
         ]
       }
     ],
