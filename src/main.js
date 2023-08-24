@@ -16,11 +16,10 @@ import App from "./App.vue"
 
 const routes = [
   {path: "/",                 redirect: "/lawyer"},
-  {path: "/lawyer",           name: "lawyer-dashboard", component: LawyerDashboard},
   {path: "/sales",            redirect: "/sales/contracts"},
   {path: "/customer",         redirect: "/customer/accept"},
+  {path: "/lawyer",           name: "lawyer-dashboard", component: LawyerDashboard},
   {path: "/lawyer/playbooks", name: "lawyer-playbooks", component: LawyerPlaybooks},
-  {path: "/lawyer/contracts", name: "lawyer-contracts", component: LawyerContracts},
   {path: "/sales/contracts",  name: "sales-contracts",  component: SalesContracts},
   {path: "/customer/accept",  name: "customer-accept",  component: CustomerAccept},
 ]

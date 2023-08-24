@@ -48,8 +48,7 @@ watch(
         showBell.value = true
         showSignout.value = true
         links.value = [
-          {label: "Playbooks", href:"/lawyer/playbooks", style: "inactive"},
-          {label: "Contracts", href:"/lawyer/contracts", style: "inactive"},
+          {label: "Playbooks", href:"#", style: "active"},
         ]
         break;
       case "lawyer-playbooks":
@@ -57,17 +56,7 @@ watch(
         showBell.value = true
         showSignout.value = true
         links.value = [
-          {label: "Playbooks", href:"#",                 style: "active"},
-          {label: "Contracts", href:"/lawyer/contracts", style: "inactive"},
-        ]
-        break;
-      case "lawyer-contracts":
-        avatar.value = "/src/assets/avatar-lawyer.png"
-        showBell.value = true
-        showSignout.value = true
-        links.value = [
-          {label: "Playbooks", href: "/lawyer/playbooks", style: "inactive"},
-          {label: "Contracts", href: "#",                 style: "active"},
+          {label: "Playbooks", href:"#", style: "active"},
         ]
         break;
       case "sales-contracts":
