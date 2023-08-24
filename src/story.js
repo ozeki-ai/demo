@@ -16,9 +16,9 @@ const STEP_PAUSE = 100
 class Story {
 
   constructor(config) {
-    this.title     = config.title
-    this.script    = config.script
-    this.sections  = config.sections
+    this.title     = config.title    || "CONTRACT"
+    this.script    = config.script   || []
+    this.sections  = config.sections || []
     this.messages  = []
     this.highlight = null
     this.answering = false
@@ -86,13 +86,18 @@ class Story {
   }
 
   provideAnswer(answer) {
-    const match = this.command.matches.find((match) => {
-      if (match.re) {
-        return match.re.test(answer)
-      } else {
-        return false
-      }
-    })
+    let match
+    if (this.command.matches instanceof Function) {
+      match = this.command.matches(answer)
+    } else {
+      match = this.command.matches.find((match) => {
+        if (match.re) {
+          return match.re.test(answer)
+        } else {
+          return false
+        }
+      })
+    }
     if (match) {
       this.lastAnswer = match.answer || answer
       this.pushUserMessage(answer)

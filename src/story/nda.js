@@ -1,3 +1,5 @@
+import parse from "../util/parse"
+
 function nda() {
   return {
     title: "MUTUAL NON-DISCLOSURE AGREEMENT",
@@ -114,7 +116,7 @@ function nda() {
         label: "reveal-unda",
         type: "reveal",
         section: "unda",
-        wait: 2500,
+        wait: 2000,
       },
       {
         type: "chat",
@@ -125,7 +127,7 @@ function nda() {
         label: "reveal-confidential-information",
         type: "reveal",
         section: "confidential-information",
-        wait: 2500,
+        wait: 2000,
       },
       {
         type: "chat",
@@ -136,7 +138,7 @@ function nda() {
         label: "reveal-exclusions",
         type: "reveal",
         section: "exclusions",
-        wait: 2500,
+        wait: 2000,
       },
       {
         type: "chat",
@@ -147,7 +149,7 @@ function nda() {
         label: "reveal-confidentiality-obligation",
         type: "reveal",
         section: "confidentiality-obligation",
-        wait: 2500,
+        wait: 2000,
       },
       {
         type: "chat",
@@ -158,7 +160,6 @@ function nda() {
         label: "reveal-term",
         type: "reveal",
         section: "term",
-        wait: 2500,
       },
       {
         type: "highlight",
@@ -166,7 +167,28 @@ function nda() {
       },
       {
         type: "chat",
-        content: "Ok, let's talk about the term"
+        content: "The <b>term</b> dictates the length of the agreement and how long you may convey confidential information. It does not necessarily dictate how long the confidential information will be protected after the agreement. How long do you want the term to last?"
+      },
+      {
+        type: "answer",
+        matches: (value) => {
+          const { low, high, duration } = parse.range(value)
+          return {
+            answer: { low, high, duration },
+          }
+        }
+      },
+      {
+        type: "strategy",
+        section: "term",
+        content: (story) => {
+          const {low, high, duration} = story.lastAnswer
+          const options = []
+          for (let n = low ; n <= high ; n++) {
+            options.push(`${n} ${n === 1 ? duration : duration + "s"}`)
+          }
+          return `<div class="prose">Allowed Term Options:<ul>${options.map((o) => `<li>${o}</li>`).join("")}</ul></div>`
+        }
       },
       {
         type: "chat",
