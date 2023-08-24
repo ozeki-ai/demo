@@ -16,13 +16,36 @@ function nda() {
       },
       {
         type: "answer",
+        matches: [
+          { re: /^(yes|y|yup)$/i, answer: "yes", step: 1 },
+          { re: /^(no|n|nope)$/i, answer: "no",  step: 2 },
+        ]
       },
-      { type: "chat", content: "more stuff here" },
-      { type: "chat", content: "more stuff here" },
-      { type: "chat", content: "more stuff here" },
-      { type: "chat", content: "more stuff here" },
-      { type: "chat", content: "more stuff here" },
-      { type: "chat", content: "more stuff here" },
+      {
+        type: "chat",
+        content: `
+          <p>Great, we will allow the generic description for <b>businessPurpose</b></p>
+          <!--<p>Do you also want to add an specific <b>businessPurpose</b>?</p>-->
+        `,
+        step: 2
+      },
+      // { type: "answer",
+      //   matches: [
+      //     { re: /^(yes|y|yup)$/i, answer: "yes", step: 1 },
+      //     { re: /^(no|n|nope)$/i, answer: "no",  step: 3 },
+      //   ]
+      // },
+      // {
+      //   type: "chat",
+      //   content: "Ok, enter your specific <b>businessPurpose</b>"
+      // },
+      // { type: "answer",
+      //   matches: [
+      //     { any: true, step: 1 },
+      //   ]
+      // },
+      { type: "chat", content: "Ok, we won't allow the generic description for <b>businessPurpose</b>"  },
+      { type: "chat", content: "Let's wrap up" },
     ],
     sections: [
       {

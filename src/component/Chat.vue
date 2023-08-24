@@ -17,14 +17,18 @@ watch(
 </script>
 <template>
   <div ref="scrollview">
-    <div v-for="message in messages" class="flex gap-4 mb-4">
+    <div v-for="message in messages">
       <template v-if="message.user">
-        <div v-html="message.content" class="mt-2 flex-1 text-right"></div>
-        <img class="h-10 w-10 rounded-full" :src="avatar">
+        <div class="flex gap-4 mb-4 bg-gray-100 text-dark p-2 rounded-xl">
+          <div v-html="message.content" class="mt-2 flex-1 text-right"></div>
+          <img class="h-10 w-10 rounded-full" :src="avatar">
+        </div>
       </template>
       <template v-else>
-        <i class="fas fa-robot fa-2x text-gray-400"></i>
-        <div v-html="message.content" class="mt-2 flex-1 prose text-light"></div>
+        <div class="flex gap-4 mb-4">
+          <i class="fas fa-robot text-3xl text-gray-400"></i>
+          <div v-html="message.content" class="flex-1 prose text-light pr-10"></div>
+        </div>
       </template>
     </div>
   </div>

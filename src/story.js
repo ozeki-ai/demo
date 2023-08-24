@@ -2,7 +2,7 @@ import {reactive} from "vue"
 
 function run(storyFn) {
   const story = reactive(new Story(storyFn()))
-  story.step()
+  story.run()
   return story
 }
 
@@ -17,28 +17,33 @@ class Story {
     this.messages  = []
     this.highlight = null
     this.answering = false
-    this.index     = -1
   }
 
-  step() {
+  run(index) {
     setTimeout(() => {
-      this.index = this.index + 1
-      if (this.index < this.script.length) {
-        const command = this.script[this.index]
-        switch (command.type) {
+      this.index   = index || 0
+      this.command = this.script[this.index]
+      if (this.command) {
+        switch (this.command.type) {
           case "chat":
-            this.performChat(command)
+            this.performChat(this.command)
             break;
           case "highlight":
-            this.performHighlight(command)
+            this.performHighlight(this.command)
             break;
           case "answer":
-            this.collectAnswer(command)
+            this.collectAnswer(this.command)
             break;
         }
       }
     }, 250)
   }
+
+  step(n) {
+    const next = this.index + (n || this.command.step || 1)
+    this.run(next)
+  }
+
 
   performChat(command) {
     const words = command.content.split(" ")
@@ -63,9 +68,20 @@ class Story {
   }
 
   provideAnswer(answer) {
-    this.messages.push({content: `TODO: HANDLE ANSWER: ${answer}`})
-    this.answering = false
-    this.step()
+    const match = this.command.matches.find((match) => {
+      if (match.re) {
+        return match.re.test(answer)
+      } else {
+        return false
+      }
+    })
+    if (match) {
+      this.messages.push({user: true, content: answer})
+      this.step(match.step)
+    } else {
+      this.messages.push({user: true, content: answer})
+      this.messages.push({content: "Sorry, I don't understand that answer"})
+    }
   }
 
 }

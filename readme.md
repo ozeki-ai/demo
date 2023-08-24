@@ -10,4 +10,7 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO
 
-  * some kind of markdown rendering ?
+  * allow step to label to make it easier
+  * need to be able to scroll document to highlight
+  * show (and scroll) next section
+  * repeat until done
