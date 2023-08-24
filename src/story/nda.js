@@ -68,14 +68,25 @@ function nda() {
         type: "chat",
         content: `What is the specific <b>businessPurpose</b>?`,
       },
-      { type: "answer",
+      {
+        type: "answer",
         matches: [
           { re: /.*/i },
         ],
+      },
+      {
+        type: "strategy",
+        section: "purpose",
+        content: (story) => `Allow specific [<em>businessPurpose</em>] "${story.lastAnswer}"`,
         next: "wrap-up"
       },
       {
         label: "specific-business-purpose-no",
+        type: "strategy",
+        section: "purpose",
+        content: "Disallow specific [<em>businessPurpose</em>]",
+      },
+      {
         type: "chat",
         content: "Ok, we won't add any specific descriptions for <b>businessPurpose</b>",
         next: "wrap-up"

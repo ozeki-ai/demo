@@ -10,6 +10,10 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO
 
+  * reveal next section(s)
+  * ask Q about terms
+  * wrap-up lawyer script
+  * sales guy script
+  * customer script
+
   * need to be able to scroll document to highlight
-  * show (and scroll) next section
-  * repeat until done

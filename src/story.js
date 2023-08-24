@@ -87,6 +87,7 @@ class Story {
       }
     })
     if (match) {
+      this.lastAnswer = match.answer || answer
       this.pushUserMessage(answer)
       this.next(match.next)
     } else {
@@ -98,7 +99,11 @@ class Story {
   saveStrategy(command) {
     const section = this.sections.find((s) => s.id === command.section)
     section.strategy = section.strategy || []
-    section.strategy.push(command.content)
+    if (typeof command.content === "string") {
+      section.strategy.push(command.content)
+    } else if (command.content instanceof Function) {
+      section.strategy.push(command.content(this))
+    }
     this.next()
   }
 
