@@ -10,7 +10,6 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO
 
-  * need to show strategy in document
   * need to be able to scroll document to highlight
   * show (and scroll) next section
   * repeat until done

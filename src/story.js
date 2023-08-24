@@ -39,6 +39,9 @@ class Story {
           case "answer":
             this.collectAnswer(this.command)
             break;
+          case "strategy":
+            this.saveStrategy(this.command)
+            break;
         }
       }
     }, STEP_INTERVAL)
@@ -90,6 +93,13 @@ class Story {
       this.pushUserMessage(answer)
       this.pushRobotMessage("Sorry, I don't understand that answer")
     }
+  }
+
+  saveStrategy(command) {
+    const section = this.sections.find((s) => s.id === command.section)
+    section.strategy = section.strategy || []
+    section.strategy.push(command.content)
+    this.next()
   }
 
   pushRobotMessage(content) {

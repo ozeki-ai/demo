@@ -28,6 +28,9 @@ function html(item) {
   <h2 v-if="section.title" class="title2">{{ section.title }}</h2>
   <div v-if="section.show">
     <span v-for="(item, index) in section.content" :key="index" v-html=html(item) />
+    <div v-if="section.strategy" class="bg-yellow-100 text-yellow-900 border border-yellow-300 p-4 rounded-lg mt-4">
+      <div v-for="rule in section.strategy" v-html="rule"></div>
+    </div>
   </div>
   <Skeleton v-else />
 </div>

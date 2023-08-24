@@ -35,7 +35,7 @@ function chooseColors() {
   const gray    = {...twc.slate} // (ditto)
   const red     = {...twc.red}   // (ditto)
   const green   = {...twc.green} // (ditto)
-  const yellow  = {...twc.amber} // (ditto)
+  const yellow  = {...twc.yellow} // (ditto)
 
   const colors = {
     transparent: 'transparent',

@@ -32,12 +32,22 @@ function nda() {
       },
       {
         label: "generic-business-purpose-yes",
+        type: "strategy",
+        section: "purpose",
+        content: `Allow generic [<em>businessPurpose</em>] <em>"a business opportunity of mutual interest and benefit"`,
+      },
+      {
         type: "chat",
         content: `Great, we will allow the generic description for <b>businessPurpose</b>.`,
         next: "specific-business-purpose"
       },
       {
         label: "generic-business-purpose-no",
+        type: "strategy",
+        section: "purpose",
+        content: `Disallow generic [<em>businessPurpose</em>]`,
+      },
+      {
         type: "chat",
         content: "Ok, we won't allow the generic description for <b>businessPurpose</b>",
         next: "specific-business-purpose"
@@ -79,6 +89,7 @@ function nda() {
 
     sections: [
       {
+        id: "preamble",
         show: true,
         content: [
           `This mutual nondisclosure agreement is entered into on `,
@@ -97,12 +108,13 @@ function nda() {
         ]
       },
       {
+        id: "purpose",
         show: true,
         content: [
           `The parties wish to explore `,
           { id: "businessPurpose", type: "purpose" },
           ` (<b>"Purpose"</b>) and, in connection with the Purpose, may disclose to each other certain confidential technical and business information that the disclosing party desires the receiving party to treat as confidential.`,
-        ]
+        ],
       },
       {
         show: true,
