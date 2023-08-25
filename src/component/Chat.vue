@@ -1,8 +1,10 @@
 <script setup>
 import {ref, computed, watch} from "vue"
 import debounce from "../util/debounce"
+import {avatarUrl} from "../avatar"
+
 const props = defineProps(["messages", "avatar"])
-const avatar = `/src/assets/avatar-${props.avatar}.png`
+const avatar = avatarUrl(props.avatar)
 const scrollview = ref(null)
 watch(
   props.messages,

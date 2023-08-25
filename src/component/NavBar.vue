@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { avatarUrl } from '../avatar'
 
 // hacked together version of tailwindui navbar - https://tailwindui.com/components/application-ui/navigation/navbars
 //   - hard coded some links and styles based off route.name
@@ -24,7 +25,7 @@ const route = useRoute();
 const links = ref([])
 const showBell = ref(true)
 const showSignout = ref(true)
-const avatar = ref("/src/assets/avatar-lawyer.png")
+const avatar = ref(avatarUrl.lawyer)
 const styles = {
   tab: {
     active:   "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium cursor-default",
@@ -44,7 +45,7 @@ watch(
     hideMenus()
     switch(route.name) {
       case "lawyer-dashboard":
-        avatar.value = "/src/assets/avatar-lawyer.png"
+        avatar.value = avatarUrl.lawyer
         showBell.value = true
         showSignout.value = true
         links.value = [
@@ -52,7 +53,7 @@ watch(
         ]
         break;
       case "lawyer-playbooks":
-        avatar.value = "/src/assets/avatar-lawyer.png"
+        avatar.value = avatarUrl.lawyer
         showBell.value = true
         showSignout.value = true
         links.value = [
@@ -60,7 +61,7 @@ watch(
         ]
         break;
       case "sales-dashboard":
-        avatar.value = "/src/assets/avatar-sales.png"
+        avatar.value = avatarUrl.sales
         showBell.value = true
         showSignout.value = true
         links.value = [
@@ -68,7 +69,7 @@ watch(
         ]
         break;
       case "sales-contracts":
-        avatar.value = "/src/assets/avatar-sales.png"
+        avatar.value = avatarUrl.sales
         showBell.value = true
         showSignout.value = true
         links.value = [
@@ -76,7 +77,7 @@ watch(
         ]
         break;
       case "customer-accept":
-        avatar.value = "/src/assets/avatar-customer.png"
+        avatar.value = avatarUrl.customer
         showBell.value = false
         showSignout.value = false
         links.value = []
@@ -133,15 +134,15 @@ watch(
           <div v-if="showProfileMenu" v-click-away="hideMenus" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
             <!-- Active: "bg-gray-100", Not Active: "" -->
             <a href="/lawyer" class="flex items-center gap-4 px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
-              <img class="h-10 w-10 rounded-full" src="/src/assets/avatar-lawyer.png" alt="">
+              <img class="h-10 w-10 rounded-full" :src="avatarUrl.lawyer" alt="">
               <span>Lisa Lawyer</span>
             </a>
             <a href="/sales" class="flex items-center gap-4 px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
-              <img class="h-10 w-10 rounded-full" src="/src/assets/avatar-sales.png" alt="">
+              <img class="h-10 w-10 rounded-full" :src="avatarUrl.sales" alt="">
               <span>Sam Sales</span>
             </a>
             <a href="/customer" class="flex items-center gap-4 px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
-              <img class="h-10 w-10 rounded-full" src="/src/assets/avatar-customer.png" alt="">
+              <img class="h-10 w-10 rounded-full" :src="avatarUrl.customer" alt="">
               <span>Colin Customer</span>
             </a>
             <template v-if="showSignout">
