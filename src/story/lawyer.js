@@ -31,7 +31,7 @@ export default function story() {
         label: "generic-business-purpose",
         type: "answer",
         matches: [
-          { re: /\b(yes|y|yup)\b/i, answer: "yes", next: "generic-business-purpose-yes" },
+          { re: /\b(yes|y|yup|sure)\b/i, answer: "yes", next: "generic-business-purpose-yes" },
           { re: /\b(no|n|nope)\b/i, answer: "no",  next: "generic-business-purpose-no" },
         ]
       },
@@ -64,7 +64,7 @@ export default function story() {
       },
       { type: "answer",
         matches: [
-          { re: /\b(yes|y|yup)\b/i, answer: "yes", next: "specific-business-purpose-yes" },
+          { re: /\b(yes|y|yup|sure)\b/i, answer: "yes", next: "specific-business-purpose-yes" },
           { re: /\b(no|n|nope)\b/i, answer: "no",  next: "specific-business-purpose-no" },
         ]
       },

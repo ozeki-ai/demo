@@ -45,7 +45,7 @@ export default function story() {
       {
         type: "answer",
         matches: [
-          { re: /\b(yes|y|yup)\b/i, answer: "yes", next: "preamble-yes" },
+          { re: /\b(yes|y|yup|sure)\b/i, answer: "yes", next: "preamble-yes" },
           { re: /\b(no|n|nope)\b/i, answer: "no",  next: "preamble-no" },
         ]
       },
@@ -94,7 +94,7 @@ export default function story() {
       {
         type: "answer",
         matches: [
-          { re: /\b(yes|y|yup)\b/i, answer: "yes", next: "purpose-yes" },
+          { re: /\b(yes|y|yup|sure)\b/i, answer: "yes", next: "purpose-yes" },
           { re: /\b(no|n|nope)\b/i, answer: "no",  next: "purpose-no" },
         ]
       },
@@ -147,7 +147,7 @@ export default function story() {
       {
         type: "answer",
         matches: [
-          { re: /\b(yes|y|yup)\b/i, answer: "yes", next: "term-yes" },
+          { re: /\b(yes|y|yup|sure)\b/i, answer: "yes", next: "term-yes" },
           { re: /\b(no|n|nope)\b/i, answer: "no",  next: "term-no" },
         ]
       },
