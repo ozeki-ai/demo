@@ -1,5 +1,18 @@
 import shared from "../shared"
 
+function markSection(story, id, success) {
+  let section
+  if (section = story.sections.find((s) => s.id === id)) {
+    if (success === true) {
+      section.klass = "border-r-12 pr-4 border-green-500"
+    } else if (success === false) {
+      section.klass = "border-r-12 pr-4 border-red-500"
+    } else {
+      section.klass = "border-r-12 pr-4 border-yellow-500"
+    }
+  }
+}
+
 export default function story() {
   return {
     title: "MUTUAL NON-DISCLOSURE AGREEMENT",
@@ -21,6 +34,60 @@ export default function story() {
         content: `Please review this mutual NDA between your company <b>${shared.COUNTERPARTY_NAME}</b> and supplier <b>${shared.COMPANY_NAME}</b>`
       },
       {
+        label: "start-preamble",
+        type: "exec",
+        exec: (story) => markSection(story, "preamble")
+      },
+      {
+        type: "chat",
+        content: "Do you accept the <b>preamble</b> of this agreement?",
+      },
+      {
+        type: "answer",
+        matches: [
+          { re: /\b(yes|y|yup)\b/i, answer: "yes", next: "preamble-yes" },
+          { re: /\b(no|n|nope)\b/i, answer: "no",  next: "preamble-no" },
+        ]
+      },
+      {
+        label: "preamble-yes",
+        type: "value",
+        id: "preambleAccepted",
+        value: true
+      },
+      {
+        type: "exec",
+        exec: (story) => markSection(story, "preamble", true)
+      },
+      {
+        type: "chat",
+        content: "<b>Preamble</b> accepted",
+        next: "start-purpose"
+      },
+      {
+        label: "preamble-no",
+        type: "exec",
+        exec: (story) => markSection(story, "preamble", false)
+      },
+      {
+        type: "chat",
+        content: "<b>Preamble</b> rejected. Can you tell us the reason?"
+      },
+      {
+        type: "answer"
+      },
+      {
+        type: "value",
+        id: "preambleRejected",
+        value: (story) => story.lastAnswer,
+        next: "start-purpose",
+      },
+      {
+        label: "start-purpose",
+        type: "exec",
+        exec: (story) => markSection(story, "purpose")
+      },
+      {
         type: "chat",
         content: "Do you accept the <b>purpose</b> of this agreement?",
       },
@@ -33,12 +100,25 @@ export default function story() {
       },
       {
         label: "purpose-yes",
+        type: "value",
+        id: "purposeAccepted",
+        value: true
+      },
+      {
+        type: "exec",
+        exec: (story) => markSection(story, "purpose", true)
+      },
+      {
         type: "chat",
         content: "<b>Purpose</b> accepted",
-        next: "end-purpose"
+        next: "start-term"
       },
       {
         label: "purpose-no",
+        type: "exec",
+        exec: (story) => markSection(story, "purpose", false)
+      },
+      {
         type: "chat",
         content: "<b>Purpose</b> rejected. Can you tell us the reason?"
       },
@@ -46,12 +126,17 @@ export default function story() {
         type: "answer"
       },
       {
-        type: "chat",
-        content: "Thank you. I'll let the team at ${shared.COMPANY_NAME} know.",
-        next: "end-purpose",
+        type: "value",
+        id: "purposeRejected",
+        value: (story) => story.lastAnswer,
+        next: "start-term",
       },
       {
-        label: "end-purpose",
+        label: "start-term",
+        type: "exec",
+        exec: (story) => markSection(story, "term")
+      },
+      {
         type: "chat",
         content: "Do you accept the <b>term and duration</b> of this agreement?",
       },
@@ -68,12 +153,25 @@ export default function story() {
       },
       {
         label: "term-yes",
+        type: "value",
+        id: "termAccepted",
+        value: true,
+      },
+      {
+        type: "exec",
+        exec: (story) => markSection(story, "term", true)
+      },
+      {
         type: "chat",
         content: "<b>Term</b> accepted",
-        next: "end-term"
+        next: "conclusion"
       },
       {
         label: "term-no",
+        type: "exec",
+        exec: (story) => markSection(story, "term", false)
+      },
+      {
         type: "chat",
         content: "<b>Term</b> rejected. Can you tell us the reason?"
       },
@@ -81,15 +179,53 @@ export default function story() {
         type: "answer"
       },
       {
-        type: "chat",
-        content: "Thank you. I'll let the team at ${shared.COMPANY_NAME} know.",
-        next: "end-term",
+        type: "value",
+        id: "termRejected",
+        value: (story) => story.lastAnswer,
+        next: "conclusion",
       },
       {
-        label: "end-term",
-        type: "chat",
-        content: "Thank you for completing this agreement",
+        label: "conclusion",
+        type: "value",
+        id: "conclusion",
+        value: (story) => {
+          const {preambleAccepted, purposeAccepted, termAccepted, preambleRejected, purposeRejected, termRejected } = story.values
+          if (preambleAccepted && purposeAccepted && termAccepted) {
+            return `
+              <b>Thank you for accepting this agreement</b>.
+              This is normally where we'd have you sign something, but since this is just a demo we'll leave it here.
+            `
+          } else {
+            const items = []
+            if (preambleAccepted) {
+              items.push("<li>Preamble accepted</li>")
+            } else {
+              items.push(`<li>Preamble rejected: <em>"${preambleRejected}"</em></li>`)
+            }
+            if (purposeAccepted) {
+              items.push("<li>Purpose accepted</li>")
+            } else {
+              items.push(`<li>Purpose rejected: <em>"${purposeRejected}"</em></li>`)
+            }
+            if (termAccepted) {
+              items.push("<li>Term accepted</li>")
+            } else {
+              items.push(`<li>Term rejected: <em>"${termRejected}"</em></li>`)
+            }
+            return `
+              <p><b>It looks like we couldn't agree on terms.</b></p>
+              <ul>${items.join("")}</ul>
+              <p>But don't worry, our team will consider your reasons and get back to you as soon as possible.</p>
+            `
+          }
+        }
       },
+      {
+        type: "chat",
+        content: (story) => story.values.conclusion,
+        chatter: false
+      },
+
     ],
 
     sections: [

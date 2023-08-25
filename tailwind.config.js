@@ -18,7 +18,11 @@ export default {
       spacing: {
         '112': '28rem',
         '128': '32rem'
-      }
+      },
+      borderWidth: {
+        '12': '12px',
+        '16': '16px',
+      },
     },
   },
   plugins: [

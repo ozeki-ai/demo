@@ -8,11 +8,6 @@ A scripted demo of some ideas regarding the Ozeki platform.
 > npm run build    # build release
 ```
 
-# TODO
-
-  * customer script
-    - save accept/reject state so we can display appropriate conclusion
-
 # TODO - NEXT PHASE
 
   * extract and share title and sections (separate out shown state into separate map - like values)

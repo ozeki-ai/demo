@@ -52,6 +52,9 @@ class Story {
         case "scroll":
           this.scrollDocument(this.command)
           break;
+        case "exec":
+          this.executeCustomCommand(this.command)
+          break;
       }
     }
   }
@@ -68,11 +71,12 @@ class Story {
   }
 
   performChat(command) {
+    const content = (command.content instanceof Function ? command.content(this) : command.content)
     if (command.chatter === false) {
-      this.pushRobotMessage(command.content, command.avatar)
+      this.pushRobotMessage(content, command.avatar)
       this.next()
     } else {
-      const words = command.content.split(" ")
+      const words = content.split(" ")
       if (!command.append) {
         const firstWord = words.shift()
         this.pushRobotMessage(firstWord, command.avatar)
@@ -167,6 +171,11 @@ class Story {
         behavior: "smooth"
       })
     })
+  }
+
+  executeCustomCommand(command) {
+    const target = command.exec(this)
+    this.next(target)
   }
 
   pushRobotMessage(content, forceRobotAvatar) {

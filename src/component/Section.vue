@@ -39,7 +39,7 @@ const domid = computed(() => `section-${props.section.id}`)
 <template>
 <div :id="domid" class="mb-8">
   <h2 v-if="section.title" class="title2">{{ section.number }}. {{ section.title }}</h2>
-  <div v-if="section.show">
+  <div v-if="section.show" :class="section.klass">
     <div class="prose">
       <span v-for="(item, index) in section.content" :key="index" v-html=html(item) />
     </div>
