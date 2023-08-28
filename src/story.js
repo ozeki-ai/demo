@@ -1,4 +1,5 @@
 import {reactive, nextTick} from "vue"
+import store from "./store"
 
 function run(storyFn) {
   const story = reactive(new Story(storyFn()))
@@ -19,7 +20,6 @@ class Story {
     this.title     = config.title    || "CONTRACT"
     this.script    = config.script   || []
     this.document  = config.document || { sections: [] }
-    this.values    = config.values   || {}
     this.revealed  = config.revealed || {}
     this.classes   = config.classes  || {}
     this.messages  = []
@@ -35,6 +35,9 @@ class Story {
       switch (this.command.type) {
         case "chat":
           this.performChat(this.command)
+          break;
+        case "goto":
+          this.goto(this.command)
           break;
         case "highlight":
           this.performHighlight(this.command)
@@ -95,6 +98,12 @@ class Story {
     }
   }
 
+  goto(command) {
+    if (command.goto instanceof Function) {
+      this.next(command.goto(this))
+    }
+  }
+
   performHighlight(command) {
     this.highlight = command.id
     this.next()
@@ -120,7 +129,7 @@ class Story {
       match = { answer: answer }
     }
     if (match) {
-      this.lastAnswer = match.answer || answer
+      store[this.command.key || "last"] = match.hasOwnProperty("answer") ? match.answer : answer
       this.pushUserMessage(answer)
       this.next(match.next)
     } else {
@@ -142,9 +151,9 @@ class Story {
 
   setValue(command) {
     if (command.value instanceof Function) {
-      this.values[command.id] = command.value(this)
+      store[command.id] = command.value(this)
     } else {
-      this.values[command.id] = command.value
+      store[command.id] = command.value
     }
     this.next()
   }

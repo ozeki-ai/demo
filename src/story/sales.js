@@ -1,7 +1,21 @@
-import shared from "../shared"
+import store from "../store"
 import nda from "../document/nda"
 
 export default function story() {
+
+  const allowedBusinessPurpose = []
+  if (store.allowGenericBusinessPurpose) {
+    allowedBusinessPurpose.push({key: "generic", value: store.GENERIC_BUSINESS_PURPOSE})
+  }
+  if (store.allowSpecificBusinessPurpose) {
+    allowedBusinessPurpose.push({key: "specific", value: store.specificBusinessPurpose})
+  }
+
+  const allowedTerms = []
+  for (let {length, label} of store.allowedTerms) {
+    allowedTerms.push({key: length, label: label})
+  }
+
   return {
     document: nda,
     revealed: {
@@ -10,6 +24,19 @@ export default function story() {
       therefore: true,
     },
     script: [
+      {
+        type: "exec",
+        exec: (story) => {
+          store.agreementDate = null
+          store.companyName = null
+          store.companyAddress = null
+          store.counterpartyName = null
+          store.counterpartyIncorporationState = null
+          store.counterpartyAddress = null
+          store.businessPurpose = null
+          store.term = null
+        }
+      },
       {
         type: "chat",
         content: "Ok, let's generate an NDA for your customer. I will ask you some questions to fill in the blanks in this agreement..."
@@ -20,15 +47,14 @@ export default function story() {
       },
       {
         type: "chat",
-        content: `Starting with the <b>agreementDate</b>. Shall we use today's date ${shared.TODAY}?`
+        content: `Starting with the <b>agreementDate</b>. Shall we use today's date ${store.TODAY}?`
       },
       {
-        type: "answer"
-      },
-      {
-        type: "value",
-        id: "agreementDate",
-        value: shared.TODAY
+        type: "answer",
+        key: "agreementDate",
+        matches: [
+          { re: /\b(yes|y|yup|sure)\b/i, answer: store.TODAY },
+        ]
       },
       {
         type: "highlight",
@@ -39,17 +65,16 @@ export default function story() {
         content: `Shall I use the default <b>companyName</b> and <b>companyAddress</b>?`
       },
       {
-        type: "answer"
-      },
-      {
-        type: "value",
-        id: "companyName",
-        value: shared.COMPANY_NAME
+        type: "answer",
+        key: "companyName",
+        matches: [
+          { re: /\b(yes|y|yup|sure)\b/i, answer: store.COMPANY_NAME },
+        ]
       },
       {
         type: "value",
         id: "companyAddress",
-        value: shared.COMPANY_ADDRESS
+        value: store.COMPANY_ADDRESS
       },
       {
         type: "highlight",
@@ -61,11 +86,7 @@ export default function story() {
       },
       {
         type: "answer",
-      },
-      {
-        type: "value",
-        id: "counterpartyName",
-        value: (story) => story.lastAnswer
+        key: "counterpartyName",
       },
       {
         type: "highlight",
@@ -76,12 +97,8 @@ export default function story() {
         content: "In which state is the counterparty incorporated?"
       },
       {
-        type: "answer"
-      },
-      {
-        type: "value",
-        id: "counterpartyIncorporationState",
-        value: (story) => story.lastAnswer
+        type: "answer",
+        key: "counterpartyIncorporationState",
       },
       {
         type: "highlight",
@@ -92,12 +109,8 @@ export default function story() {
         content: "What is the counterparty address?",
       },
       {
-        type: "answer"
-      },
-      {
-        type: "value",
-        id: "counterpartyAddress",
-        value: (story) => story.lastAnswer
+        type: "answer",
+        key: "counterpartyAddress",
       },
       {
         type: "highlight",
@@ -110,24 +123,20 @@ export default function story() {
       {
         type: "chat",
         chatter: false,
-        content: `
-          <ul>
-            <li><b>generic</b>: ${shared.GENERIC_BUSINESS_PURPOSE}</li>
-            <li><b>specific</b>: ${shared.SPECIFIC_BUSINESS_PURPOSE}</li>
-          </ul>
-        `
+        content: (story) => {
+          const items = allowedBusinessPurpose.map(({key, value}) => `<ul><b>${key}</b>: ${value}</ul>`)
+          return `<ul>${items.join("")}</ul>`
+        },
       },
       {
         type: "answer",
-        matches: [
-          { re: /.*(generic|first|one|1).*/,                  answer: shared.GENERIC_BUSINESS_PURPOSE },
-          { re: /.*(specific|second|two|2|selling|widget).*/, answer: shared.SPECIFIC_BUSINESS_PURPOSE },
-        ]
-      },
-      {
-        type: "value",
-        id: "businessPurpose",
-        value: (story) => story.lastAnswer,
+        key: "businessPurpose",
+        matches: allowedBusinessPurpose.map(({key, value}) => {
+          return {
+            re: new RegExp(`.*${key}.*`, "gi"),
+            answer: value,
+          }
+        })
       },
       {
         type: "highlight",
@@ -155,26 +164,24 @@ export default function story() {
       {
         type: "chat",
         chatter: false,
-        content: `
-          <ul>
-            <li>${shared.ONE_YEAR_TERM}</b></li>
-            <li>${shared.TWO_YEAR_TERM}</b></li>
-            <li>${shared.THREE_YEAR_TERM}</b></li>
-          </ul>
-        `
+        content: (story) => {
+          const items = allowedTerms.map(({key, label}) => `<li>${label}</li>`)
+          return `<ul>${items.join("")}</ul>`
+        }
       },
       {
         type: "answer",
-        matches: [
-          { re: /.*(one|1).*/,   answer: shared.ONE_YEAR_TERM },
-          { re: /.*(two|2).*/,   answer: shared.TWO_YEAR_TERM },
-          { re: /.*(three|3).*/, answer: shared.THREE_YEAR_TERM },
-        ]
+        key: "term",
+        matches: allowedTerms.map(({key, label}) => {
+          return {
+            re: new RegExp(`.*${key}.*`, "gi"),
+            answer: label,
+          }
+        })
       },
       {
-        type: "value",
-        id: "term",
-        value: (story) => story.lastAnswer,
+        type: "chat",
+        content: (story) => `You chose a term of ${store.term}.`
       },
       {
         type: "chat",

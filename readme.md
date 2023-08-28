@@ -10,7 +10,9 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO - NEXT PHASE
 
-  * share state between stories so they react appropriately
+  * remove "your profile" - add a reset demo option to the menu
+  * don't let sam continue unless a playbook has been defined
+  * don't let colin continue unless a contract has been generated
   * show saved agreements
   * allow sales and lawyer to review approved/rejected agreement
   * indicate some kind of negotiation

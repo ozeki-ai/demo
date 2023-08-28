@@ -1,5 +1,6 @@
 <script setup>
 import {computed} from "vue"
+import store from "../store"
 const props = defineProps({
   story: {
     type: Object,
@@ -16,7 +17,7 @@ function html(item) {
     return item
   } else {
     let label, value
-    if (value = props.story.values[item.id]) {
+    if (value = store[item.id]) {
       label = `<mark class="bg-yellow-100">${value}</mark>`
     } else {
       label = `[<em>${item.id}</em>]`

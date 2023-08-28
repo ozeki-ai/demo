@@ -1,4 +1,4 @@
-import shared from "../shared"
+import store from "../store"
 import nda from "../document/nda"
 
 function markSection(story, id, success) {
@@ -25,21 +25,10 @@ export default function story() {
       term: true,
     },
 
-    values: {
-      agreementDate: shared.TODAY,
-      companyName: shared.COMPANY_NAME,
-      companyAddress: shared.COMPANY_ADDRESS,
-      counterpartyName: shared.COUNTERPARTY_NAME,
-      counterpartyIncorporationState: shared.COUNTERPARTY_INCORPORATION_STATE,
-      counterpartyAddress: shared.COUNTERPARTY_ADDRESS,
-      businessPurpose: shared.GENERIC_BUSINESS_PURPOSE,
-      term: shared.ONE_YEAR_TERM,
-    },
-
     script: [
       {
         type: "chat",
-        content: `Please review this mutual NDA between your company <b>${shared.COUNTERPARTY_NAME}</b> and supplier <b>${shared.COMPANY_NAME}</b>`
+        content: (story) => `Please review this mutual NDA between your company <b>${store.counterpartyName}</b> and supplier <b>${store.COMPANY_NAME}</b>`
       },
       {
         label: "start-preamble",
@@ -52,18 +41,24 @@ export default function story() {
       },
       {
         type: "answer",
+        key: "preambleAccepted",
         matches: [
-          { re: /\b(yes|y|yup|sure)\b/i, answer: "yes", next: "preamble-yes" },
-          { re: /\b(no|n|nope)\b/i, answer: "no",  next: "preamble-no" },
+          { re: /\b(yes|y|yup|sure)\b/i, answer: true  },
+          { re: /\b(no|n|nope)\b/i,      answer: false },
         ]
       },
       {
-        label: "preamble-yes",
-        type: "value",
-        id: "preambleAccepted",
-        value: true
+        type: "goto",
+        goto: (story) => {
+          if (store.preambleAccepted) {
+            return "preamble-yes"
+          } else {
+            return "preamble-no"
+          }
+        }
       },
       {
+        label: "preamble-yes",
         type: "exec",
         exec: (story) => markSection(story, "preamble", true)
       },
@@ -82,12 +77,8 @@ export default function story() {
         content: "<b>Preamble</b> rejected. Can you tell us the reason?"
       },
       {
-        type: "answer"
-      },
-      {
-        type: "value",
-        id: "preambleRejected",
-        value: (story) => story.lastAnswer,
+        type: "answer",
+        key: "preambleRejected",
         next: "start-purpose",
       },
       {
@@ -101,18 +92,24 @@ export default function story() {
       },
       {
         type: "answer",
+        key: "purposeAccepted",
         matches: [
-          { re: /\b(yes|y|yup|sure)\b/i, answer: "yes", next: "purpose-yes" },
-          { re: /\b(no|n|nope)\b/i, answer: "no",  next: "purpose-no" },
+          { re: /\b(yes|y|yup|sure)\b/i, answer: true  },
+          { re: /\b(no|n|nope)\b/i,      answer: false },
         ]
       },
       {
-        label: "purpose-yes",
-        type: "value",
-        id: "purposeAccepted",
-        value: true
+        type: "goto",
+        goto: (story) => {
+          if (store.purposeAccepted) {
+            return "purpose-yes"
+          } else {
+            return "purpose-no"
+          }
+        }
       },
       {
+        label: "purpose-yes",
         type: "exec",
         exec: (story) => markSection(story, "purpose", true)
       },
@@ -131,12 +128,8 @@ export default function story() {
         content: "<b>Purpose</b> rejected. Can you tell us the reason?"
       },
       {
-        type: "answer"
-      },
-      {
-        type: "value",
-        id: "purposeRejected",
-        value: (story) => story.lastAnswer,
+        type: "answer",
+        key: "purposeRejected",
         next: "start-term",
       },
       {
@@ -154,18 +147,24 @@ export default function story() {
       },
       {
         type: "answer",
+        key: "termAccepted",
         matches: [
-          { re: /\b(yes|y|yup|sure)\b/i, answer: "yes", next: "term-yes" },
-          { re: /\b(no|n|nope)\b/i, answer: "no",  next: "term-no" },
+          { re: /\b(yes|y|yup|sure)\b/i, answer: true  },
+          { re: /\b(no|n|nope)\b/i,      answer: false },
         ]
       },
       {
-        label: "term-yes",
-        type: "value",
-        id: "termAccepted",
-        value: true,
+        type: "goto",
+        goto: (story) => {
+          if (store.termAccepted) {
+            return "term-yes"
+          } else {
+            return "term-no"
+          }
+        }
       },
       {
+        label: "term-yes",
         type: "exec",
         exec: (story) => markSection(story, "term", true)
       },
@@ -184,12 +183,8 @@ export default function story() {
         content: "<b>Term</b> rejected. Can you tell us the reason?"
       },
       {
-        type: "answer"
-      },
-      {
-        type: "value",
-        id: "termRejected",
-        value: (story) => story.lastAnswer,
+        type: "answer",
+        key: "termRejected",
         next: "conclusion",
       },
       {
@@ -197,7 +192,12 @@ export default function story() {
         type: "value",
         id: "conclusion",
         value: (story) => {
-          const {preambleAccepted, purposeAccepted, termAccepted, preambleRejected, purposeRejected, termRejected } = story.values
+          const preambleAccepted = store.preambleAccepted
+          const purposeAccepted  = store.purposeAccepted
+          const termAccepted     = store.termAccepted
+          const preambleRejected = store.preambleRejected
+          const purposeRejected  = store.purposeRejected
+          const termRejected     = store.termRejected
           if (preambleAccepted && purposeAccepted && termAccepted) {
             return `
               <b>Thank you for accepting this agreement</b>.
@@ -230,7 +230,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: (story) => story.values.conclusion,
+        content: (story) => store.conclusion,
         chatter: false
       },
 

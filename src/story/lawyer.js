@@ -1,5 +1,5 @@
 import parse from "../util/parse"
-import shared from "../shared"
+import store from "../store"
 import nda from "../document/nda"
 
 export default function story() {
@@ -24,7 +24,7 @@ export default function story() {
         content: `
           The <b>business purpose</b> clause restricts the use of the disclosed confidential information to uses within the purpose.
           A generic description would be
-          <em>"${shared.GENERIC_BUSINESS_PURPOSE}"</em>.
+          <em>"${store.GENERIC_BUSINESS_PURPOSE}"</em>.
         ` 
       },
       {
@@ -34,16 +34,27 @@ export default function story() {
       {
         label: "generic-business-purpose",
         type: "answer",
+        key: "allowGenericBusinessPurpose",
         matches: [
-          { re: /\b(yes|y|yup|sure)\b/i, answer: "yes", next: "generic-business-purpose-yes" },
-          { re: /\b(no|n|nope)\b/i, answer: "no",  next: "generic-business-purpose-no" },
+          { re: /\b(yes|y|yup|sure)\b/i, answer: true  },
+          { re: /\b(no|n|nope)\b/i,      answer: false },
         ]
+      },
+      {
+        type: "goto",
+        goto: (story) => {
+          if (store.allowGenericBusinessPurpose) {
+            return "generic-business-purpose-yes"
+          } else {
+            return "generic-business-purpose-no"
+          }
+        }
       },
       {
         label: "generic-business-purpose-yes",
         type: "strategy",
         section: "purpose",
-        content: `Allow generic [<em>businessPurpose</em>] <em>"${shared.GENERIC_BUSINESS_PURPOSE}"`,
+        content: `Allow generic [<em>businessPurpose</em>] <em>"${store.GENERIC_BUSINESS_PURPOSE}"`,
       },
       {
         type: "chat",
@@ -66,11 +77,23 @@ export default function story() {
         type: "chat",
         content: "Do you also want to add a specific <b>businessPurpose</b>?"
       },
-      { type: "answer",
+      {
+        type: "answer",
+        key: "allowSpecificBusinessPurpose",
         matches: [
-          { re: /\b(yes|y|yup|sure)\b/i, answer: "yes", next: "specific-business-purpose-yes" },
-          { re: /\b(no|n|nope)\b/i, answer: "no",  next: "specific-business-purpose-no" },
+          { re: /\b(yes|y|yup|sure)\b/i, answer: true  },
+          { re: /\b(no|n|nope)\b/i,      answer: false },
         ]
+      },
+      {
+        type: "goto",
+        goto: (story) => {
+          if (store.allowSpecificBusinessPurpose) {
+            return "specific-business-purpose-yes"
+          } else {
+            return "specific-business-purpose-no"
+          }
+        }
       },
       {
         label: "specific-business-purpose-yes",
@@ -79,11 +102,12 @@ export default function story() {
       },
       {
         type: "answer",
+        key: "specificBusinessPurpose",
       },
       {
         type: "strategy",
         section: "purpose",
-        content: (story) => `Allow specific [<em>businessPurpose</em>] <em>"${story.lastAnswer}"</em>`,
+        content: (story) => `Allow specific [<em>businessPurpose</em>] <em>"${store.specificBusinessPurpose}"</em>`,
         next: "complete-purpose"
       },
       {
@@ -133,23 +157,21 @@ export default function story() {
       },
       {
         type: "answer",
-        matches: (value) => {
-          const { low, high, duration } = parse.range(value)
-          return {
-            answer: { low, high, duration },
+        key: "allowedTerms",
+        matches: (answer) => {
+          const { low, high, duration } = parse.range(answer)
+          const allowedTerms = []
+          for (let n = low ; n <= high ; n++) {
+            allowedTerms.push({ length: n, duration: duration, label: `${n} ${n === 1 ? duration : duration + "s"}`})
           }
+          return { answer: allowedTerms }
         }
       },
       {
         type: "strategy",
         section: "term",
         content: (story) => {
-          const {low, high, duration} = story.lastAnswer
-          const options = []
-          for (let n = low ; n <= high ; n++) {
-            options.push(`${n} ${n === 1 ? duration : duration + "s"}`)
-          }
-          return `Allowed Term Options:<ul>${options.map((o) => `<li>${o}</li>`).join("")}</ul>`
+          return `Allowed Term Options:<ul>${store.allowedTerms.map(({label}) => `<li>${label}</li>`).join("")}</ul>`
         }
       },
       {
