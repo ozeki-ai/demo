@@ -14,8 +14,8 @@ const onanswer = (e) => story.provideAnswer(e)
       <Command :answering="story.answering" @answer="onanswer" />
     </template>
     <template v-slot:document>
-      <h1 class="title1 mb-6">{{ story.title }}</h1>
-      <Section v-for="section in story.sections" :section="section" :highlight="story.highlight" :values="story.values" />
+      <h1 class="title1 mb-6">{{ story.document.title }}</h1>
+      <Section v-for="section in story.document.sections" :story="story" :section="section" />
     </template>
   </Split>
 </template>

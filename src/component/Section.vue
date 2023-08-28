@@ -1,18 +1,14 @@
 <script setup>
 import {computed} from "vue"
 const props = defineProps({
-  section: {
+  story: {
     type: Object,
     required: true
   },
-  highlight: {
-    type: String,
-    default: "none",
-  },
-  values: {
+  section: {
     type: Object,
-    default: {}
-  },
+    required: true
+  }
 })
 
 function html(item) {
@@ -20,12 +16,12 @@ function html(item) {
     return item
   } else {
     let label, value
-    if (value = props.values[item.id]) {
+    if (value = props.story.values[item.id]) {
       label = `<mark class="bg-yellow-100">${value}</mark>`
     } else {
       label = `[<em>${item.id}</em>]`
     }
-    if (item.id === props.highlight) {
+    if (item.id === props.story.highlight) {
       return `<mark> ${label} </mark>`
     } else {
       return label
@@ -33,13 +29,15 @@ function html(item) {
   }
 }
 
+const revealed = computed(() => props.story.revealed[props.section.id])
 const domid = computed(() => `section-${props.section.id}`)
+const klass = computed(() => props.story.classes[props.section.id])
 
 </script>
 <template>
 <div :id="domid" class="mb-8">
   <h2 v-if="section.title" class="title2">{{ section.number }}. {{ section.title }}</h2>
-  <div v-if="section.show" :class="section.klass">
+  <div v-if="revealed" :class="klass">
     <div class="prose">
       <span v-for="(item, index) in section.content" :key="index" v-html=html(item) />
     </div>

@@ -18,10 +18,12 @@ class Story {
   constructor(config) {
     this.title     = config.title    || "CONTRACT"
     this.script    = config.script   || []
-    this.sections  = config.sections || []
+    this.document  = config.document || { sections: [] }
+    this.values    = config.values   || {}
+    this.revealed  = config.revealed || {}
+    this.classes   = config.classes  || {}
     this.messages  = []
     this.highlight = null
-    this.values    = config.values || {}
     this.answering = false
   }
 
@@ -128,7 +130,7 @@ class Story {
   }
 
   saveStrategy(command) {
-    const section = this.sections.find((s) => s.id === command.section)
+    const section = this.document.sections.find((s) => s.id === command.section)
     section.strategy = section.strategy || []
     if (typeof command.content === "string") {
       section.strategy.push(command.content)
@@ -148,11 +150,11 @@ class Story {
   }
 
   revealSection(command) {
-    const section = this.sections.find((s) => s.id === command.section)
+    const section = this.document.sections.find((s) => s.id === command.section)
     if (section) {
       const container = document.getElementById("document-view")
       const dom = document.getElementById(`section-${section.id}`)
-      section.show = true
+      this.revealed[section.id] = true
       nextTick(() => {
         container.scrollTo({
           top: dom.offsetTop - 100,
