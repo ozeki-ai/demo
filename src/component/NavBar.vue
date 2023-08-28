@@ -76,11 +76,18 @@ watch(
           {label: "Contracts", href: "#", style: "active"},
         ]
         break;
+      case "customer-email":
+        avatar.value = avatarUrl.customer
+        showBell.value = false
+        showSignout.value = false
+        links.value = []
+        break;
       case "customer-accept":
         avatar.value = avatarUrl.customer
         showBell.value = false
         showSignout.value = false
         links.value = []
+        break;
     }
   }
 )
