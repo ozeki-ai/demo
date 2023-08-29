@@ -24,6 +24,7 @@ class Story {
     this.classes   = config.classes  || {}
     this.messages  = []
     this.highlight = null
+    this.marked    = null
     this.answering = false
   }
 

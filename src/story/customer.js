@@ -11,6 +11,7 @@ function markSection(story, id, success) {
       story.classes[section.id] = "border-r-12 pr-4 border-red-500"
     } else {
       story.classes[section.id] = "border-r-12 pr-4 border-yellow-500"
+      story.marked = id
     }
   }
 }

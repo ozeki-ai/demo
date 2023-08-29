@@ -22,7 +22,11 @@ function html(item) {
   } else {
     let label, value
     if (value = store[item.id]) {
-      label = `<mark class="bg-yellow-100">${value}</mark>`
+      if (props.story.marked === props.section.id) {
+        label = `<mark class="bg-yellow-100">${value}</mark>`
+      } else {
+        label = value
+      }
     } else {
       label = `[<em>${item.id}</em>]`
     }
