@@ -67,7 +67,7 @@ export default function story() {
         label: "generic-business-purpose-yes",
         type: "strategy",
         section: "purpose",
-        content: `Allow generic [<em>businessPurpose</em>] <em>"${store.GENERIC_BUSINESS_PURPOSE}"`,
+        content: `<b>Allow generic</b>: <em>"${store.GENERIC_BUSINESS_PURPOSE}"`,
         next: "specific-business-purpose"
       },
       {
@@ -111,17 +111,31 @@ export default function story() {
       {
         type: "strategy",
         section: "purpose",
-        content: (story) => `Allow specific [<em>businessPurpose</em>] <em>"${store.specificBusinessPurpose}"</em>`,
-        next: "complete-purpose"
+        content: (story) => `<b>Allow specific</b>: <em>"${store.specificBusinessPurpose}"</em>`,
+        next: "purpose-preference"
       },
       {
         label: "specific-business-purpose-no",
         type: "strategy",
         section: "purpose",
         content: "Disallow specific [<em>businessPurpose</em>]",
+        next: "purpose-preference"
       },
       {
-        label: "complete-purpose",
+        label: "purpose-preference",
+        type: "chat",
+        content: "Which is the preferred business purpose?",
+      },
+      {
+        type: "answer",
+        key: "purposePreference"
+      },
+      {
+        type: "strategy",
+        section: "purpose",
+        content: (story) => `<b>Negotiation Preference</b>: <em>${store.purposePreference}</em>`
+      },
+      {
         type: "highlight",
         id: "none"
       },
@@ -167,6 +181,19 @@ export default function story() {
         content: (story) => {
           return `Allowed Term Options:<ul>${store.allowedTerms.map(({label}) => `<li>${label}</li>`).join("")}</ul>`
         }
+      },
+      {
+        type: "chat",
+        content: "Do you prefer shorter or longer terms?",
+      },
+      {
+        type: "answer",
+        key: "termPreference",
+      },
+      {
+        type: "strategy",
+        section: "term",
+        content: (story) => `<b>Negotiation Preference</b>: <em>prefer ${store.termPreference} terms</em>`,
       },
       {
         type: "chat",
