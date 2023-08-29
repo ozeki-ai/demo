@@ -16,6 +16,13 @@ if (store.purposeRejected && store.termRejected) {
 }
 suggestions.push({label: "Reject agreement outright", klass: "btn-danger", cta: "Reject agreement"})
 
+const reset = () => {
+  store.contractGenerated = false
+  store.contractAccepted = false
+  store.contractRejected = false
+  window.location.reload()
+}
+
 </script>
 <template>
   <div class="max-w-7xl mx-auto p-16">
@@ -46,6 +53,9 @@ suggestions.push({label: "Reject agreement outright", klass: "btn-danger", cta: 
               <tr><th class="text-left pr-4">Business Purpose</th><td>{{ store.businessPurpose }}</td></tr>
               <tr><th class="text-left pr-4">Term</th><td>{{ store.term }}</td></tr>
             </table>
+          </div>
+          <div class="text-right">
+            <button class="btn btn-link btn-xs" @click="reset">reset</button>
           </div>
         </div>
 

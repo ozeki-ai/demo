@@ -60,7 +60,7 @@ export default function story() {
         type: "answer",
         key: "preambleAccepted",
         matches: [
-          { re: /\b(yes|y|yup|sure)\b/i, answer: true  },
+          { re: /\b(ok|yes|y|yup|sure)\b/i, answer: true  },
           { re: /\b(no|n|nope)\b/i,      answer: false },
         ]
       },
@@ -111,7 +111,7 @@ export default function story() {
         type: "answer",
         key: "purposeAccepted",
         matches: [
-          { re: /\b(yes|y|yup|sure)\b/i, answer: true  },
+          { re: /\b(ok|yes|y|yup|sure)\b/i, answer: true  },
           { re: /\b(no|n|nope)\b/i,      answer: false },
         ]
       },
@@ -166,7 +166,7 @@ export default function story() {
         type: "answer",
         key: "termAccepted",
         matches: [
-          { re: /\b(yes|y|yup|sure)\b/i, answer: true  },
+          { re: /\b(ok|yes|y|yup|sure)\b/i, answer: true  },
           { re: /\b(no|n|nope)\b/i,      answer: false },
         ]
       },

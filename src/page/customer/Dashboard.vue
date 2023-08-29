@@ -5,6 +5,12 @@ const waitingForContract = !store.contractGenerated
 const alreadyAccepted = store.contractAccepted
 const alreadyRejected = store.contractRejected
 const readyForReview = !waitingForContract && !alreadyAccepted && !alreadyRejected
+
+const reset = () => {
+  store.contractAccepted = false
+  store.contractRejected = false
+  window.location.reload()
+}
 </script>
 <template>
 
@@ -37,6 +43,9 @@ const readyForReview = !waitingForContract && !alreadyAccepted && !alreadyReject
               <div v-if="store.purposeRejected"><b>Purpose</b>: {{ store.purposeRejected }}</div>
               <div v-if="store.termRejected"><b>Term</b>: {{ store.termRejected }}</div>
             </div>
+          </div>
+          <div v-if="alreadyAccepted || alreadyRejected" class="text-right">
+            <button class="btn btn-link btn-xs" @click="reset">reset</button>
           </div>
         </div>
       </div>
