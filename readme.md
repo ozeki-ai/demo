@@ -10,7 +10,6 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO - NEXT PHASE
 
-  * remove "your profile" - add a reset demo option to the menu
   * don't let sam continue unless a playbook has been defined
   * don't let colin continue unless a contract has been generated
   * show saved agreements

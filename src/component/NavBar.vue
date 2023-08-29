@@ -1,7 +1,8 @@
 <script setup>
-import { ref, watch, computed } from 'vue'
-import { useRoute } from 'vue-router'
-import { avatarUrl } from '../avatar'
+import { ref, watch, computed } from "vue"
+import { useRoute, useRouter } from "vue-router"
+import { avatarUrl } from "../avatar"
+import store from "../store"
 
 // hacked together version of tailwindui navbar - https://tailwindui.com/components/application-ui/navigation/navbars
 //   - hard coded some links and styles based off route.name
@@ -21,10 +22,11 @@ const hideMenus = () => {
   showMobileMenu.value = false
   showProfileMenu.value = false
 }
+const router = useRouter();
 const route = useRoute();
 const links = ref([])
 const showBell = ref(false)
-const showSignout = ref(false)
+const showReset = ref(false)
 const avatar = ref(null)
 const styles = {
   tab: {
@@ -39,6 +41,11 @@ const styles = {
 
 const hasLinks = computed(() => links.value.length > 0)
 
+const onreset = (e) => {
+  store.reset()
+  router.push({name: "login"})
+}
+
 watch(
   () => route.name,
   async name => {
@@ -47,7 +54,7 @@ watch(
       case "lawyer-dashboard":
         avatar.value = avatarUrl.lawyer
         showBell.value = true
-        showSignout.value = true
+        showReset.value = true
         links.value = [
           {label: "Playbooks", href:"#", style: "active"},
         ]
@@ -55,7 +62,7 @@ watch(
       case "lawyer-playbooks":
         avatar.value = avatarUrl.lawyer
         showBell.value = true
-        showSignout.value = true
+        showReset.value = true
         links.value = [
           {label: "Playbooks", href:"#", style: "active"},
         ]
@@ -63,7 +70,7 @@ watch(
       case "sales-dashboard":
         avatar.value = avatarUrl.sales
         showBell.value = true
-        showSignout.value = true
+        showReset.value = true
         links.value = [
           {label: "Contracts", href:"#", style: "active"},
         ]
@@ -71,7 +78,7 @@ watch(
       case "sales-contracts":
         avatar.value = avatarUrl.sales
         showBell.value = true
-        showSignout.value = true
+        showReset.value = true
         links.value = [
           {label: "Contracts", href: "#", style: "active"},
         ]
@@ -79,13 +86,13 @@ watch(
       case "customer-email":
         avatar.value = avatarUrl.customer
         showBell.value = false
-        showSignout.value = false
+        showReset.value = false
         links.value = []
         break;
       case "customer-accept":
         avatar.value = avatarUrl.customer
         showBell.value = false
-        showSignout.value = false
+        showReset.value = false
         links.value = []
         break;
     }
@@ -152,9 +159,9 @@ watch(
               <img class="h-10 w-10 rounded-full" :src="avatarUrl.customer" alt="">
               <span>Colin Customer</span>
             </a>
-            <template v-if="showSignout">
+            <template v-if="showReset">
               <hr>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</a>
+              <a @click.prevent="onreset" href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Reset Demo</a>
             </template>
           </div>
         </div>
