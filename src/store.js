@@ -15,6 +15,7 @@ store.TODAY = (new Date()).toLocaleDateString()
 store.COMPANY_NAME = "Acme, Inc"
 store.COMPANY_ADDRESS = "100 Main Street, Springfield, OH"
 store.GENERIC_BUSINESS_PURPOSE = "a business opportunity of mutual interest and benefit"
+store.MAGIC = "ozeki".split("").reverse().join("")
 
 window.store = store
 

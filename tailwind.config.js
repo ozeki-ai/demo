@@ -34,7 +34,7 @@ export default {
 //-------------------------------------------------------------------------------------------------
 
 function chooseColors() {
-  const primary = {...twc.stone} // NOTE: have to clone colors structs so they can be modified (in order to override DEFAULT below)
+  const primary = {...twc.indigo} // NOTE: have to clone colors structs so they can be modified (in order to override DEFAULT below)
   const blue    = {...twc.blue}  // (ditto)
   const gray    = {...twc.slate} // (ditto)
   const red     = {...twc.red}   // (ditto)

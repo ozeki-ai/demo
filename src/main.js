@@ -8,6 +8,7 @@ import SalesDashboard  from "./page/sales/Dashboard.vue"
 import SalesContracts  from "./page/sales/Contracts.vue"
 import CustomerEmail   from "./page/customer/Email.vue"
 import CustomerAccept  from "./page/customer/Accept.vue"
+import Login           from "./page/Login.vue"
 import Split           from "./component/Split.vue"
 import Skeleton        from "./component/Skeleton.vue"
 import Command         from "./component/Command.vue"
@@ -25,11 +26,18 @@ const routes = [
   {path: "/sales/contracts",  name: "sales-contracts",  component: SalesContracts},
   {path: "/customer/email",   name: "customer-email",   component: CustomerEmail},
   {path: "/customer/accept",  name: "customer-accept",  component: CustomerAccept},
+  {path: "/login",            name: "login",            component: Login},
 ]
 
 const router = createRouter({
   routes: routes,
   history: createWebHistory(),
+})
+
+router.beforeEach((to, from) => {
+  if (!store.loggedIn && (to.name !== "login")) {
+    return { name: "login" }
+  }
 })
 
 const app = createApp(App)

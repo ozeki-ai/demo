@@ -23,9 +23,9 @@ const hideMenus = () => {
 }
 const route = useRoute();
 const links = ref([])
-const showBell = ref(true)
-const showSignout = ref(true)
-const avatar = ref(avatarUrl.lawyer)
+const showBell = ref(false)
+const showSignout = ref(false)
+const avatar = ref(null)
 const styles = {
   tab: {
     active:   "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium cursor-default",
@@ -130,7 +130,7 @@ watch(
 
         <!-- Profile dropdown -->
         <div class="relative ml-3">
-          <div>
+          <div v-if="avatar">
             <button @click="toggleProfileMenu()" type="button" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only">Open user menu</span>
@@ -154,7 +154,6 @@ watch(
             </a>
             <template v-if="showSignout">
               <hr>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
               <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</a>
             </template>
           </div>
