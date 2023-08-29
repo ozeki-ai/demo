@@ -1,3 +1,4 @@
+import {useRouter} from "vue-router"
 import store from "../store"
 import nda from "../document/nda"
 
@@ -15,6 +16,7 @@ function markSection(story, id, success) {
 }
 
 export default function story() {
+  const router = useRouter()
   return {
     document: nda,
 
@@ -26,6 +28,20 @@ export default function story() {
     },
 
     script: [
+      {
+        type: "exec",
+        exec: (story) => {
+          store.preambleAccepted = null
+          store.preambleRejected = null
+          store.purposeAccepted = null
+          store.purposeRejected = null
+          store.termAccepted = null
+          store.termRejected = null
+          store.conclusion = null
+          store.contractAccepted = null
+          store.contractRejected = null
+        }
+      },
       {
         type: "chat",
         content: (story) => `Please review this mutual NDA between your company <b>${store.counterpartyName}</b> and supplier <b>${store.COMPANY_NAME}</b>`
@@ -201,7 +217,7 @@ export default function story() {
           if (preambleAccepted && purposeAccepted && termAccepted) {
             return `
               <b>Thank you for accepting this agreement</b>.
-              This is normally where we'd have you sign something, but since this is just a demo we'll leave it here.
+              This is normally where we'd have you sign something, but since this is just a demo we'll leave it here (ok to continue)...
             `
           } else {
             const items = []
@@ -223,7 +239,7 @@ export default function story() {
             return `
               <p><b>It looks like we couldn't agree on terms.</b></p>
               <ul>${items.join("")}</ul>
-              <p>But don't worry, our team will consider your reasons and get back to you as soon as possible.</p>
+              <p>But don't worry, our team will consider your reasons and get back to you as soon as possible (ok to continue)...</p>
             `
           }
         }
@@ -238,6 +254,15 @@ export default function story() {
         exec: (story) => {
           store.contractAccepted = store.preambleAccepted && store.purposeAccepted && store.termAccepted
           store.contractRejected = store.preambleRejected || store.purposeRejected || store.termRejected
+        }
+      },
+      {
+        type: "answer",
+      },
+      {
+        type: "exec",
+        exec: (story) => {
+          router.push({name: "customer-dashboard"})
         }
       }
     ],

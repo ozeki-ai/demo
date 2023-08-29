@@ -197,10 +197,6 @@ export default function story() {
         type: "answer",
       },
       {
-        type: "scroll",
-        to: "top"
-      },
-      {
         type: "exec",
         exec: (story) => {
           router.push({name: "lawyer-dashboard"})

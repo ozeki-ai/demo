@@ -1,7 +1,10 @@
+import {useRouter} from "vue-router"
 import store from "../store"
 import nda from "../document/nda"
 
 export default function story() {
+
+  const router = useRouter()
 
   const allowedBusinessPurpose = []
   if (store.allowGenericBusinessPurpose) {
@@ -27,6 +30,7 @@ export default function story() {
       {
         type: "exec",
         exec: (story) => {
+          store.contractGenerated = null
           store.agreementDate = null
           store.companyName = null
           store.companyAddress = null
@@ -47,7 +51,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: `Starting with the <b>agreementDate</b>. Shall we use today's date ${store.TODAY}?`
+        content: `Starting with the <b>agreementDate</b>. <span class='question'>Shall we use today's date ${store.TODAY}?</span>`
       },
       {
         type: "answer",
@@ -62,7 +66,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: `Shall I use the default <b>companyName</b> and <b>companyAddress</b>?`
+        content: `<span class='question'>Shall I use the default <b>companyName</b>?</span>`
       },
       {
         type: "answer",
@@ -82,7 +86,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: `Who is the counterparty to this agreement?`
+        content: `<span class='question'>Who is the counterparty to this agreement?</span>`
       },
       {
         type: "answer",
@@ -94,7 +98,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "In which state is the counterparty incorporated?"
+        content: "<span class='question'>In which state is the counterparty incorporated?</span>"
       },
       {
         type: "answer",
@@ -106,7 +110,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "What is the counterparty address?",
+        content: "<span class='question'>What is the counterparty address?</span>",
       },
       {
         type: "answer",
@@ -118,7 +122,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "Please choose one of the following business purposes:"
+        content: "<span class='question'>Please choose one of the following business purposes:</span>"
       },
       {
         type: "chat",
@@ -144,7 +148,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "Since this is just a demo, I'm going to gloss over a few clauses. Let me know when you are ready to continue..."
+        content: "<span class='skip-ahead'>Since this is just a demo, let's skip ahead to the <b>terms and duration</b> (ok to continue)..."
       },
       {
         type: "answer",
@@ -159,7 +163,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "Please choose one of the following allowed terms:"
+        content: "<span class='question'>Please choose one of the following allowed terms:</span>"
       },
       {
         type: "chat",
@@ -185,22 +189,18 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "Again, since this is just a demo, I'm going to gloss over the remaining clauses. Let me know when you are ready to continue..."
+        content: "<span class='skip-ahead'>Again, since this is just a demo, let's skip the remaining clauses (ok to continue)...</span>"
       },
       {
         type: "answer",
       },
       {
+        type: "highlight",
+        id: "none",
+      },
+      {
         type: "chat",
         content: "<b>Congratulations</b>, you have generated your NDA contract.",
-      },
-      {
-        type: "chat",
-        content: `Now switch user to <b>Colin Customer</b> and see what it's like to negotiate an Ozeki contract.`,
-      },
-      {
-        type: "scroll",
-        to: "top"
       },
       {
         type: "exec",
@@ -208,6 +208,19 @@ export default function story() {
           store.contractGenerated = true
         }
       },
+      {
+        type: "chat",
+        content: `Now switch user to <b>Colin Customer</b> and see what it's like to negotiate an Ozeki contract (ok to continue).`,
+      },
+      {
+        type: "answer",
+      },
+      {
+        type: "exec",
+        exec: (story) => {
+          router.push({name: "sales-dashboard"})
+        }
+      }
     ],
   }
 }
