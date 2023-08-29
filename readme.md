@@ -13,7 +13,6 @@ A scripted demo of some ideas regarding the Ozeki platform.
   * move strategy out of section and into store
   * show strategy on lawyer dashboard if playbookCompleted (and prevent new playbook)
   * show values on sales dashboard if contractGenerated (and prevent new contract)
-  * don't let colin continue unless contractGenerated
   * allow sales and lawyer to review approved/rejected agreement
   * indicate some kind of negotiation
 
