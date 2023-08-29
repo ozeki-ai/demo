@@ -10,9 +10,10 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO - NEXT PHASE
 
-  * don't let sam continue unless a playbook has been defined
-  * don't let colin continue unless a contract has been generated
-  * show saved agreements
+  * move strategy out of section and into store
+  * show strategy on lawyer dashboard if playbookCompleted (and prevent new playbook)
+  * show values on sales dashboard if contractGenerated (and prevent new contract)
+  * don't let colin continue unless contractGenerated
   * allow sales and lawyer to review approved/rejected agreement
   * indicate some kind of negotiation
 
