@@ -54,7 +54,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "Do you accept the <b>preamble</b> of this agreement?",
+        content: "<span class='question'>Do you accept the <b>preamble</b> of this agreement?</span>",
       },
       {
         type: "answer",
@@ -77,11 +77,7 @@ export default function story() {
       {
         label: "preamble-yes",
         type: "exec",
-        exec: (story) => markSection(story, "preamble", true)
-      },
-      {
-        type: "chat",
-        content: "<b>Preamble</b> accepted",
+        exec: (story) => markSection(story, "preamble", true),
         next: "start-purpose"
       },
       {
@@ -91,7 +87,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "<b>Preamble</b> rejected. Can you tell us the reason?"
+        content: "<b>Preamble</b> rejected. <span class='question'>Can you tell us the reason?</span>"
       },
       {
         type: "answer",
@@ -105,7 +101,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "Do you accept the <b>purpose</b> of this agreement?",
+        content: "<span class='question'>Do you accept the <b>purpose</b> of this agreement?</span>",
       },
       {
         type: "answer",
@@ -128,11 +124,7 @@ export default function story() {
       {
         label: "purpose-yes",
         type: "exec",
-        exec: (story) => markSection(story, "purpose", true)
-      },
-      {
-        type: "chat",
-        content: "<b>Purpose</b> accepted",
+        exec: (story) => markSection(story, "purpose", true),
         next: "start-term"
       },
       {
@@ -142,7 +134,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "<b>Purpose</b> rejected. Can you tell us the reason?"
+        content: "<b>Purpose</b> rejected. <span class='question'>Can you tell us the reason?</span>"
       },
       {
         type: "answer",
@@ -156,7 +148,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "Do you accept the <b>term and duration</b> of this agreement?",
+        content: "<span class='question'>Do you accept the <b>term and duration</b> of this agreement?</span>",
       },
       {
         type: "reveal",
@@ -183,11 +175,7 @@ export default function story() {
       {
         label: "term-yes",
         type: "exec",
-        exec: (story) => markSection(story, "term", true)
-      },
-      {
-        type: "chat",
-        content: "<b>Term</b> accepted",
+        exec: (story) => markSection(story, "term", true),
         next: "conclusion"
       },
       {
@@ -197,7 +185,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "<b>Term</b> rejected. Can you tell us the reason?"
+        content: "<b>Term</b> rejected. <span class='question'>Can you tell us the reason?</span>"
       },
       {
         type: "answer",

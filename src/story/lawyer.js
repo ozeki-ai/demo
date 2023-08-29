@@ -207,25 +207,9 @@ export default function story() {
         id: "none"
       },
       {
-        type: "chat",
-        content: "<b>Congratulations</b>, that completes the definition for your mutual NDA playbook.",
-      },
-      {
         type: "exec",
         exec: (story) => {
           store.playbookCompleted = true
-        }
-      },
-      {
-        type: "chat",
-        content: `Now switch user to <b>Sam Sales</b> and see what it's like to generate a contract using a playbook (ok to continue).`,
-      },
-      {
-        type: "answer",
-      },
-      {
-        type: "exec",
-        exec: (story) => {
           router.push({name: "lawyer-dashboard"})
         }
       }

@@ -199,25 +199,9 @@ export default function story() {
         id: "none",
       },
       {
-        type: "chat",
-        content: "<b>Congratulations</b>, you have generated your NDA contract.",
-      },
-      {
         type: "exec",
         exec: (story) => {
           store.contractGenerated = true
-        }
-      },
-      {
-        type: "chat",
-        content: `Now switch user to <b>Colin Customer</b> and see what it's like to negotiate an Ozeki contract (ok to continue).`,
-      },
-      {
-        type: "answer",
-      },
-      {
-        type: "exec",
-        exec: (story) => {
           router.push({name: "sales-dashboard"})
         }
       }
