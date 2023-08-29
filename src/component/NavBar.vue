@@ -83,7 +83,7 @@ watch(
           {label: "Contracts", href: "#", style: "active"},
         ]
         break;
-      case "customer-email":
+      case "customer-dashboard":
         avatar.value = avatarUrl.customer
         showBell.value = false
         showReset.value = true
