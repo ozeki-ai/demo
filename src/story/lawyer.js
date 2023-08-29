@@ -1,8 +1,10 @@
+import {useRouter} from "vue-router"
 import parse from "../util/parse"
 import store from "../store"
 import nda from "../document/nda"
 
 export default function story() {
+  const router = useRouter()
   return {
     document: nda,
     revealed: {
@@ -14,7 +16,12 @@ export default function story() {
       {
         type: "exec",
         exec: (story) => {
-          // TODO: reset
+          store.playbookCompleted = null
+          store.allowGenericBusinessPurpose = null
+          store.allowSpecificBusinessPurpose = null
+          store.specificBusinessPurpose = null
+          store.allowedTerms = null
+          store.strategy = null
         }
       },
       {
@@ -35,7 +42,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "Do you wish to allow NDAs with the generic description?",
+        content: "<span class='question'>Do you wish to allow NDAs with the generic description?</span>",
       },
       {
         label: "generic-business-purpose",
@@ -61,10 +68,6 @@ export default function story() {
         type: "strategy",
         section: "purpose",
         content: `Allow generic [<em>businessPurpose</em>] <em>"${store.GENERIC_BUSINESS_PURPOSE}"`,
-      },
-      {
-        type: "chat",
-        content: `Great, we will allow the generic description for <b>businessPurpose</b>.`,
         next: "specific-business-purpose"
       },
       {
@@ -74,14 +77,9 @@ export default function story() {
         content: `Disallow generic [<em>businessPurpose</em>]`,
       },
       {
-        type: "chat",
-        content: "Ok, we won't allow the generic description for <b>businessPurpose</b>",
-        next: "specific-business-purpose"
-      },
-      {
         label: "specific-business-purpose",
         type: "chat",
-        content: "Do you also want to add a specific <b>businessPurpose</b>?"
+        content: "<span class='question'>Do you want to add a more specific <b>businessPurpose</b>?</span>"
       },
       {
         type: "answer",
@@ -104,7 +102,7 @@ export default function story() {
       {
         label: "specific-business-purpose-yes",
         type: "chat",
-        content: `What is the specific <b>businessPurpose</b>?`,
+        content: `<span class='question'>What is the specific <b>businessPurpose</b>?</span>`,
       },
       {
         type: "answer",
@@ -123,25 +121,16 @@ export default function story() {
         content: "Disallow specific [<em>businessPurpose</em>]",
       },
       {
-        type: "chat",
-        content: "Ok, we won't add any specific descriptions for <b>businessPurpose</b>",
-        next: "complete-purpose"
-      },
-      {
         label: "complete-purpose",
         type: "highlight",
         id: "none"
       },
       {
         type: "chat",
-        content: "Since this is just a demo, we can skip forward past some of these clauses. Let me know when you are ready to continue...",
+        content: "<span class='skip-ahead'>Since this is just a demo, let's skip ahead to the <b>terms and duration</b> (ok to continue).</span>",
       },
       {
-        type: "answer",
-      },
-      {
-        type: "chat",
-        content: "Let's skip ahead to the <b>terms and duration</b>."
+        type: "answer"
       },
       {
         label: "reveal-term",
@@ -155,11 +144,10 @@ export default function story() {
       {
         type: "chat",
         content: "The <b>term</b> dictates the length of the agreement and how long you may convey confidential information. It does not necessarily dictate how long the confidential information will be protected after the agreement.",
-        avatar: true,
       },
       {
         type: "chat",
-        content: "How long do you want the term to last?",
+        content: "<span class='question'>How long do you want the term to last?</span>",
       },
       {
         type: "answer",
@@ -182,7 +170,10 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "Great, we've added the allowed terms to the applied strategy"
+        content: "<span class='skip-ahead'>Again, since this is just a demo, we can skip the remaining clauses (ok to continue)...</span>",
+      },
+      {
+        type: "answer",
       },
       {
         type: "highlight",
@@ -190,18 +181,20 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "Again, since this is just a demo, we can skip forward past the remaining clauses. Let me know when you are ready to continue...",
-      },
-      {
-        type: "answer",
-      },
-      {
-        type: "chat",
         content: "<b>Congratulations</b>, that completes the definition for your mutual NDA playbook.",
       },
       {
+        type: "exec",
+        exec: (story) => {
+          store.playbookCompleted = true
+        }
+      },
+      {
         type: "chat",
-        content: `Now switch user to <b>Sam Sales</b> and see what it's like to generate a contract using a playbook.`,
+        content: `Now switch user to <b>Sam Sales</b> and see what it's like to generate a contract using a playbook (ok to continue).`,
+      },
+      {
+        type: "answer",
       },
       {
         type: "scroll",
@@ -210,9 +203,9 @@ export default function story() {
       {
         type: "exec",
         exec: (story) => {
-          store.playbookCompleted = true
+          router.push({name: "lawyer-dashboard"})
         }
-      },
-    ],
+      }
+    ]
   }
 }

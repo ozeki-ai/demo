@@ -1,4 +1,4 @@
-import {reactive, nextTick} from "vue"
+import {reactive, nextTick}  from "vue"
 import {store, saveStrategy} from "./store"
 
 function run(storyFn) {
@@ -190,7 +190,7 @@ class Story {
   pushRobotMessage(content, forceRobotAvatar) {
     const firstMessage = this.messages.length === 0
     const previousMessage = this.messages[this.messages.length-1]
-    const previousMessageWasFromUser = previousMessage && previousMessage.user
+    const previousMessageWasFromUser = previousMessage && previousMessage.user && previousMessage.content.length
     const showRobotAvatar = firstMessage || forceRobotAvatar || previousMessageWasFromUser || false
     return this.messages.push({content: content, avatar: showRobotAvatar})
   }

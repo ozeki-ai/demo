@@ -15,7 +15,6 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # POLISH
 
-  * last step for lawyer should return to lawyer dashboard
   * last step for sales should return to sales dashboard
   * last step for customer should return to customer dashboard
   * remove need for all the "continue" steps

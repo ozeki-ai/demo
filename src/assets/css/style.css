@@ -21,6 +21,9 @@
   .title1     { @apply text-2xl  font-medium; }
   .title2     { @apply text-xl   font-medium; }
   .title3     { @apply text-lg   font-medium; }
+
+  .question   { @apply font-medium text-warning-100; }
+  .skip-ahead { @apply italic text-gray-400; }
 }
 
 /*=================================================================================================
