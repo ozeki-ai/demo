@@ -6,7 +6,7 @@ const purpose = store.strategy && store.strategy.purpose
 const term    = store.strategy && store.strategy.term
 </script>
 <template>
-  <div class="max-w-7xl p-16">
+  <div class="max-w-7xl mx-auto p-16">
     <div class="bg-white text-dark shadow sm:rounded-lg max-w-2xl">
       <div class="px-8 py-6">
         <h3 class="text-base font-semibold leading-6 text-gray-900">NDA Playbook</h3>

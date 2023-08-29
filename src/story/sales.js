@@ -57,7 +57,7 @@ export default function story() {
         type: "answer",
         key: "agreementDate",
         matches: [
-          { re: /\b(yes|y|yup|sure)\b/i, answer: store.TODAY },
+          { re: /\b(ok|yes|y|yup|sure)\b/i, answer: store.TODAY },
         ]
       },
       {
@@ -72,7 +72,7 @@ export default function story() {
         type: "answer",
         key: "companyName",
         matches: [
-          { re: /\b(yes|y|yup|sure)\b/i, answer: store.COMPANY_NAME },
+          { re: /\b(ok|yes|y|yup|sure)\b/i, answer: store.COMPANY_NAME },
         ]
       },
       {

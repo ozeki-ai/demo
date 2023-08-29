@@ -18,7 +18,7 @@ suggestions.push({label: "Reject agreement outright", klass: "btn-danger", cta: 
 
 </script>
 <template>
-  <div class="max-w-7xl p-16">
+  <div class="max-w-7xl mx-auto p-16">
     <div class="bg-white text-dark shadow sm:rounded-lg max-w-2xl">
       <div class="px-8 py-6">
 
