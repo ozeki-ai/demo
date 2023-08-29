@@ -124,7 +124,7 @@ export default function story() {
       {
         label: "purpose-preference",
         type: "chat",
-        content: "Which is the preferred business purpose?",
+        content: "<span class='question'>Which is the preferred business purpose?</span>",
       },
       {
         type: "answer",
@@ -184,7 +184,7 @@ export default function story() {
       },
       {
         type: "chat",
-        content: "Do you prefer shorter or longer terms?",
+        content: "<span class='question'>Do you prefer shorter or longer terms?</span>",
       },
       {
         type: "answer",
