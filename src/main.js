@@ -20,11 +20,11 @@ import App               from "./App.vue"
 const routes = [
   {path: "/",                   redirect: "/lawyer"},
   {path: "/customer",           redirect: "/customer/dashboard"},
-  {path: "/lawyer",             name: "lawyer-dashboard",   component: LawyerDashboard},
+  {path: "/lawyer",             name: "lawyer-dashboard",   component: LawyerDashboard, meta: { scrollable: true }},
   {path: "/lawyer/playbooks",   name: "lawyer-playbooks",   component: LawyerPlaybooks},
-  {path: "/sales",              name: "sales-dashboard",    component: SalesDashboard},
+  {path: "/sales",              name: "sales-dashboard",    component: SalesDashboard, meta: { scrollable: true }},
   {path: "/sales/contracts",    name: "sales-contracts",    component: SalesContracts},
-  {path: "/customer/dashboard", name: "customer-dashboard", component: CustomerDashboard},
+  {path: "/customer/dashboard", name: "customer-dashboard", component: CustomerDashboard, meta: { scrollable: true }},
   {path: "/customer/accept",    name: "customer-accept",    component: CustomerAccept},
   {path: "/login",              name: "login",              component: Login},
 ]

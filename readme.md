@@ -8,11 +8,6 @@ A scripted demo of some ideas regarding the Ozeki platform.
 > npm run build    # build release
 ```
 
-# TODO - NEXT PHASE
-
-  * allow sales and lawyer to review approved/rejected agreement
-  * indicate some kind of negotiation
-
 # POLISH
 
   * only highlight values in one section at a time
