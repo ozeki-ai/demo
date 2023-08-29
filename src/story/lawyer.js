@@ -12,6 +12,12 @@ export default function story() {
     },
     script: [
       {
+        type: "exec",
+        exec: (story) => {
+          // TODO: reset
+        }
+      },
+      {
         type: "chat",
         content: "Ok, let's define your mutual NDA playbook together..."
       },

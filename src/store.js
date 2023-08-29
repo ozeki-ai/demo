@@ -21,6 +21,12 @@ function reset() {
   addDefaults()
 }
 
+function saveStrategy(sectionId, rule) {
+  store.strategy = store.strategy || {}
+  store.strategy[sectionId] = store.strategy[sectionId] || []
+  store.strategy[sectionId].push(rule)
+}
+
 function addDefaults() {
   store.TODAY = (new Date()).toLocaleDateString()
   store.COMPANY_NAME = "Acme, Inc"
@@ -34,3 +40,4 @@ addDefaults()
 window.store = store
 
 export default store
+export { store, saveStrategy }

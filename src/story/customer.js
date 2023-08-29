@@ -233,7 +233,13 @@ export default function story() {
         content: (story) => store.conclusion,
         chatter: false
       },
-
+      {
+        type: "exec",
+        exec: (story) => {
+          store.contractAccepted = store.preambleAccepted && store.purposeAccepted && store.termAccepted
+          store.contractRejected = store.preambleRejected || store.purposeRejected || store.termRejected
+        }
+      }
     ],
 
   }

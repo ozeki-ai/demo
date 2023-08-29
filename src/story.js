@@ -1,5 +1,5 @@
 import {reactive, nextTick} from "vue"
-import store from "./store"
+import {store, saveStrategy} from "./store"
 
 function run(storyFn) {
   const story = reactive(new Story(storyFn()))
@@ -141,11 +141,8 @@ class Story {
   saveStrategy(command) {
     const section = this.document.sections.find((s) => s.id === command.section)
     section.strategy = section.strategy || []
-    if (typeof command.content === "string") {
-      section.strategy.push(command.content)
-    } else if (command.content instanceof Function) {
-      section.strategy.push(command.content(this))
-    }
+    const rule = (command.content instanceof Function ? command.content(this) : command.content)
+    saveStrategy(command.section, rule)
     this.next()
   }
 

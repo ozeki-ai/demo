@@ -10,13 +10,15 @@ A scripted demo of some ideas regarding the Ozeki platform.
 
 # TODO - NEXT PHASE
 
-  * move strategy out of section and into store
-  * show strategy on lawyer dashboard if playbookCompleted (and prevent new playbook)
-  * show values on sales dashboard if contractGenerated (and prevent new contract)
   * allow sales and lawyer to review approved/rejected agreement
   * indicate some kind of negotiation
 
 # POLISH
 
-  * sales guy should be able to say NO and customize some of the values
+  * rename Customer/Email to Customer/Dashboard
+  * last step for lawyer should return to lawyer dashboard
+  * last step for sales should return to sales dashboard
+  * last step for customer should return to customer dashboard
+  * remove need for all the "continue" steps
   * only highlight values in one section at a time
+  * sales guy should be able to say NO and customize some of the values

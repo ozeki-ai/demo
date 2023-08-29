@@ -201,7 +201,13 @@ export default function story() {
       {
         type: "scroll",
         to: "top"
-      }
+      },
+      {
+        type: "exec",
+        exec: (story) => {
+          store.contractGenerated = true
+        }
+      },
     ],
   }
 }

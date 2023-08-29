@@ -3,5 +3,5 @@ import story from "../../story/customer"
 </script>
 
 <template>
-  <Storyboard :story="story" avatar="customer" />
+  <Storyboard :story="story" avatar="customer" :showStrategy="false" />
 </template>

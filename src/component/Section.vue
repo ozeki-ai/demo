@@ -9,7 +9,11 @@ const props = defineProps({
   section: {
     type: Object,
     required: true
-  }
+  },
+  showStrategy: {
+    type: Boolean,
+    default: true
+  },
 })
 
 function html(item) {
@@ -33,6 +37,7 @@ function html(item) {
 const revealed = computed(() => props.story.revealed[props.section.id])
 const domid = computed(() => `section-${props.section.id}`)
 const klass = computed(() => props.story.classes[props.section.id])
+const strategy = computed(() => props.showStrategy && store.strategy && store.strategy[props.section.id])
 
 </script>
 <template>
@@ -42,8 +47,8 @@ const klass = computed(() => props.story.classes[props.section.id])
     <div class="prose">
       <span v-for="(item, index) in section.content" :key="index" v-html=html(item) />
     </div>
-    <div v-if="section.strategy" class="bg-yellow-100 text-yellow-900 border border-yellow-300 p-4 rounded-lg mt-4 prose max-w-none">
-      <div v-for="rule in section.strategy" v-html="rule"></div>
+    <div v-if="strategy" class="bg-yellow-100 text-yellow-900 border border-yellow-300 p-4 rounded-lg mt-4 prose max-w-none">
+      <div v-for="rule in strategy" v-html="rule"></div>
     </div>
   </div>
   <Skeleton v-else />

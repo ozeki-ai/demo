@@ -1,6 +1,6 @@
 <script setup>
 import {run} from "../story"
-const props = defineProps(["story", "avatar"])
+const props = defineProps(["story", "avatar", "showStrategy"])
 const story = run(props.story)
 const onanswer = (e) => story.provideAnswer(e)
 </script>
@@ -15,7 +15,7 @@ const onanswer = (e) => story.provideAnswer(e)
     </template>
     <template v-slot:document>
       <h1 class="title1 mb-6">{{ story.document.title }}</h1>
-      <Section v-for="section in story.document.sections" :story="story" :section="section" />
+      <Section v-for="section in story.document.sections" :story="story" :section="section" :showStrategy="showStrategy" />
     </template>
   </Split>
 </template>
