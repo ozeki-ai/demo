@@ -14,8 +14,6 @@ export default {
         { id: "counterpartyName", type: "text" },
         `, an entity organized under the laws of `,
         { id: "counterpartyIncorporationState", type: "state" },
-        ` whose principal address is `,
-        { id: "counterpartyAddress", type: "address" },
         ` (each, a <b>"Party"</b>).`,
       ]
     },
@@ -38,13 +36,30 @@ export default {
       number: 1,
       title: "UNIVERSAL NDA",
       content: [
-        `<b>Universal NDA</b>. The Parties acknowledge and agree that, where noted,
-         the clauses of this NDA are consistent with the terms of the so-called
-         Universal NDA as of the Effective Date. The Parties agree that they will
-         not seek to enforce the terms of this agreement in a materially
-         different from manner those contained in the Universal NDA as of the
-         Effective Date. The Universal NDA is available at:
-         <a target="_other" href="https://github.com/bitmovin/unda">https://github.com/bitmovin/unda</a>.`,
+        `<ul class="list-none">
+          <li>
+            <b>(a)</b>
+            <b>Universal NDA</b>. The Parties acknowledge and agree that, where noted,
+            the clauses of this NDA are consistent with the terms of the so-called
+            Universal NDA as of the Effective Date. The Parties agree that they will
+            not seek to enforce the terms of this agreement in a materially
+            different from manner those contained in the Universal NDA as of the
+            Effective Date. The Universal NDA is available at:
+            <a target="_other" href="https://github.com/bitmovin/unda">https://github.com/bitmovin/unda</a>.
+          </li>
+          <li>
+            <b>(b)</b>
+            <b>Included Clauses</b>. This agreement contains the following Universal NDA Clauses:
+            Business Purpose; Confidential Information; Exclusions; Obligation to Maintain Confidentiality;
+            Representatives; Term; Duration of Confidential Information; Return of Property; No Obligation; No Warranty; Remedies;
+            Choice of Law: California; and Venue: San Francisco, CA
+          </li>
+          <li>
+            <b>(c)</b>
+            <b>Other Clauses</b>. This agreement contains clauses beyond those contained in the Universal NDA.
+          </li>
+         </ul>
+        `
       ]
     },
     {
@@ -54,15 +69,17 @@ export default {
       content: [
         `Each party (in such capacity, a “<b>Disclosing Party</b>”) may disclose
          certain of its confidential and proprietary information to the other
-         party (in such capacity, a “<b>Receiving Party</b>”). [“<b>Confidential
+         party (in such capacity, a “<b>Receiving Party</b>”). “<b>Confidential
          Information</b>” means any information disclosed by either party to the
          other party, either directly or indirectly, in writing, orally, or by
          inspection of tangible objects that (a) the Disclosing Party identifies
          as confidential or proprietary, or (b) that reasonably appears to be
          confidential or proprietary because of legends or other markings, the
-         circumstances of disclosure, or the nature of the information itself.]
-         [Confidential Information includes, but is not limited
-         to,[<em>definitionOfConfidentialInformation</em>].] Confidential Information may
+         circumstances of disclosure, or the nature of the information itself.
+         Confidential Information includes, but is not limited
+         to,`,
+         { id: "specificConfidentialInformation", type: "text" },
+         `. Confidential Information may
          also include third party confidential or proprietary information
          disclosed to the Receiving Party.`
       ]
@@ -76,16 +93,16 @@ export default {
           The obligations and restrictions of this agreement do not apply to that
           part of the Confidential Information that:
         </p>
-        <ul>
-          <li>was or becomes generally known to the public other than as a result of a disclosure by the Receiving Party in violation of this agreement;</li>
-          <li>was known, without restriction as to use or disclosure, by the Receiving Party prior to receiving such information from the Disclosing Party;</li>
-          <li>is rightfully acquired by the Receiving Party from a third party who has the right to disclose it and who provides it without restriction as to use or disclosure;</li>
-          <li>is independently developed by the Receiving Party without access to any Confidential Information of the Disclosing Party; or</li>
-          <li>is requested or legally compelled (by valid and effective subpoena or order issued by either a court of competent jurisdiction), or is required by a regulatory body, to be disclosed. However, unless prohibited by force of law, the Receiving Party shall:</li>
+        <ul class="list-none">
+          <li>(a) was or becomes generally known to the public other than as a result of a disclosure by the Receiving Party in violation of this agreement;</li>
+          <li>(b) was known, without restriction as to use or disclosure, by the Receiving Party prior to receiving such information from the Disclosing Party;</li>
+          <li>(c) is rightfully acquired by the Receiving Party from a third party who has the right to disclose it and who provides it without restriction as to use or disclosure;</li>
+          <li>(d) is independently developed by the Receiving Party without access to any Confidential Information of the Disclosing Party; or</li>
+          <li>(e) is requested or legally compelled (by valid and effective subpoena or order issued by either a court of competent jurisdiction), or is required by a regulatory body, to be disclosed. However, unless prohibited by force of law, the Receiving Party shall:</li>
           <li>
-            <ul>
-              <li>provide the Disclosing Party with prompt notice of any such request or requirement before disclosure so that the Disclosing Party may seek an appropriate protective order or other appropriate remedy; and</li>
-              <li>provide reasonable assistance to the Disclosing Party in obtaining any such protective order.</li>
+            <ul class="list-none">
+              <li>(i) provide the Disclosing Party with prompt notice of any such request or requirement before disclosure so that the Disclosing Party may seek an appropriate protective order or other appropriate remedy; and</li>
+              <li>(ii) provide reasonable assistance to the Disclosing Party in obtaining any such protective order.</li>
             </ul>
           </li>
         </ul>
@@ -112,9 +129,9 @@ export default {
             <ul>
               <li>
                 disclose any Confidential Information to any person or entity other than
-                a Receiving Party’s Representatives, [which includes only its employees,
+                a Receiving Party’s Representatives, which includes only its employees,
                 agents, officers, and advisors which includes only
-                [representativesDefined],] who needs to know the Confidential
+                [representativesDefined], who needs to know the Confidential
                 Information for the Purpose, provided such representative is bound to
                 confidentiality obligations no less protective than this agreement and
                 the Receiving Party remains responsible for compliance by any such
@@ -147,12 +164,12 @@ export default {
         "This Agreement will commence on the date first set forth above and will remain in effect for ",
         { id: "term", type: "term" },
         ` (“<b>Term</b>”). `,
-        `[The Receiving Party’s
+        `The Receiving Party’s
           confidentiality obligations under this Agreement will survive
           indefinitely or until all Confidential Information disclosed during the
           Term becomes publicly known and made generally available through no
           action or inaction of the Receiving Party or Receiving Party’s
-          Representatives.]`
+          Representatives.`
       ]
     },
     {
@@ -220,19 +237,13 @@ export default {
       number: 10,
       title: "MISCELLANEOUS",
       content: [`
-        <ul>
-          <li>
-            <b>Choice of Law.</b> The laws of the state of [<em>choiceOfLaw</em>] govern this agreement (without giving effect to its conflicts of law principles).
-          </li>
-          <li>
-            <b>Venue.</b> [Any suit to enforce this Agreement shall be brought
-            exclusively in [<em>venue</em>] and the Parties hereby submit to the personal
-            jurisdiction of such courts and waive any venue objection.] [The Parties
-            irrevocably agree suit to enforce this Agreement shall be brought
-            exclusively in the jurisdiction where the initial defendant in such
-            action resides and waive any venue objection.]
-          </li>
-        </ul>`
+        <b>Choice of Law.</b> The laws of the state of `, { id: "choiceOfLaw" }, ` govern this agreement (without giving effect to its conflicts of law principles).<br>
+        <b>Venue.</b> Any suit to enforce this Agreement shall be brought
+        exclusively in `, { id: "venue" }, ` and the Parties hereby submit to the personal
+        jurisdiction of such courts and waive any venue objection.] [The Parties
+        irrevocably agree suit to enforce this Agreement shall be brought
+        exclusively in the jurisdiction where the initial defendant in such
+        action resides and waive any venue objection.`
       ]
     }
   ]

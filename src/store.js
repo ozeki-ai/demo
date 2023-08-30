@@ -34,6 +34,7 @@ function addDefaults() {
   store.GENERIC_BUSINESS_PURPOSE = "a business opportunity of mutual interest and benefit"
   store.MAGIC = "ozeki".split("").reverse().join("")
   store.reset = reset
+  store.saveStrategy = saveStrategy
 }
 addDefaults()
 

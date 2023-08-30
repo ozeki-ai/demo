@@ -167,9 +167,11 @@ class Story {
           top: dom.offsetTop - 100,
           behavior: "smooth"
         })
+        this.next()
       })
+    } else {
+      this.next()
     }
-    this.next()
   }
 
   scrollDocument(command) {

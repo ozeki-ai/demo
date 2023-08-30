@@ -3,7 +3,9 @@ import {ref} from "vue"
 import store from "../../store"
 const completed = store.playbookCompleted
 const purpose = store.strategy && store.strategy.purpose
-const term    = store.strategy && store.strategy.term
+const term = store.strategy && store.strategy.term
+const confidentialInformation = store.strategy && store.strategy["confidential-information"]
+const misc = store.strategy && store.strategy.misc
 </script>
 <template>
   <div class="max-w-7xl mx-auto p-16">
@@ -19,9 +21,17 @@ const term    = store.strategy && store.strategy.term
               <h3 class="title3">Business Purpose</h3>
               <div v-for="rule in purpose" v-html="rule"></div>
             </div>
+            <div v-if="confidentialInformation" class="mt-8">
+              <h3 class="title3">Confidential Information</h3>
+              <div v-for="rule in confidentialInformation" v-html="rule"></div>
+            </div>
             <div v-if="term" class="mt-8">
               <h3 class="title3">Term</h3>
               <div v-for="rule in term" v-html="rule"></div>
+            </div>
+            <div v-if="misc" class="mt-8">
+              <h3 class="title3">Miscellaneous</h3>
+              <div v-for="rule in misc" v-html="rule"></div>
             </div>
           </div>
         </div>

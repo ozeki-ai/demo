@@ -49,9 +49,11 @@ const reset = () => {
               <tr><th class="text-left pr-4">Company Address</th><td>{{ store.companyAddress }}</td></tr>
               <tr><th class="text-left pr-4">Counterparty Name</th><td>{{ store.counterpartyName }}</td></tr>
               <tr><th class="text-left pr-4">Counterparty State</th><td>{{ store.counterpartyIncorporationState }}</td></tr>
-              <tr><th class="text-left pr-4">Counterparty Address</th><td>{{ store.counterpartyAddress }}</td></tr>
               <tr><th class="text-left pr-4">Business Purpose</th><td>{{ store.businessPurpose }}</td></tr>
+              <tr><th class="text-left pr-4">Confidential Information</th><td>{{ store.specificConfidentialInformation }}</td></tr>
               <tr><th class="text-left pr-4">Term</th><td>{{ store.term }}</td></tr>
+              <tr><th class="text-left pr-4">Choice of Law</th><td>{{ store.choiceOfLaw }}</td></tr>
+              <tr><th class="text-left pr-4">Venue</th><td>{{ store.venue }}</td></tr>
             </table>
           </div>
           <div class="text-right">

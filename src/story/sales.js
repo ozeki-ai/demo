@@ -4,6 +4,7 @@ import nda from "../document/nda"
 
 export default function story() {
 
+  const PAUSE = 1000
   const router = useRouter()
 
   const allowedBusinessPurpose = []
@@ -36,7 +37,6 @@ export default function story() {
           store.companyAddress = null
           store.counterpartyName = null
           store.counterpartyIncorporationState = null
-          store.counterpartyAddress = null
           store.businessPurpose = null
           store.term = null
         }
@@ -106,18 +106,6 @@ export default function story() {
       },
       {
         type: "highlight",
-        id: "counterpartyAddress",
-      },
-      {
-        type: "chat",
-        content: "<span class='question'>What is the counterparty address?</span>",
-      },
-      {
-        type: "answer",
-        key: "counterpartyAddress",
-      },
-      {
-        type: "highlight",
         id: "businessPurpose",
       },
       {
@@ -153,6 +141,11 @@ export default function story() {
       {
         type: "answer",
       },
+      { type: "reveal", section: "unda", wait: PAUSE },
+      { type: "value", id: "specificConfidentialInformation", value: "our secret recipe" },
+      { type: "reveal", section: "confidential-information", wait: PAUSE },
+      { type: "reveal", section: "exclusions", wait: PAUSE },
+      { type: "reveal", section: "confidentiality-obligation", wait: PAUSE },
       {
         type: "reveal",
         section: "term"
@@ -198,6 +191,13 @@ export default function story() {
         type: "highlight",
         id: "none",
       },
+      { type: "value", id: "choiceOfLaw", value: "CA" },
+      { type: "value", id: "venue", value: "San Francisco" },
+      { type: "reveal", section: "return-of-property", wait: PAUSE },
+      { type: "reveal", section: "obligation", wait: PAUSE },
+      { type: "reveal", section: "warranties", wait: PAUSE },
+      { type: "reveal", section: "remedies", wait: PAUSE },
+      { type: "reveal", section: "misc", wait: 4*PAUSE },
       {
         type: "exec",
         exec: (story) => {

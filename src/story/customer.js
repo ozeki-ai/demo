@@ -25,7 +25,16 @@ export default function story() {
       preamble: true,
       purpose: true,
       therefore: true,
+      unda: true,
+      "confidential-information": true,
+      exclusions: true,
+      "confidentiality-obligation": true,
       term: true,
+      "return-of-property": true,
+      "obligation": true,
+      "warranties": true,
+      "remedies": true,
+      "misc": true,
     },
 
     script: [

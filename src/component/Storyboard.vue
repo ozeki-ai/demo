@@ -15,7 +15,9 @@ const onanswer = (e) => story.provideAnswer(e)
     </template>
     <template v-slot:document>
       <h1 class="title1 mb-6">{{ story.document.title }}</h1>
-      <Section v-for="section in story.document.sections" :story="story" :section="section" :showStrategy="showStrategy" />
+      <div class="pb-64">
+        <Section v-for="section in story.document.sections" :story="story" :section="section" :showStrategy="showStrategy" />
+      </div>
     </template>
   </Split>
 </template>

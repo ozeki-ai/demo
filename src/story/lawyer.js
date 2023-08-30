@@ -4,6 +4,7 @@ import store from "../store"
 import nda from "../document/nda"
 
 export default function story() {
+  const PAUSE = 1500
   const router = useRouter()
   return {
     document: nda,
@@ -20,6 +21,7 @@ export default function story() {
           store.allowGenericBusinessPurpose = null
           store.allowSpecificBusinessPurpose = null
           store.specificBusinessPurpose = null
+          store.specificConfidentialInformation = null
           store.allowedTerms = null
           store.strategy = null
         }
@@ -146,11 +148,20 @@ export default function story() {
       {
         type: "answer"
       },
+      { type: "reveal", section: "unda", wait: PAUSE },
+      { type: "reveal", section: "confidential-information" },
       {
-        label: "reveal-term",
-        type: "reveal",
-        section: "term",
+        type: "exec",
+        exec: (story) => {
+          store.saveStrategy("confidential-information", "Allow <b>generic</b> definition .")
+          store.saveStrategy("confidential-information", "Allow <b>specific</b> definition: <em>our secret recipe</em>")
+          store.saveStrategy("confidential-information", "<b>Negotiation Preference</b>: <em>generic</em>")
+        },
+        wait: PAUSE,
       },
+      { type: "reveal", section: "exclusions", wait: PAUSE },
+      { type: "reveal", section: "confidentiality-obligation", wait: PAUSE },
+      { type: "reveal", section: "term" },
       {
         type: "highlight",
         id: "term"
@@ -205,6 +216,21 @@ export default function story() {
       {
         type: "highlight",
         id: "none"
+      },
+      { type: "reveal", section: "return-of-property", wait: PAUSE },
+      { type: "reveal", section: "obligation", wait: PAUSE },
+      { type: "reveal", section: "warranties", wait: PAUSE },
+      { type: "reveal", section: "remedies", wait: PAUSE },
+      { type: "reveal", section: "misc" },
+      {
+        type: "exec",
+        exec: (story) => {
+          store.saveStrategy("misc", "Choice of Law: CA, DE, NYS, England and Wales.")
+          store.saveStrategy("misc", "Venue: San Francisco or where the defendant resides.")
+          store.saveStrategy("misc", "<b>Negotiation Preference</b>: Choice of Law: <em>CA or DE</em>")
+          store.saveStrategy("misc", "<b>Negotiation Preference</b>: Venue: <em>San Francisco</em>")
+        },
+        wait: 4*PAUSE,
       },
       {
         type: "exec",
