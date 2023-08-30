@@ -1,6 +1,6 @@
 import {reactive, watch} from "vue"
 
-const KEY = "STORE.V2"
+const KEY = "STORE.V3"
 const db = window.localStorage.getItem(KEY)
 const store = reactive(db ? JSON.parse(db) : {})
 
