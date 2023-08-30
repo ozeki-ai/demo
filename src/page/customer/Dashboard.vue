@@ -34,14 +34,25 @@ const reset = () => {
             The sales team have not yet generated your NDA.
           </div>
           <div v-if="alreadyAccepted" class="italic bg-success-100 p-4 text-sm rounded-lg">
-            You have accepted this agreement.
+            You have accepted this agreement and a copy has been sent to all parties for signatures.
           </div>
           <div v-if="alreadyRejected" class="italic bg-danger-100 p-4 text-sm rounded-lg">
-            You have rejected this agreement.
-            <div class="pt-4 pl-4">
+            You have rejected this agreement and our sales team has been notified of your reasons and will get back to you shortly.
+            <div class="py-4 pl-4">
               <div v-if="store.preambleRejected"><b>Preamble</b>: {{ store.preambleRejected }}</div>
               <div v-if="store.purposeRejected"><b>Purpose</b>: {{ store.purposeRejected }}</div>
               <div v-if="store.termRejected"><b>Term</b>: {{ store.termRejected }}</div>
+            </div>
+          </div>
+          <div v-if="alreadyAccepted || alreadyRejected" class="bg-gray-100 p-4 text-sm rounded-lg mt-4">
+            <div v-if="alreadyAccepted">
+              We invite you to create an Ozeki account to save and manage this agreement.
+            </div>
+            <div v-if="alreadyRejected">
+              We invite you to create an Ozeki account to negotiate this agreement automatically.
+            </div>
+            <div class="mt-4 text-right">
+              <button class="btn">Create Ozeki Account</button>
             </div>
           </div>
           <div v-if="alreadyAccepted || alreadyRejected" class="text-right">
