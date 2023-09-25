@@ -34,8 +34,13 @@
     - YES
     - SELLING WIDGETS
   * Again, you'll see this decision has also been added to our playbook
+  * FINALLY, our assistant asks which is the most preferred? GENERIC or SPECIFIC
+    - THIS dips our toes into setting a strategy for negotiation
+    - We will say the generic version is our preferred version
   * NOW TO SAVE TIME our AI assistant is going to skip over some clauses...
-    - CONTINUE
+    - as they scroll by
+    - you may notice some PRE-BAKED strategy options in YELLOW
+    - but we JUMP AHEAD TO THE TERM CLAUSE
 
 # AND ASK US ABOUT THE TERM OF AN NDA
   * here our lawyer can restrict which terms our business will allow
@@ -43,13 +48,17 @@
     - 1 TO 3 YEARS
   * Again, strategy now added to our playbook
   * This will come into play when our sales person generates a real NDA contract
+    - these will be the CHOICES available to the sales person
+  * Again, the assistant asks for our PREFERRED choice
+    - in order to help with future negotiation
+    - we will say that the longer - 3 year - term is our preferred choice
 
 # LETS SKIP AHEAD AGAIN
-  * CONTINUE
-  * and we're done with our playbook. We have a contract template
+  * since this is demo we can SKIP THE REMAINING CLAUSES
+  * and we're done with our playbook.
+     - We have a contract template
      - with various strategic rules added
-     - around key terms
-     - in natural language
+     - that will allow us to make more efficient negotiations
 
 # LETS SWITCH NOW TO OUR SALES PERSON
   * when a new lead is available
@@ -86,12 +95,24 @@
   * and REJECT the term
   * and you'll see our reasons will be sent back to the sales team for negotiation
 
+# IF WE LOOK NOW AT THE SALES TEAM VIEW
+  * they can see that the proposal was rejected
+  * they can SEE THE REASONS
+  * they can SEE OUR STRATEGIC PREFERENCES
+  * they are presented with some negotiation choices
+
 # THATS WHERE OUR DEMO ENDS TODAY
+  * WE BELIEVE THAT SMART NEGOTIATION CHOICES ARE HOW WE PROVIDE REAL VALUE
+  * ... contract generation is table stakes
+  * ... but contract NEGOTIATION is a powerful VALUE ADD
+
   * Lisa from our legal team set the strategy in the NDA playbook
   * Sam from our sales team uses that strategy when generating a new contract
   * Colin our customer can accept or reject each clause
     - which may or may not trigger a round of negotiation
     - where our more advanced negotiation features will come into play
+
+# ANY QUESTIONS
 
 
 
